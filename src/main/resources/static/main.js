@@ -230,7 +230,7 @@ function fire_ajax_submit() {
   $.ajax({
     type: "POST",
     contentType: "application/json",
-    url: "http://localhost:8080/estimate",
+    url: "/estimate",
     data: JSON.stringify(estimateData),
     dataType: 'json',
     cache: false,
