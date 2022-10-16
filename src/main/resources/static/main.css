@@ -1,0 +1,282 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 12% 1fr 12%;
+    grid-template-rows: 5% 1fr auto;
+    grid-template-areas:
+        "nav nav nav"
+        ". main ."
+        "footer footer footer";
+}
+
+main {
+
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+    align-self: self-end;
+
+}
+
+nav {
+    grid-area: nav;
+}
+
+#carouselBook1,
+#carouselBook2,
+#carouselBook3 {
+    font-size: x-large !important;
+}
+
+
+
+
+.modal,
+.modal-overlay {
+    display: none;
+}
+
+.modal-overlay.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background: rgb(0, 0, 0, 0.8);
+}
+
+
+.modal.active {
+    /* This way it could be display flex or grid or whatever also. */
+    display: grid;
+    grid-template-areas:
+        "footer footer"
+        "left right"
+        "close close"
+    ;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+    /* align-content: center; */
+
+    border-radius: 15px;
+
+    /* Probably need media queries here */
+    width: 60%;
+    max-width: 100%;
+
+    height: 70%;
+    max-height: 100%;
+
+    position: fixed;
+
+    z-index: 100;
+
+    left: 50%;
+    top: 50%;
+
+    /* Use this for centering if unknown width/height */
+    transform: translate(-50%, -50%);
+
+    /* If known, negative margins are probably better (less chance of blurry text). */
+    /* margin: -200px 0 0 -200px; */
+
+    background: white;
+    box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 992px) {
+    .wrapper {
+        align-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content;
+        grid-template-areas:
+            "nav"
+            "main"
+            "footer";
+    }
+
+    .work-time {
+        display: none;
+    }
+
+    .img-logo {
+        display: none;
+    }
+}
+
+footer {
+    grid-area: footer;
+    justify-self: normal;
+}
+
+.modal-left-aside {
+    grid-area: left;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.modal-right-aside {
+    grid-area: right;
+    display: grid;
+    padding-right: 15%;
+
+}
+
+.close-button {
+    grid-area: close;
+    display: flex;
+    flex-direction: column;
+    align-self: end;
+    
+}
+
+.carousel-caption {
+    position: absolute !important;
+    top: 50% !important;
+    padding-top: 0 !important; 
+    color: #000000 !important;
+    text-shadow:1px 1px 10px #fff, 1px 1px 10px #ccc !important;
+
+    
+}
+
+@media (max-width: 900px) {
+    .modal.active {
+        grid-template-columns: 1fr;
+
+        align-content: space-between;
+
+        grid-template-areas:
+            "footer"
+            "left"
+            "right"
+            "close"
+        ;
+        justify-items: center;
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    .modal-right-aside {
+        justify-self: normal;
+        align-self: auto;
+        padding-right: 0;
+    }
+
+    .close-button {
+        justify-self: normal;
+    }
+}
+
+.modal .close-button-x {
+    display: block;
+    position: absolute;
+    
+    /* don't need to go crazy with z-index here, just sits over .modal-guts */
+    z-index: 1;
+    
+    top: 10px;
+    
+    /* needs to look OK with or without scrollbar */
+    right: 20px;
+
+    padding: 5px 10px;
+    font-size: 1.3rem;
+    
+  }
+
+.modal-main {
+    grid-area: center;
+}
+
+
+.house-form {
+    display: inline-block;
+}
+
+.select-wrap {
+    display: flex;
+    padding-bottom: 10px;
+    justify-content: space-between;
+
+}
+
+.row {
+    justify-content: center;
+}
+
+.select-interval {
+    display: none;
+}
+
+.select-interval.active {
+    display: flex;
+}
+
+#square-count {
+    display: none;
+}
+
+#square-count.active {
+    display: flex;
+}
+
+/* CSS */
+.button-5 {
+
+    align-items: center;
+    background-clip: padding-box;
+    background-color: rgba(82, 81, 66, 0.5);
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    /* min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px); */
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+}
+
+.button-5:hover,
+.button-5:focus {
+    background-color: #2b2522;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-5:hover {
+    transform: translateY(-1px);
+}
+
+.button-5:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
+}
+
