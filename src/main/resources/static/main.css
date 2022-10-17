@@ -135,6 +135,17 @@ footer {
 
 }
 
+.carousel-caption-item{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
 .close-button {
     grid-area: close;
     display: flex;
