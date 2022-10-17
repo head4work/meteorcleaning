@@ -95,6 +95,11 @@ nav {
     background: white;
     box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
 }
+.caption-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 @media (max-width: 992px) {
     .wrapper {
@@ -114,7 +119,12 @@ nav {
     .img-logo {
         display: none;
     }
+    .caption-text{
+        display: none;
+    }
 }
+
+
 
 footer {
     grid-area: footer;
