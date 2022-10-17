@@ -16,6 +16,7 @@ const select_checkbox_microwave = document.querySelector('#microwaveCheck');
 
 //PRICE AND TIME COUNT
 let prices = {
+  studio : 150,
   apartments: 170,
   house: 220,
   office: 0.5, //per sq ft
@@ -30,6 +31,7 @@ let prices = {
 
 
 let timings = {
+  studio : 90,
   apartments: 120,
   house: 160,
   office: 0.1, //per sq ft
@@ -81,9 +83,12 @@ function estimateCount() {
   let house_value = $("#housing-type option:selected").val();
   let bedroom_count = $("#bedroom-count option:selected").val();
   let bathroom_count = $("#bathroom-count option:selected").val();
+  let halfBathroom_count = $("#half-bathroom-count option:selected").val();
+
   let square_ft_count = countSqaureft();
 
   count += parseInt(house_value) != 2 ? (Object.values(prices)[house_value]) : prices.office * square_ft_count;
+
   time += parseInt(house_value) != 2 ? (Object.values(timings)[house_value]) : timings.office * square_ft_count;
 
   count += prices.bedroom * bedroom_count;
@@ -157,7 +162,7 @@ function countSqaureft() {
 
 function checkOfficeType() {
   let house_value = $("#housing-type option:selected").val();
-  parseInt(house_value) === 2 ? openSquareCount() : closeSquareCount();
+  parseInt(house_value) > 1 ? openSquareCount() : closeSquareCount();
 }
 
 //AJAX

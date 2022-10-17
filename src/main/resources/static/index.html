@@ -279,18 +279,25 @@
     <div class="modal" id="modal">
         <aside class="modal-left-aside">
             <form action="/estimate" class="estimate-form" id="estimate" method="post">
-                <div class="house-form"><label for="housing-type">Choose your housing:</label>
+                <div class="house-form">
+                    
+                  <div class="house-form-type">     
+
                     <div class="select-wrap">
+                        <label for="housing-type">Housing type:</label>
                         <select class="select" form="estimate" id="housing-type">
-                            <option selected value="0">Apartments</option>
-                            <option value="1">House</option>
-                            <option value="2">Office</option>
+                            <option selected value="0">Studio</option>
+                            <option value="1">Apartments</option>
+                            <option value="2">House</option>
+                            <option value="3">Office</option>
                         </select>
                     </div>
+               
                     <div class="select-wrap" id="square-count">
                         <label for="square-ft">square ft :</label>
                         <input form="estimate" id="square-ft" max="10000" min="100" type="number" value="100" />
                     </div>
+                 
                     <div class="select-wrap">
                         <label for="bedroom-count">Bedroom:</label>
                         <select class="select" form="estimate" id="bedroom-count">
@@ -299,6 +306,7 @@
                             <option value="2">Three</option>
                         </select>
                     </div>
+                 
                     <div class="select-wrap">
                         <label for="bathroom-count">Bathroom:</label>
                         <select class="select" form="estimate" id="bathroom-count">
@@ -307,23 +315,61 @@
                             <option value="2">Three</option>
                         </select>
                     </div>
+
                     <div class="select-wrap">
-                        <label for="greenCheck">Green clean :</label>
-                        <input class="form-check-input" form="estimate" id="greenCheck" type="checkbox" value="green" />
+                        <label for="half-bathroom-count">1/2 bathroom:</label>
+                        <select class="select" form="estimate" id="half-bathroom-count">
+                            <option selected value="0">One</option>
+                            <option value="1">Two</option>
+                            <option value="2">Three</option>
+                        </select>
                     </div>
-                    <div class="select-wrap">
-                        <label for="deepCheck">Deep clean :</label>
-                        <input class="form-check-input" form="estimate" id="deepCheck" type="checkbox" value="deep" />
-                    </div>
-                    <div class="select-wrap">
-                        <label for="steamCheck">Steam clean :</label>
-                        <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox" value="steam" />
-                    </div>
-                    <div class="select-wrap">
-                        <label for="microwaveCheck">Microvawe clean :</label>
-                        <input class="form-check-input" form="estimate" id="microwaveCheck" type="checkbox"
-                            value="microwave" />
-                    </div>
+
+                </div>
+
+             <div class="house-form-options">
+                <div class="select-wrap">
+                    <label for="greenCheck">Green clean :</label>
+                    <input class="form-check-input" form="estimate" id="greenCheck" type="checkbox" value="green" />
+                </div>
+             
+                <div class="select-wrap">
+                    <label for="deepCheck">Deep clean :</label>
+                    <input class="form-check-input" form="estimate" id="deepCheck" type="checkbox" value="deep" />
+                </div>
+            
+                <div class="select-wrap">
+                    <label for="steamCheck">Steam clean :</label>
+                    <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox" value="steam" />
+                </div>
+            
+                <div class="select-wrap">
+                    <label for="microwaveCheck">Microvawe clean :</label>
+                    <input class="form-check-input" form="estimate" id="microwaveCheck" type="checkbox"
+                        value="microwave" />
+                </div>
+            
+                <div class="select-wrap">
+                    <label for="refrigeratorCheck">Refrigerator clean :</label>
+                    <input class="form-check-input" form="estimate" id="refrigeratorCheck" type="checkbox"
+                        value="refrigerator" />
+                </div>
+             
+                <div class="select-wrap">
+                    <label for="ovenCheck">Oven clean :</label>
+                    <input class="form-check-input" form="estimate" id="ovenCheck" type="checkbox"
+                        value="oven" />
+                </div>
+            
+                <div class="select-wrap">
+                    <label for="dishesCheck">Dishes wash :</label>
+                    <input class="form-check-input" form="estimate" id="dishesCheck" type="checkbox"
+                        value="dishes" />
+                </div>
+             </div>
+                  
+                    
+                  
                     <div class="select-wrap-col">
                         <label for="estimate-time">Date :</label>
                         <input form="estimate" id="estimate-time" name="estimate-time" type="datetime-local">

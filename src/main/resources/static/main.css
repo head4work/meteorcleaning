@@ -126,8 +126,12 @@ footer {
     display: grid;
     justify-items: center;
     align-items: center;
+    padding-left: 5%;
 }
-
+.estimate-form{
+    width: 100%;
+    height: 100%;
+}
 .modal-right-aside {
     grid-area: right;
     display: grid;
@@ -163,6 +167,14 @@ footer {
 
     
 }
+.house-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    padding: 15px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 5px;
+}
 
 @media (max-width: 900px) {
     .modal.active {
@@ -186,9 +198,17 @@ footer {
         align-self: auto;
         padding-right: 0;
     }
-
+    .modal-left-aside{
+        padding: 0;
+    }
     .close-button {
         justify-self: normal;
+    }
+    .house-form {
+        display: grid;
+        grid-template-columns: 1fr ;
+        box-shadow: none;
+        padding: 0;  
     }
 }
 
@@ -214,9 +234,7 @@ footer {
 }
 
 
-.house-form {
-    display: inline-block;
-}
+
 
 .select-wrap {
     display: flex;
