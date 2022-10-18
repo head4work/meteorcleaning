@@ -23,6 +23,7 @@ let prices = {
   studio : 140,
   apartments: 180,
   house: 220,
+  houseFt: 0.7, //per sq ft
   office: 0.5, //per sq ft
   bedroom: 40,
   bathroom: 40, // half bathroom is 1/2 
@@ -137,6 +138,8 @@ function estimateCount() {
     time += timings.dishesWash;
   }
 
+  // price for house 
+  count = count > prices.houseFt * $("#square-ft").val() ? count : prices.houseFt * $("#square-ft").val();
   $('#totalPrice').text(count + "$");
   $('#totalTime').text(time_convert(time.toFixed()) + " min");
 
