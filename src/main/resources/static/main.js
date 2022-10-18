@@ -10,22 +10,29 @@ const select_checkbox_deep = document.querySelector('#deepCheck');
 const select_checkbox_steam = document.querySelector('#steamCheck');
 const select_checkbox_microwave = document.querySelector('#microwaveCheck');
 
+const select_checkbox_refrigerator = document.querySelector('#refrigeratorCheck');
+const select_checkbox_oven = document.querySelector('#ovenCheck');
+const select_checkbox_dishes = document.querySelector('#dishesCheck');
+
 
 
 
 
 //PRICE AND TIME COUNT
 let prices = {
-  studio : 150,
-  apartments: 170,
+  studio : 140,
+  apartments: 180,
   house: 220,
   office: 0.5, //per sq ft
-  bedroom: 70,
-  bathroom: 50,
-  greenClean: 50,
-  deepClean: 50,
-  steamClean: 50,
+  bedroom: 40,
+  bathroom: 40, // half bathroom is 1/2 
+  greenClean: 40,
+  deepClean: 1.35, // coaf * multiply base + rooms
+  steamClean: 30,
   microwaveClean: 30,
+  refrigeratorClean : 40, 
+  ovenClean : 40,
+  dishesWash : 30, 
   weekend: 50
 };
 
@@ -49,20 +56,20 @@ let today = new Date;
 let count = 0;
 let time = 0;
 let maximumDate = new Date().setDate(today.getDate() + 30);
+
 datePickerConfig = {
-
-
   altInput: true,
   altFormat: "F j, Y ",
   dateFormat: "Y-m-d",
   minDate: "today",
   maxDate: maximumDate
-
 }
+
 //INIT FUNCTIONS
 estimateCount();
 setDataMinToday();
 const fp = flatpickr("#estimate-time", datePickerConfig);
+checkOfficeType();
 
 // EVENT LISTENERS
 select_housing_value.addEventListener('change', checkOfficeType);
@@ -87,14 +94,17 @@ function estimateCount() {
 
   let square_ft_count = countSqaureft();
 
-  count += parseInt(house_value) != 2 ? (Object.values(prices)[house_value]) : prices.office * square_ft_count;
+  count += parseInt(house_value) != 3 ? (Object.values(prices)[house_value]) : prices.office * square_ft_count;
 
-  time += parseInt(house_value) != 2 ? (Object.values(timings)[house_value]) : timings.office * square_ft_count;
+  time += parseInt(house_value) != 3 ? (Object.values(timings)[house_value]) : timings.office * square_ft_count;
 
   count += prices.bedroom * bedroom_count;
   time += timings.bedroom * bedroom_count;
 
   count += prices.bathroom * bathroom_count;
+ 
+  count += (prices.bathroom / 2) * halfBathroom_count;
+
   time += timings.bathroom * bathroom_count;
 
 
@@ -103,7 +113,7 @@ function estimateCount() {
     time += timings.greenClean;
   }
   if (select_checkbox_deep.checked) {
-    count += prices.deepClean;
+      count = Math.round(count * prices.deepClean);
     time += timings.deepClean;
   }
   if (select_checkbox_steam.checked) {
@@ -113,6 +123,18 @@ function estimateCount() {
   if (select_checkbox_microwave.checked) {
     count += prices.microwaveClean;
     time += timings.microwaveClean;
+  }
+  if (select_checkbox_refrigerator.checked) {
+    count += prices.refrigeratorClean;
+    time += timings.refrigeratorClean;
+  }
+  if (select_checkbox_oven.checked) {
+    count += prices.ovenClean;
+    time += timings.ovenClean;
+  }
+  if (select_checkbox_dishes.checked) {
+    count += prices.dishesWash;
+    time += timings.dishesWash;
   }
 
   $('#totalPrice').text(count + "$");
@@ -150,10 +172,20 @@ function closeModal() {
 
 function openSquareCount() {
   $("#square-count").addClass("active");
+
 }
 
 function closeSquareCount() {
   $("#square-count").removeClass("active");
+  
+}
+
+function disableHousingElements(){
+  $("#bedroom-count, #bathroom-count, #half-bathroom-count").prop("disabled",true);
+}
+
+function enableHousingElements(){
+  $("#bedroom-count, #bathroom-count, #half-bathroom-count").prop("disabled",false);
 }
 
 function countSqaureft() {
@@ -163,6 +195,7 @@ function countSqaureft() {
 function checkOfficeType() {
   let house_value = $("#housing-type option:selected").val();
   parseInt(house_value) > 1 ? openSquareCount() : closeSquareCount();
+  parseInt(house_value) === 3 || parseInt(house_value) === 0  ? disableHousingElements() : enableHousingElements();
 }
 
 //AJAX
