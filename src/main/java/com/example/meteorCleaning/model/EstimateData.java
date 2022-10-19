@@ -66,12 +66,15 @@ public class EstimateData {
     @Override
     public String toString() {
 
-      String green =  greenClean ? "&#10004;" : "&#128473;";
-      String deep =  deepClean ? "&#10004;" : "&#128473;";
-      String micro =  microwaveClean ? "&#10004;" : "&#128473;";
-      String ref =  refrigeratorClean ? "&#10004;" : "&#128473;";
-      String oven =  ovenClean ? "&#10004;" : "&#128473;";
-      String dish =  dishesClean ? "&#10004;" : "&#128473;";
+        String yes = "&#9989;";
+        String no = "&#10006;";
+
+        String green = greenClean ? yes : no;
+        String deep = deepClean ? yes : no;
+        String micro = microwaveClean ? yes : no;
+        String ref = refrigeratorClean ? yes : no;
+        String oven = ovenClean ? yes : no;
+        String dish = dishesClean ? yes : no;
 
 
         String htmlMailString =
