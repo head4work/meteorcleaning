@@ -4,6 +4,7 @@ import com.example.meteorCleaning.model.AjaxResponseBody;
 import com.example.meteorCleaning.model.EstimateData;
 import com.example.meteorCleaning.service.EstimateDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
 
 @RestController
 public class EstimateController {
+    @Value("${HOME_EMAIL:head4work@gmail.com}")
+    private String homeEmail;
+
 
     @Autowired
     EstimateDataService service;
@@ -34,7 +38,8 @@ public class EstimateController {
             return ResponseEntity.badRequest().body(result);
         }
 
-        service.sendEmail("head4work@gmail.com","CLEANING ORDER",data.toString());
+        String[] to = new String[]{homeEmail, data.getEmail()};
+        service.sendEmail(to ,"CLEANING ORDER",data.toString());
         result.setMsg("success");
         return ResponseEntity.ok(result);
     }

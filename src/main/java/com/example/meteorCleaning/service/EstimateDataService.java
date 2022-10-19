@@ -15,7 +15,7 @@ public class EstimateDataService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendEmail(String to, String subject, String text) throws MessagingException {
+    public void sendEmail(String[] to, String subject, String text) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setFrom("noreply@meteorcleaning.com");

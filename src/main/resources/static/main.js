@@ -7,7 +7,7 @@ const select_badroom_value = document.getElementById("badroom-count");
 const select_bathroom_value = document.getElementById("bathroom-count");
 const select_checkbox_green = document.querySelector('#greenCheck');
 const select_checkbox_deep = document.querySelector('#deepCheck');
-const select_checkbox_steam = document.querySelector('#steamCheck');
+// const select_checkbox_steam = document.querySelector('#steamCheck');
 const select_checkbox_microwave = document.querySelector('#microwaveCheck');
 
 const select_checkbox_refrigerator = document.querySelector('#refrigeratorCheck');
@@ -23,13 +23,13 @@ let prices = {
   studio : 140,
   apartments: 180,
   house: 220,
-  houseFt: 0.7, //per sq ft
-  office: 0.5, //per sq ft
+  houseFt: 0.5, //per sq ft
+  office: 0.3, //per sq ft
   bedroom: 40,
   bathroom: 40, // half bathroom is 1/2 
   greenClean: 40,
   deepClean: 1.35, // coaf * multiply base + rooms
-  steamClean: 30,
+ // steamClean: 30,
   microwaveClean: 30,
   refrigeratorClean : 40, 
   ovenClean : 40,
@@ -47,8 +47,11 @@ let timings = {
   bathroom: 20,
   greenClean: 0,
   deepClean: 30,
-  steamClean: 30,
+  // steamClean: 30,
   microwaveClean: 20,
+  refrigeratorClean: 10,
+  ovenClean: 10,
+  dishesWash: 10,
   weekend: 30
 }
 
@@ -117,10 +120,10 @@ function estimateCount() {
       count = Math.round(count * prices.deepClean);
     time += timings.deepClean;
   }
-  if (select_checkbox_steam.checked) {
-    count += prices.steamClean;
-    time += timings.steamClean;
-  }
+  // if (select_checkbox_steam.checked) {
+  //   count += prices.steamClean;
+  //   time += timings.steamClean;
+  // }
   if (select_checkbox_microwave.checked) {
     count += prices.microwaveClean;
     time += timings.microwaveClean;
@@ -138,8 +141,9 @@ function estimateCount() {
     time += timings.dishesWash;
   }
 
-  // price for house 
+  // price for house declare by choosing higher option
   count = count > prices.houseFt * $("#square-ft").val() ? count : prices.houseFt * $("#square-ft").val();
+
   $('#totalPrice').text(count + "$");
   $('#totalTime').text(time_convert(time.toFixed()) + " min");
 
@@ -249,15 +253,26 @@ function fire_ajax_submit() {
   estimateData["email"] = $("#email").val();
   estimateData["phone"] = $("#phone").val();
   estimateData["housingType"] = $("#housing-type option:selected").text();
-  if (parseInt($("#housing-type").val()) === 2) {
+  if (parseInt($("#housing-type").val()) > 1) {
     estimateData["squareFt"] = $("#square-ft").val();
   }
   estimateData["bedrooms"] = parseInt($("#bedroom-count").val()) + 1;
   estimateData["bathrooms"] = parseInt($("#bathroom-count").val()) + 1;
-  estimateData["greenClean"] = $("#greenCheck").val();
-  estimateData["deepClean"] = $("#deepCheck").val();
-  estimateData["steamClean"] = $("#steamCheck").val();
-  estimateData["microwaveClean"] = $("#microwaveCheck").val();
+  estimateData["halfBathrooms"] = parseInt($("#half-bathroom-count").val());
+
+  estimateData["greenClean"] = $("#greenCheck").prop( "checked" );
+  estimateData["deepClean"] = $("#deepCheck").prop( "checked" );
+ // estimateData["steamClean"] = $("#steamCheck").val();
+  estimateData["microwaveClean"] = $("#microwaveCheck").prop( "checked" );
+
+  estimateData["refrigeratorClean"] = $("#refrigeratorCheck").prop( "checked" );
+
+  estimateData["ovenClean"] = $("#ovenCheck").prop( "checked" );
+  estimateData["dishesClean"] = $("#dishesCheck").prop( "checked" );
+
+
+
+
   estimateData["date"] = $("#estimate-time").val();
   estimateData["time"] = $("#select-time-interval option:selected").text();
 

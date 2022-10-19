@@ -23,18 +23,24 @@ public class EstimateData {
     private String squareFt;
     private String bedrooms;
     private String bathrooms;
-    private String greenClean;
-    private String deepClean;
-    private String steamClean;
-    private String microwaveClean;
+    private String halfBathrooms;
+
+    private boolean greenClean;
+    private boolean deepClean;
+    private boolean microwaveClean;
+    private boolean refrigeratorClean;
+    private boolean ovenClean;
+    private boolean dishesClean;
+
     private String date;
     private String time;
     private String estimatedPrice;
     private String estimatedTime;
 
+
     public EstimateData(String name, String lastName, String address, String email, String phone, String housingType,
-                        String squareFt, String bedrooms, String bathrooms, String greenClean, String deepClean, String steamClean,
-                        String microwaveClean, String date, String time, String estimatedPrice, String estimatedTime) {
+                        String squareFt, String bedrooms, String bathrooms, String halfBathrooms, boolean greenClean, boolean deepClean,
+                        boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, boolean dishesClean, String date, String time, String estimatedPrice, String estimatedTime) {
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -43,10 +49,13 @@ public class EstimateData {
         this.housingType = housingType;
         this.squareFt = squareFt;
         this.bedrooms = bedrooms;
+        this.halfBathrooms = halfBathrooms;
+        this.refrigeratorClean = refrigeratorClean;
+        this.ovenClean = ovenClean;
+        this.dishesClean = dishesClean;
         this.bathrooms = bathrooms;
         this.greenClean = greenClean;
         this.deepClean = deepClean;
-        this.steamClean = steamClean;
         this.microwaveClean = microwaveClean;
         this.date = date;
         this.time = time;
@@ -57,34 +66,45 @@ public class EstimateData {
     @Override
     public String toString() {
 
-  String kek =
-  "<h1>ESTIMATE ORDER DATA</h1>" +
-  "<ul>" +
-    "<h2>CLIENT DATA</h2>" +
-    "<li>Name: "+ name +"</li>" +
-    "<li>lastName: "+ lastName +"</li>" +
-    "<li>Address: " + address + "</li>" +
-    "<li>Email: "+ email +"</li>" +
-    "<li>Phone: "+ phone +"</li>" +
-    "<h2>HOUSE DATA</h2>" +
-    "<li>Housing type: "+ housingType +"</li>" +
-    "<li>Square ft: "+ squareFt +"</li>" +
-    "<li>Bedrooms: "+ bedrooms + "</li>" +
-    "<li>Bathrooms: "+ bathrooms +"</li>" +
-    "<li>Green clean: "+ greenClean +"</li>" +
-    "<li>Deep clean: "+ deepClean +"</li>" +
-    "<li>Steam clean: "+ steamClean +"</li>" +
-    "<li>Microwave clean: "+ microwaveClean +"</li>" +
-    "<h2>DATE AND TIME</h2>" +
-    "<li>Date: "+ date +"</li>" +
-    "<li>Time: "+ time +"</li>" +
-    "<h2>ESTIMATED TIME AND PRICE</h2>" +
-    "<li>Estimated price: "+ estimatedPrice +"</li>" +
-    "<li>Estimated time: "+ estimatedTime +"</li>" +
-  "</ul>" ;
+      String green =  greenClean ? "&#10004;" : "&#128473;";
+      String deep =  deepClean ? "&#10004;" : "&#128473;";
+      String micro =  microwaveClean ? "&#10004;" : "&#128473;";
+      String ref =  refrigeratorClean ? "&#10004;" : "&#128473;";
+      String oven =  ovenClean ? "&#10004;" : "&#128473;";
+      String dish =  dishesClean ? "&#10004;" : "&#128473;";
 
 
-        return kek;
+        String htmlMailString =
+                "<h1>ESTIMATE ORDER DATA</h1>" +
+                        "<ul>" +
+                        "<h2>CLIENT DATA</h2>" +
+                        "<li>Name: " + name + "</li>" +
+                        "<li>lastName: " + lastName + "</li>" +
+                        "<li>Address: " + address + "</li>" +
+                        "<li>Email: " + email + "</li>" +
+                        "<li>Phone: " + phone + "</li>" +
+                        "<h2>HOUSE DATA</h2>" +
+                        "<li>Housing type: " + housingType + "</li>" +
+                        "<li>Square ft: " + squareFt + "</li>" +
+                        "<li>Bedrooms: " + bedrooms + "</li>" +
+                        "<li>Bathrooms: " + bathrooms + "</li>" +
+                        "<li>1/2 bathrooms: " + halfBathrooms + "</li>" +
+                        "<li>Green clean: " + green + "</li>" +
+                        "<li>Deep clean: " + deep + "</li>" +
+                        "<li>Microwave clean: " + micro + "</li>" +
+                        "<li>Refrigerator clean: " + ref + "</li>" +
+                        "<li>Oven clean: " + oven + "</li>" +
+                        "<li>Dishes wash: " + dish + "</li>" +
+                        "<h2>DATE AND TIME</h2>" +
+                        "<li>Date: " + date + "</li>" +
+                        "<li>Time: " + time + "</li>" +
+                        "<h2>ESTIMATED TIME AND PRICE</h2>" +
+                        "<li>Estimated price: " + estimatedPrice + "</li>" +
+                        "<li>Estimated time: " + estimatedTime + "</li>" +
+                        "</ul>";
+
+
+        return htmlMailString;
     }
 
     public String getName() {
@@ -151,35 +171,27 @@ public class EstimateData {
         this.bathrooms = bathrooms;
     }
 
-    public String getGreenClean() {
+    public boolean getGreenClean() {
         return greenClean;
     }
 
-    public void setGreenClean(String greenClean) {
+    public void setGreenClean(boolean greenClean) {
         this.greenClean = greenClean;
     }
 
-    public String getDeepClean() {
+    public boolean getDeepClean() {
         return deepClean;
     }
 
-    public void setDeepClean(String deepClean) {
+    public void setDeepClean(boolean deepClean) {
         this.deepClean = deepClean;
     }
 
-    public String getSteamClean() {
-        return steamClean;
-    }
-
-    public void setSteamClean(String steamClean) {
-        this.steamClean = steamClean;
-    }
-
-    public String getMicrowaveClean() {
+    public boolean getMicrowaveClean() {
         return microwaveClean;
     }
 
-    public void setMicrowaveClean(String microwaveClean) {
+    public void setMicrowaveClean(boolean microwaveClean) {
         this.microwaveClean = microwaveClean;
     }
 
@@ -221,5 +233,37 @@ public class EstimateData {
 
     public void setEstimatedTime(String estimatedTime) {
         this.estimatedTime = estimatedTime;
+    }
+
+    public String getHalfBathrooms() {
+        return halfBathrooms;
+    }
+
+    public void setHalfBathrooms(String halfBathrooms) {
+        this.halfBathrooms = halfBathrooms;
+    }
+
+    public boolean getRefrigeratorClean() {
+        return refrigeratorClean;
+    }
+
+    public void setRefrigeratorClean(boolean refrigeratorClean) {
+        this.refrigeratorClean = refrigeratorClean;
+    }
+
+    public boolean getOvenClean() {
+        return ovenClean;
+    }
+
+    public void setOvenClean(boolean ovenClean) {
+        this.ovenClean = ovenClean;
+    }
+
+    public boolean getDishesClean() {
+        return dishesClean;
+    }
+
+    public void setDishesClean(boolean dishesClean) {
+        this.dishesClean = dishesClean;
     }
 }
