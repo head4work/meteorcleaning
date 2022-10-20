@@ -20,7 +20,7 @@ const select_checkbox_dishes = document.querySelector('#dishesCheck');
 
 //PRICE AND TIME COUNT
 let prices = {
-  studio : 140,
+  studio: 140,
   apartments: 180,
   house: 220,
   houseFt: 0.5, //per sq ft
@@ -29,17 +29,17 @@ let prices = {
   bathroom: 40, // half bathroom is 1/2 
   greenClean: 40,
   deepClean: 1.35, // coaf * multiply base + rooms
- // steamClean: 30,
+  // steamClean: 30,
   microwaveClean: 30,
-  refrigeratorClean : 40, 
-  ovenClean : 40,
-  dishesWash : 30, 
+  refrigeratorClean: 40,
+  ovenClean: 40,
+  dishesWash: 30,
   weekend: 50
 };
 
 
 let timings = {
-  studio : 90,
+  studio: 90,
   apartments: 120,
   house: 160,
   office: 0.1, //per sq ft
@@ -64,7 +64,7 @@ let maximumDate = new Date().setDate(today.getDate() + 30);
 datePickerConfig = {
   altInput: true,
   altFormat: "F j, Y ",
-  dateFormat: "Y-m-d",
+  dateFormat: "Z",
   minDate: "today",
   maxDate: maximumDate
 }
@@ -106,7 +106,7 @@ function estimateCount() {
   time += timings.bedroom * bedroom_count;
 
   count += prices.bathroom * bathroom_count;
- 
+
   count += (prices.bathroom / 2) * halfBathroom_count;
 
   time += timings.bathroom * bathroom_count;
@@ -117,7 +117,7 @@ function estimateCount() {
     time += timings.greenClean;
   }
   if (select_checkbox_deep.checked) {
-      count = Math.round(count * prices.deepClean);
+    count = Math.round(count * prices.deepClean);
     time += timings.deepClean;
   }
   // if (select_checkbox_steam.checked) {
@@ -160,6 +160,15 @@ $("#close-button, .close-button-x, .modal-overlay ").on("click", function () {
 });
 
 //HELPER FUNCTIONS
+function getDateTime() {
+  let dateTime = new Date($("#estimate-time").val());
+  
+  let hours = parseInt($("#select-time-interval").val()) === 0 ? 11 : 15;
+  dateTime.setUTCHours(hours);
+  console.log(dateTime);
+  return dateTime;
+}
+
 function time_convert(num) {
   const hours = Math.floor(num / 60);
   const minutes = num % 60;
@@ -184,15 +193,15 @@ function openSquareCount() {
 
 function closeSquareCount() {
   $("#square-count").removeClass("active");
-  
+
 }
 
-function disableHousingElements(){
-  $("#bedroom-count, #bathroom-count, #half-bathroom-count").prop("disabled",true);
+function disableHousingElements() {
+  $("#bedroom-count, #bathroom-count, #half-bathroom-count").prop("disabled", true);
 }
 
-function enableHousingElements(){
-  $("#bedroom-count, #bathroom-count, #half-bathroom-count").prop("disabled",false);
+function enableHousingElements() {
+  $("#bedroom-count, #bathroom-count, #half-bathroom-count").prop("disabled", false);
 }
 
 function countSqaureft() {
@@ -202,7 +211,7 @@ function countSqaureft() {
 function checkOfficeType() {
   let house_value = $("#housing-type option:selected").val();
   parseInt(house_value) > 1 ? openSquareCount() : closeSquareCount();
-  parseInt(house_value) === 3 || parseInt(house_value) === 0  ? disableHousingElements() : enableHousingElements();
+  parseInt(house_value) === 3 || parseInt(house_value) === 0 ? disableHousingElements() : enableHousingElements();
 }
 
 //AJAX
@@ -260,21 +269,19 @@ function fire_ajax_submit() {
   estimateData["bathrooms"] = parseInt($("#bathroom-count").val()) + 1;
   estimateData["halfBathrooms"] = parseInt($("#half-bathroom-count").val());
 
-  estimateData["greenClean"] = $("#greenCheck").prop( "checked" );
-  estimateData["deepClean"] = $("#deepCheck").prop( "checked" );
- // estimateData["steamClean"] = $("#steamCheck").val();
-  estimateData["microwaveClean"] = $("#microwaveCheck").prop( "checked" );
+  estimateData["greenClean"] = $("#greenCheck").prop("checked");
+  estimateData["deepClean"] = $("#deepCheck").prop("checked");
+  // estimateData["steamClean"] = $("#steamCheck").val();
+  estimateData["microwaveClean"] = $("#microwaveCheck").prop("checked");
 
-  estimateData["refrigeratorClean"] = $("#refrigeratorCheck").prop( "checked" );
+  estimateData["refrigeratorClean"] = $("#refrigeratorCheck").prop("checked");
 
-  estimateData["ovenClean"] = $("#ovenCheck").prop( "checked" );
-  estimateData["dishesClean"] = $("#dishesCheck").prop( "checked" );
+  estimateData["ovenClean"] = $("#ovenCheck").prop("checked");
+  estimateData["dishesClean"] = $("#dishesCheck").prop("checked");
 
+  estimateData["dateTime"] = getDateTime();
 
-
-
-  estimateData["date"] = $("#estimate-time").val();
-  estimateData["time"] = $("#select-time-interval option:selected").text();
+  // estimateData["time"] = $("#select-time-interval option:selected").text();
 
   estimateData["estimatedTime"] = $("#totalTime").text();
   estimateData["estimatedPrice"] = $("#totalPrice").text();

@@ -1,46 +1,90 @@
 package com.example.meteorCleaning.model;
 
+import com.example.meteorCleaning.util.TimeUtil;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public class EstimateData {
+@Entity
+@Table(name = "orders")
+public class EstimateOrder extends AbstractNamedEntity {
 
-    @NotBlank(message = "Please enter your name")
-    private String name;
+    @Column(name = "order_date", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createDate = LocalDate.now();
 
+    @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank(message = "Please fill the address")
+    @Column(name = "address")
+    @NotBlank(message = "{Size.Order.Address}")
     private String address;
+
+    @Column(name = "email", nullable = false, unique = true)
     @Email
-    @NotBlank(message = "Enter proper email address please")
+    @Size(max = 100)
+    @NotBlank(message = "{Size.Order.Email}")
     private String email;
 
-    @NotBlank(message = "Enter proper phone number")
+    @NotBlank(message = "{Size.Order.Phone}")
     private String phone;
 
+    @Column(name = "housing_type", nullable = false)
+    @NotBlank
     private String housingType;
+
+    @Column(name = "square_ft")
     private String squareFt;
+
+    @Column(name = "bedrooms")
     private String bedrooms;
+
+    @Column(name = "bathrooms")
     private String bathrooms;
+
+    @Column(name = "half_bathrooms")
     private String halfBathrooms;
 
+    @Column(name = "green_clean", columnDefinition = "bool default false")
     private boolean greenClean;
+
+    @Column(name = "deep_clean", columnDefinition = "bool default false")
     private boolean deepClean;
+
+    @Column(name = "microwave_clean", columnDefinition = "bool default false")
     private boolean microwaveClean;
+
+    @Column(name = "refrigerator_clean", columnDefinition = "bool default false")
     private boolean refrigeratorClean;
+
+    @Column(name = "oven_clean", columnDefinition = "bool default false")
     private boolean ovenClean;
+
+    @Column(name = "dishes_clean", columnDefinition = "bool default false")
     private boolean dishesClean;
 
-    private String date;
-    private String time;
+    @Column(name = "date_time")
+    @NotNull(message = "{Size.Order.Date}")
+    private LocalDateTime dateTime;
+
+    @Column(name = "estimated_price")
     private String estimatedPrice;
+
+    @Column(name = "estimated_time")
     private String estimatedTime;
 
 
-    public EstimateData(String name, String lastName, String address, String email, String phone, String housingType,
-                        String squareFt, String bedrooms, String bathrooms, String halfBathrooms, boolean greenClean, boolean deepClean,
-                        boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, boolean dishesClean, String date, String time, String estimatedPrice, String estimatedTime) {
+    public EstimateOrder(String name, String lastName, String address, String email, String phone, String housingType,
+                         String squareFt, String bedrooms, String bathrooms, String halfBathrooms, boolean greenClean, boolean deepClean,
+                         boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, boolean dishesClean, @NotBlank(message = "{Size.Order.Date}") LocalDateTime dateTime, String estimatedPrice, String estimatedTime) {
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -57,10 +101,12 @@ public class EstimateData {
         this.greenClean = greenClean;
         this.deepClean = deepClean;
         this.microwaveClean = microwaveClean;
-        this.date = date;
-        this.time = time;
+        this.dateTime = dateTime;
         this.estimatedPrice = estimatedPrice;
         this.estimatedTime = estimatedTime;
+    }
+
+    public EstimateOrder() {
     }
 
     @Override
@@ -75,7 +121,7 @@ public class EstimateData {
         String ref = refrigeratorClean ? yes : no;
         String oven = ovenClean ? yes : no;
         String dish = dishesClean ? yes : no;
-
+        String square = (squareFt == null) ? "none" : squareFt;
 
         String htmlMailString =
                 "<h1>ESTIMATE ORDER DATA</h1>" +
@@ -88,7 +134,7 @@ public class EstimateData {
                         "<li>Phone: " + phone + "</li>" +
                         "<h2>HOUSE DATA</h2>" +
                         "<li>Housing type: " + housingType + "</li>" +
-                        "<li>Square ft: " + squareFt + "</li>" +
+                        "<li>Square ft: " + square + "</li>" +
                         "<li>Bedrooms: " + bedrooms + "</li>" +
                         "<li>Bathrooms: " + bathrooms + "</li>" +
                         "<li>1/2 bathrooms: " + halfBathrooms + "</li>" +
@@ -99,8 +145,8 @@ public class EstimateData {
                         "<li>Oven clean: " + oven + "</li>" +
                         "<li>Dishes wash: " + dish + "</li>" +
                         "<h2>DATE AND TIME</h2>" +
-                        "<li>Date: " + date + "</li>" +
-                        "<li>Time: " + time + "</li>" +
+                        "<li>Date: " + TimeUtil.humanDate(dateTime) + "</li>" +
+                        "<li>Time: " + TimeUtil.humanTime(dateTime) + "</li>" +
                         "<h2>ESTIMATED TIME AND PRICE</h2>" +
                         "<li>Estimated price: " + estimatedPrice + "</li>" +
                         "<li>Estimated time: " + estimatedTime + "</li>" +
@@ -198,12 +244,12 @@ public class EstimateData {
         this.microwaveClean = microwaveClean;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateTime(LocalDateTime date) {
+        this.dateTime = date;
     }
 
     public String getEstimatedPrice() {
@@ -220,14 +266,6 @@ public class EstimateData {
 
     public void setSquareFt(String squareFt) {
         this.squareFt = squareFt;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getEstimatedTime() {
@@ -268,5 +306,9 @@ public class EstimateData {
 
     public void setDishesClean(boolean dishesClean) {
         this.dishesClean = dishesClean;
+    }
+
+    public LocalDate getCreateDate() {
+        return createDate;
     }
 }

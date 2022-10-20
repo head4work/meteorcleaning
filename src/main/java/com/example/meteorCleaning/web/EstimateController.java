@@ -1,7 +1,7 @@
 package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.model.AjaxResponseBody;
-import com.example.meteorCleaning.model.EstimateData;
+import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.service.EstimateDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,7 @@ public class EstimateController {
 
     @PostMapping("/estimate")
     public ResponseEntity<?> sendEstimateViaAjax(
-            @Valid @RequestBody EstimateData data, Errors errors) throws MessagingException {
+            @Valid @RequestBody EstimateOrder data, Errors errors) throws MessagingException {
 
         AjaxResponseBody result = new AjaxResponseBody();
 
