@@ -162,10 +162,8 @@ $("#close-button, .close-button-x, .modal-overlay ").on("click", function () {
 //HELPER FUNCTIONS
 function getDateTime() {
   let dateTime = new Date($("#estimate-time").val());
-  
   let hours = parseInt($("#select-time-interval").val()) === 0 ? 11 : 15;
   dateTime.setUTCHours(hours);
-  console.log(dateTime);
   return dateTime;
 }
 
@@ -215,26 +213,24 @@ function checkOfficeType() {
 }
 
 //AJAX
-
+function dateValidRequired() {
+  return !isNaN(getDateTime());
+}
 
 $(document).ready(function () {
 
   $("#estimate").submit(function (event) {
-
-
     //stop submit the form, we will post it manually.
     event.preventDefault();
-    confirm();
 
-
+    //check email provided
+    dateValidRequired() ? confirm() : emailEmptyPopup();
   });
 
 });
 
 function confirm() {
   $.confirm({
-
-
     title: 'Confirm your selections',
     content: 'Estimate will be processed if confirmed',
     buttons: {
@@ -319,10 +315,17 @@ function fire_ajax_submit() {
 }
 
 // POPUPS FUNCTIONS
-
+function emailEmptyPopup() {
+  $.alert({
+    type: 'red',
+    typeAnimated: true,
+    closeIcon: true,
+    title: 'Date is missing!',
+    content: 'Please pick a date.',
+  });
+}
 
 function successPopUp() {
-
   $.confirm({
     title: 'Confirmed!',
     content: 'We got your estimate and will contact you soon !',
