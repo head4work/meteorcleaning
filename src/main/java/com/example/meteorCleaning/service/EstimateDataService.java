@@ -18,7 +18,7 @@ public class EstimateDataService {
     public void sendEmail(String[] to, String subject, String text) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("noreply@meteorcleaning.com");
+        helper.setFrom("info@meteorcleaning.com");
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text,true);
