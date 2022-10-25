@@ -43,7 +43,7 @@
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
+                            <a class="nav-link" href="#prices">Pricing</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Team</a>
@@ -148,7 +148,54 @@
             </div>
             <!-- Carousel wrapper -->
         </main>
+        <aside class="prices" id="prices">
+            <h2>Pricing</h2>
+            <p>Meteor cleaning pricing policy is defined by the hourly rate based on total time we need to give your home a proper cleaning.</p>
 
+            <div class="prices-inside">
+
+            <div class="card" style="width: 14rem;">
+                <img alt="green eco friendly detergent" class="card-img-top" src="/images/design/eco.png"/>
+                <div class="card-body">
+                  <p class="card-text">Meteor cleaning provides a wide variety of green eco friendly non allergic cleaning solutions</p>
+                </div>
+              </div>
+
+              <div class="card" style="width: 14rem;">
+                <img alt="hard cleaning" class="card-img-top" src="/images/design/polishing.png"/>
+                <div class="card-body">
+                  <p class="card-text">Deep cleaning is an option for more intense and multiply commits cleaning to deal with tough dirt</p>
+                </div>
+              </div>
+
+              <div class="card" style="width: 14rem;">
+                <img alt="microwave" class="card-img-top" src="/images/design/microwave.png"/>
+                <div class="card-body">
+                  <p class="card-text">We provide inside microwave cleaning with steam and grease dissolving solutions</p>
+                </div>
+              </div>
+              <div class="card" style="width: 14rem;">
+                <img alt="refrigerator" class="card-img-top" src="/images/design/refrigerator.png"/>
+                <div class="card-body">
+                  <p class="card-text">Meteor cleaning provides inside refrigerator cleaning with steam and cleaning solutions</p>
+                </div>
+              </div>  <div class="card" style="width: 14rem;">
+                <img alt="oven" class="card-img-top" src="/images/design/stove.png"/>
+                <div class="card-body">
+                  <p class="card-text">Meteor cleaning provides inside oven cleaning with steam and grease dissolving solutions</p>
+                </div>
+              </div>  <div class="card" style="width: 14rem;">
+                <img alt="washing dishes" class="card-img-top" src="/images/design/dishes.png"/>
+                <div class="card-body">
+                  <p class="card-text">Washing dishes is also provided service by Meteor cleaning</p>
+                </div>
+              </div> 
+              
+              
+
+              </div>
+            </div> 
+        </aside>
         <!-- Footer -->
         <footer class="text-center text-lg-start bg-light text-muted">
             <!-- Section: Social media -->
@@ -285,7 +332,7 @@
 
                     <div class="house-form-type">
 
-                        <div class="select-wrap">
+                        <div class="select-wrap effect-underline"  data-mdb-placement="top" data-mdb-toggle="tooltip" title="Every type includes: vacuuming and wet mopping floors, wiping all furniture surfaces, cleaning the bathroom. ">
                             <label for="housing-type">Housing type:</label>
                             <select class="select" form="estimate" id="housing-type">
                                 <option selected value="0">Studio</option>
@@ -309,7 +356,7 @@
                             </select>
                         </div>
 
-                        <div class="select-wrap rooms">
+                        <div class="select-wrap rooms effect-underline"  data-mdb-placement="top" data-mdb-toggle="tooltip" title="If the bathroom needs to be cleaned with detergent and be sanitized please pick a deep cleaning option then." >
                             <label for="bathroom-count">Bathroom:</label>
                             <select class="select" form="estimate" id="bathroom-count">
                                 <option selected value="0">One</option>
@@ -330,14 +377,14 @@
                     </div>
 
                     <div class="house-form-options">
-                        <div class="select-wrap" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Green eco friendly non allergic cleaning solutions">
-                            <label for="greenCheck" >Green clean :</label>
-                            <input class="form-check-input" form="estimate" id="greenCheck" type="checkbox"
+                        <div class="select-wrap effect-underline " data-mdb-placement="top" data-mdb-toggle="tooltip" title="Green eco friendly non allergic cleaning solutions">
+                            <label for="greenCheck"  >Green clean :</label>
+                            <input class="form-check-input " form="estimate" id="greenCheck" type="checkbox"
                                 value="green" />
                         </div>
 
-                        <div class="select-wrap" data-mdb-placement="top" data-mdb-toggle="tooltip" title="More intence and multiply commits cleaning to deal with tough dirt">
-                            <label for="deepCheck">Deep clean :</label>
+                        <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip" title="More intense and multiply commits cleaning to deal with tough dirt">
+                            <label for="deepCheck" >Deep clean :</label>
                             <input class="form-check-input" form="estimate" id="deepCheck" type="checkbox"
                                 value="deep" />
                         </div>
@@ -348,26 +395,26 @@
                                 value="steam" />
                         </div> -->
 
-                        <div class="select-wrap" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Inside microwave cleaning with steam and grease dissolving solutions">
-                            <label for="microwaveCheck">Microvawe clean :</label>
+                        <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Inside microwave cleaning with steam and grease dissolving solutions">
+                            <label for="microwaveCheck" >Microvawe clean :</label>
                             <input class="form-check-input" form="estimate" id="microwaveCheck" type="checkbox"
                                 value="microwave" />
                         </div>
 
-                        <div class="select-wrap" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Inside refrigerator cleaning with steam and cleaning solutions">
-                            <label for="refrigeratorCheck">Refrigerator clean :</label>
+                        <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Inside refrigerator cleaning with steam and cleaning solutions">
+                            <label for="refrigeratorCheck" >Refrigerator clean :</label>
                             <input class="form-check-input" form="estimate" id="refrigeratorCheck" type="checkbox"
                                 value="refrigerator" />
                         </div>
 
-                        <div class="select-wrap" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Inside oven cleaning with steam and grease dissolving solutions">
-                            <label for="ovenCheck">Oven clean :</label>
+                        <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Inside oven cleaning with steam and grease dissolving solutions">
+                            <label for="ovenCheck" >Oven clean :</label>
                             <input class="form-check-input" form="estimate" id="ovenCheck" type="checkbox"
                                 value="oven" />
                         </div>
 
-                        <div class="select-wrap" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Washing one sink of dishes">
-                            <label for="dishesCheck">Dishes wash :</label>
+                        <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip" title="Washing one sink of dishes">
+                            <label for="dishesCheck" >Dishes wash :</label>
                             <input class="form-check-input" form="estimate" id="dishesCheck" type="checkbox"
                                 value="dishes" />
                         </div>

@@ -21,14 +21,14 @@ const select_checkbox_dishes = document.querySelector('#dishesCheck');
 //PRICE AND TIME COUNT
 let prices = {
   studio: 140,
-  apartments: 180,
+  apartments: 170,
   house: 220,
   houseFt: 0.5, //per sq ft
   office: 0.3, //per sq ft
-  bedroom: 40,
-  bathroom: 40, // half bathroom is 1/2 
+  bedroom: 30,
+  bathroom: 30, // half bathroom is 1/2 
   greenClean: 40,
-  deepClean: 1.35, // coaf * multiply base + rooms
+  deepClean: 1.3, // coaf * multiply base + rooms
   // steamClean: 30,
   microwaveClean: 30,
   refrigeratorClean: 40,
@@ -74,6 +74,7 @@ estimateCount();
 setDataMinToday();
 const fp = flatpickr("#estimate-time", datePickerConfig);
 checkOfficeType();
+
 
 // EVENT LISTENERS
 select_housing_value.addEventListener('change', checkOfficeType);
