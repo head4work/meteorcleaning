@@ -7,11 +7,17 @@ const select_badroom_value = document.getElementById("badroom-count");
 const select_bathroom_value = document.getElementById("bathroom-count");
 const select_checkbox_green = document.querySelector('#greenCheck');
 const select_checkbox_deep = document.querySelector('#deepCheck');
+
+const select_checkbox_window = document.querySelector('#windowCheck');
+const select_checkbox_cabinet = document.querySelector('#cabinetCheck');
+
 // const select_checkbox_steam = document.querySelector('#steamCheck');
 const select_checkbox_microwave = document.querySelector('#microwaveCheck');
 
 const select_checkbox_refrigerator = document.querySelector('#refrigeratorCheck');
 const select_checkbox_oven = document.querySelector('#ovenCheck');
+
+
 const select_checkbox_dishes = document.querySelector('#dishesCheck');
 
 
@@ -25,15 +31,17 @@ let prices = {
   house: 220,
   houseFt: 0.5, //per sq ft
   office: 0.3, //per sq ft
-  bedroom: 30,
-  bathroom: 30, // half bathroom is 1/2 
+  bedroom: 20,
+  bathroom: 24, // half bathroom is 1/2 
   greenClean: 40,
   deepClean: 1.3, // coaf * multiply base + rooms
   // steamClean: 30,
-  microwaveClean: 30,
-  refrigeratorClean: 40,
-  ovenClean: 40,
-  dishesWash: 30,
+  microwaveClean: 20,
+  refrigeratorClean: 30,
+  ovenClean: 30,
+  window: 8,
+  cabinet: 10,
+  dishesWash: 10,
   weekend: 50
 };
 
@@ -60,12 +68,15 @@ let today = new Date;
 let count = 0;
 let time = 0;
 let maximumDate = new Date().setDate(today.getDate() + 30);
+let tomorrow = new Date().setDate(today.getDate() + 1);
+let weekendClean = false;
+
 
 datePickerConfig = {
   altInput: true,
   altFormat: "F j, Y ",
   dateFormat: "Z",
-  minDate: "today",
+  minDate: tomorrow,
   maxDate: maximumDate
 }
 
@@ -83,11 +94,14 @@ document.querySelector("#square-ft").addEventListener('input', countSqaureft);
 
 fp.config.onChange.push(() => {
   openTimeSelector();
+  // check if selected date is sunday
+  weekendClean = checkSunday();
 });
 
 function openTimeSelector() {
   $(".select-interval").addClass("active");
 }
+
 // FUNCTION
 function estimateCount() {
   count = 0;
@@ -96,6 +110,10 @@ function estimateCount() {
   let bedroom_count = $("#bedroom-count option:selected").val();
   let bathroom_count = $("#bathroom-count option:selected").val();
   let halfBathroom_count = $("#half-bathroom-count option:selected").val();
+  let windows_amount = parseInt($("#windows").val());
+  let cabinets_amount = parseInt($("#cabinets").val());
+
+
 
   let square_ft_count = countSqaureft();
 
@@ -137,6 +155,25 @@ function estimateCount() {
     count += prices.ovenClean;
     time += timings.ovenClean;
   }
+
+  if (select_checkbox_window.checked) {
+    openElementCount("#window-count");
+    count += prices.window * windows_amount;
+    time += timings.dishesWash;
+  } else {
+    closeElementCount("#window-count");
+    $("#windows").val(0);
+  }
+
+  if (select_checkbox_cabinet.checked) {
+    openElementCount("#cabinet-count");
+    count += prices.cabinet * cabinets_amount;
+    time += timings.dishesWash;
+  } else {
+    closeElementCount("#cabinet-count");
+    $("#cabinets").val(0);
+  }
+
   if (select_checkbox_dishes.checked) {
     count += prices.dishesWash;
     time += timings.dishesWash;
@@ -144,6 +181,9 @@ function estimateCount() {
 
   // price for house declare by choosing higher option
   count = count > prices.houseFt * $("#square-ft").val() ? count : prices.houseFt * $("#square-ft").val();
+
+  //check if selected date is weekend
+  count += weekendClean ? prices.weekend : 0;
 
   $('#totalPrice').text(count + "$");
   $('#totalTime').text(time_convert(time.toFixed()) + " min");
@@ -161,6 +201,11 @@ $("#close-button, .close-button-x, .modal-overlay ").on("click", function () {
 });
 
 //HELPER FUNCTIONS
+function checkSunday() {
+  let date = fp.selectedDates[0];
+  return date.getDay() === 0;
+}
+
 function getDateTime() {
   let dateTime = new Date($("#estimate-time").val());
   let hours = parseInt($("#select-time-interval").val()) === 0 ? 11 : 15;
@@ -185,13 +230,13 @@ function closeModal() {
   $(".modal-overlay, .modal").removeClass("active");
 }
 
-function openSquareCount() {
-  $("#square-count").addClass("active");
+function openElementCount(element) {
+  $(element).addClass("active");
 
 }
 
-function closeSquareCount() {
-  $("#square-count").removeClass("active");
+function closeElementCount(element) {
+  $(element).removeClass("active");
 
 }
 
@@ -208,8 +253,9 @@ function countSqaureft() {
 }
 
 function checkOfficeType() {
+  let square_count = "#square-count";
   let house_value = $("#housing-type option:selected").val();
-  parseInt(house_value) > 1 ? openSquareCount() : closeSquareCount();
+  parseInt(house_value) > 1 ? openElementCount(square_count) : closeElementCount(square_count);
   parseInt(house_value) === 3 || parseInt(house_value) === 0 ? disableHousingElements() : enableHousingElements();
 }
 
