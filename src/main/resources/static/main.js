@@ -72,6 +72,7 @@ let tomorrow = new Date().setDate(today.getDate() + 1);
 let weekendClean = false;
 
 
+
 datePickerConfig = {
   altInput: true,
   altFormat: "F j, Y ",
@@ -110,9 +111,9 @@ function estimateCount() {
   let bedroom_count = $("#bedroom-count option:selected").val();
   let bathroom_count = $("#bathroom-count option:selected").val();
   let halfBathroom_count = $("#half-bathroom-count option:selected").val();
+ 
   let windows_amount = parseInt($("#windows").val());
   let cabinets_amount = parseInt($("#cabinets").val());
-
 
 
   let square_ft_count = countSqaureft();
@@ -320,6 +321,10 @@ function fire_ajax_submit() {
   estimateData["refrigeratorClean"] = $("#refrigeratorCheck").prop("checked");
 
   estimateData["ovenClean"] = $("#ovenCheck").prop("checked");
+
+  estimateData["windowClean"] = parseInt($("#windows").val());
+  estimateData["cabinetClean"] = parseInt($("#cabinets").val());
+
   estimateData["dishesClean"] = $("#dishesCheck").prop("checked");
 
   estimateData["dateTime"] = getDateTime();

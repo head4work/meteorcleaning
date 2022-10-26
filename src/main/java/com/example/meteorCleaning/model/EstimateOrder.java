@@ -6,10 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -68,6 +65,16 @@ public class EstimateOrder extends AbstractNamedEntity {
     @Column(name = "oven_clean", columnDefinition = "bool default false")
     private boolean ovenClean;
 
+    @Column(name="windows")
+    @Min(value = 0, message = "{Size.Order.Windows]")
+    @Max(value = 15, message = "{Size.Order.Windows]")
+    private Integer windowClean;
+
+    @Column(name="cabinets")
+    @Min(value = 0, message = "{Size.Order.Cabinets]")
+    @Max(value = 15, message = "{Size.Order.Cabinets]")
+    private Integer cabinetClean;
+
     @Column(name = "dishes_clean", columnDefinition = "bool default false")
     private boolean dishesClean;
 
@@ -84,7 +91,9 @@ public class EstimateOrder extends AbstractNamedEntity {
 
     public EstimateOrder(String name, String lastName, String address, String email, String phone, String housingType,
                          String squareFt, String bedrooms, String bathrooms, String halfBathrooms, boolean greenClean, boolean deepClean,
-                         boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, boolean dishesClean, @NotBlank(message = "{Size.Order.Date}") LocalDateTime dateTime, String estimatedPrice, String estimatedTime) {
+                         boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, Integer windowClean, Integer cabinetClean, boolean dishesClean, @NotBlank(message = "{Size.Order.Date}") LocalDateTime dateTime, String estimatedPrice, String estimatedTime) {
+        this.windowClean = windowClean;
+        this.cabinetClean = cabinetClean;
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -120,6 +129,8 @@ public class EstimateOrder extends AbstractNamedEntity {
         String micro = microwaveClean ? yes : no;
         String ref = refrigeratorClean ? yes : no;
         String oven = ovenClean ? yes : no;
+        String window = windowClean > 0 ? String.valueOf(windowClean) : no;
+        String cabinet = cabinetClean > 0 ?  String.valueOf(cabinetClean) : no;
         String dish = dishesClean ? yes : no;
         String square = (squareFt == null) ? "none" : squareFt;
 
@@ -143,6 +154,8 @@ public class EstimateOrder extends AbstractNamedEntity {
                         "<li>Microwave clean: " + micro + "</li>" +
                         "<li>Refrigerator clean: " + ref + "</li>" +
                         "<li>Oven clean: " + oven + "</li>" +
+                        "<li>Windows to clean: " + window + "</li>" +
+                        "<li>Cabinets to clean: " + cabinet + "</li>" +
                         "<li>Dishes wash: " + dish + "</li>" +
                         "<h2>DATE AND TIME</h2>" +
                         "<li>Date: " + TimeUtil.humanDate(dateTime) + "</li>" +
@@ -310,5 +323,21 @@ public class EstimateOrder extends AbstractNamedEntity {
 
     public LocalDate getCreateDate() {
         return createDate;
+    }
+
+    public Integer getWindowClean() {
+        return windowClean;
+    }
+
+    public void setWindowClean(Integer windowClean) {
+        this.windowClean = windowClean;
+    }
+
+    public Integer getCabinetClean() {
+        return cabinetClean;
+    }
+
+    public void setCabinetClean(Integer cabinetClean) {
+        this.cabinetClean = cabinetClean;
     }
 }
