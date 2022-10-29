@@ -12,7 +12,7 @@ body {
     grid-template-areas:
         "nav nav nav"
         ". main ."
-        ". prices ."
+        ". services ."
         "footer footer footer";
 }
 
@@ -102,19 +102,23 @@ nav {
     flex-direction: column;
     align-items: center;
 }
-.prices{
-    grid-area: prices;
+.services{
+    grid-area: services;
     display: grid;
     justify-items: center;
     padding: 2%;
     gap:10px;
 }
-.prices-inside{
+.services-inside{
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
+}
+
+.service-card{
+    width: 14rem;
 }
 @media (max-width: 992px) {
     .wrapper {
@@ -124,7 +128,7 @@ nav {
         grid-template-areas:
             "nav"
             "main"
-            "prices"
+            "services"
             "footer";
     }
 
@@ -138,6 +142,9 @@ nav {
 
     .caption-text {
         display: none;
+    }
+    .service-card{
+        width: 10rem;
     }
 }
 
