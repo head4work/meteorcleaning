@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 public class EstimateOrder extends AbstractNamedEntity {
 
-    @Column(name = "order_date", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
+    @Column(name = "create_date", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate = LocalDate.now();
 

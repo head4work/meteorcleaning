@@ -2,6 +2,7 @@ package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.model.AjaxResponseBody;
 import com.example.meteorCleaning.model.EstimateOrder;
+import com.example.meteorCleaning.repository.DataJpaOrderRepository;
 import com.example.meteorCleaning.service.EstimateDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,8 @@ public class EstimateController {
     @Value("${HOME_EMAIL:head4work@gmail.com}")
     private String homeEmail;
 
+    @Autowired
+    DataJpaOrderRepository repository;
 
     @Autowired
     EstimateDataService service;
@@ -39,7 +42,8 @@ public class EstimateController {
         }
 
         String[] to = new String[]{homeEmail, data.getEmail()};
-        service.sendEmail(to ,"CLEANING ORDER",data.toString());
+        repository.save(data);
+        service.sendEmail(to, "CLEANING ORDER", data.toString());
         result.setMsg("success");
         return ResponseEntity.ok(result);
     }
