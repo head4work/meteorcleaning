@@ -24,13 +24,53 @@
     <title>Admin</title>
 </head>
 <body>
-<table class="table table-striped">
-    <tr th:each="orders: ${orders}">
-        <td th:text="${orders.name}" />
-        <td th:text="${orders.dateTime}" />
-    </tr>
+        <section class="w-80 p-4 text-center">
+                <table class="table table-striped" >
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">First name</th>
+                      <th scope="col">Last name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="orders, iterStat: ${orders}">
+                        
+                        <td th:utext="${iterStat.count}" />
+                        <td th:text="${orders.dateTime}" />
+                        <td th:text="${orders.email}" />
+                        <td th:text="${orders.phone}" />
+                        <td th:text="${orders.name}" />
+                        <td th:text="${orders.lastName}" />
 
-</table>
+
+                        <!-- <td th:text="${orders.address}" />
+                        <td th:text="${orders.housingType}" />
+                        <td th:text="${orders.squareFt}" />
+                        <td th:text="${orders.bedrooms}" />
+                        <td th:text="${orders.bathrooms}" />
+                        <td th:text="${orders.halfBathrooms}" />
+                        <td th:text="${orders.greenClean}" />
+                        <td th:text="${orders.deepClean}" />
+                        <td th:text="${orders.microwaveClean}" />
+                        <td th:text="${orders.refrigeratorClean}" />
+                        <td th:text="${orders.ovenClean}" />
+                        <td th:text="${orders.windowClean}" />
+                        <td th:text="${orders.cabinetClean}" />
+                        <td th:text="${orders.dishesClean}" />
+                
+                        <td th:text="${orders.dateTime}" />
+                
+                        <td th:text="${orders.estimatedTime}" />
+                        <td th:text="${orders.estimatedPrice}" /> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
 <!-- MDB -->
 <script
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"
