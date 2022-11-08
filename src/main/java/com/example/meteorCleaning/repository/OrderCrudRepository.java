@@ -12,4 +12,5 @@ public interface OrderCrudRepository extends JpaRepository<EstimateOrder,Integer
     @Modifying
     @Query("DELETE FROM EstimateOrder o WHERE o.id=:id")
     int delete(@Param("id") int id);
+
 }

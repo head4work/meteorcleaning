@@ -6,75 +6,201 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <!-- Font Awesome -->
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-            rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-            rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
-            rel="stylesheet"
-    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
     <title>Admin</title>
 </head>
 <body>
-        <section class="w-80 p-4 text-center">
-                <table class="table table-striped" >
-                  <thead>
+
+
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Orders
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed table-striped">
+                    <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Phone</th>
-                      <th scope="col">First name</th>
-                      <th scope="col">Last name</th>
+                        <th></th>
+                        <th scope="col">#</th>
+                        <th scope="col">
+                            <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=dateTime&sortDir=' + ${reverseSortDir}}">
+                                Date</a>
+                        </th>
+                        <th scope="col">
+                            <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                                Email</a>
+                        </th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">
+                            <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                                First Name</a>
+                        </th>
+                        <th scope="col">Last name</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                    <tr th:each="orders, iterStat: ${orders}">
+                    </thead>
                         
-                        <td th:utext="${iterStat.count}" />
-                        <td th:text="${orders.dateTime}" />
-                        <td th:text="${orders.email}" />
-                        <td th:text="${orders.phone}" />
-                        <td th:text="${orders.name}" />
-                        <td th:text="${orders.lastName}" />
-
-
-                        <!-- <td th:text="${orders.address}" />
-                        <td th:text="${orders.housingType}" />
-                        <td th:text="${orders.squareFt}" />
-                        <td th:text="${orders.bedrooms}" />
-                        <td th:text="${orders.bathrooms}" />
-                        <td th:text="${orders.halfBathrooms}" />
-                        <td th:text="${orders.greenClean}" />
-                        <td th:text="${orders.deepClean}" />
-                        <td th:text="${orders.microwaveClean}" />
-                        <td th:text="${orders.refrigeratorClean}" />
-                        <td th:text="${orders.ovenClean}" />
-                        <td th:text="${orders.windowClean}" />
-                        <td th:text="${orders.cabinetClean}" />
-                        <td th:text="${orders.dishesClean}" />
-                
-                        <td th:text="${orders.dateTime}" />
-                
-                        <td th:text="${orders.estimatedTime}" />
-                        <td th:text="${orders.estimatedPrice}" /> -->
+                    <tbody>
+                        <th:block th:each="orders, iterStat: ${orders}">
+                    <tr  class="accordion-toggle" data-toggle="collapse"  th:attr="data-target='#accordion-'+${orders.id}">
+                        <td><button class="btn btn-default btn-xs"><span
+                                class="glyphicon glyphicon-eye-open"></span></button></td>
+                        <td th:utext="${iterStat.count}"></td>
+                        <td th:text="${orders.dateTime}"></td>
+                        <td th:text="${orders.email}"></td>
+                        <td th:text="${orders.phone}"></td>
+                        <td th:text="${orders.name}"></td>
+                        <td th:text="${orders.lastName}"></td>
                     </tr>
-                  </tbody>
-                </table>
-              </section>
 
-<!-- MDB -->
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"
-        type="text/javascript"
-></script>
+                    <tr>
+                        <td class="hiddenRow" colspan="12">
+                            <div class="accordian-body collapse" th:id="'accordion-'+${orders.id}" >
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <td><a class="btn btn-warning" href="#" role="button">Edit</a>
+                                        </td>
+                                        <td><a class="btn btn-danger" href="#" role="button">Delete</a>
+                                        </td>
+                                    </tr>
+
+                                    <div class="hiden-info">
+                                        <ul>
+                                            <h3>HOUSE DATA</h3>
+                                            <li >Housing type: [(${orders.housingType})]</li>
+                                            <li>Square ft: [(${orders.squareFt})]</li>
+                                            <li>Bedrooms: [(${orders.bedrooms})]</li>
+                                            <li>Bathrooms: [(${orders.bathrooms})]</li>
+                                            <li>Half bathrooms: [(${orders.halfBathrooms})]</li>
+                                            <li>Green clean:<span th:text="${orders.greenClean} ? '&#9989;' : '&#10006;' "></li>
+                                            <li>Deep clean: <span th:text="${orders.deepClean} ? '&#9989;' : '&#10006;' "></li>
+                                            <li>Microwave clean: <span th:text="${orders.microwaveClean} ? '&#9989;' : '&#10006;' "></li>
+                                            <li>Refrigerator clean: <span th:text="${orders.refrigeratorClean} ? '&#9989;' : '&#10006;' "></li>
+                                            <li>Oven clean: <span th:text="${orders.ovenClean} ? '&#9989;' : '&#10006;' "></li>
+                                            <li>Windows clean: <span th:text="${orders.windowClean} == 0 ? '&#10006;' : ${orders.windowClean}  "></li>
+                                            <li>Cabinets clean: <span th:text="${orders.cabinetClean} == 0 ? '&#10006;' : ${orders.cabinetClean} "></li>
+                                            <li>Dishes clean: <span th:text="${orders.dishesClean} ? '&#9989;' : '&#10006;' "></span></li>
+
+                                            <h3>CLEANING DATE AND TIME</h3>
+                                            <li>Date: [(${orders.dateTime})]</li>
+                                            <li>Time: [(${orders.dateTime})]</li>
+
+                                            <h3>ESTIMATED TIME AND PRICE</h3>
+                                            <li>Estimated time: [(${orders.estimatedTime})]</li>
+                                            <li>Estimated price: [(${orders.estimatedPrice})]</li>
+                                        </ul>
+                                    </div>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </td>
+                    </tr>
+                </th:block>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+    <div th:if = "${totalPages > 1}">
+        <div class = "row col-sm-10">
+            <div class = "col-sm-2">
+                Total orders: [[${totalItems}]]
+            </div>
+
+            <div class = "col-sm-1">
+                <a th:href="@{'/admin/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage > 1}">Prev</a>
+                <span th:unless="${currentPage > 1 }">Prev</span>
+            </div>
+
+            <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:href="@{'/admin/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage != i}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+            </div>
+
+            <div class = "col-sm-1">
+                <a th:href="@{'/admin/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage < totalPages}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:href="@{'/admin/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage < totalPages}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--<section class="w-80 p-4 text-center">-->
+<!--    <table class="table table-striped">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col">#</th>-->
+<!--            <th scope="col">-->
+<!--                <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=dateTime&sortDir=' + ${reverseSortDir}}">-->
+<!--                    Date</a>-->
+<!--            </th>-->
+<!--            <th scope="col">-->
+<!--                <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">-->
+<!--                    Email</a>-->
+<!--            </th>-->
+<!--            <th scope="col">Phone</th>-->
+<!--            <th scope="col">-->
+<!--                <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">-->
+<!--                    First Name</a>-->
+<!--            </th>-->
+<!--            <th scope="col">Last name</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="orders, iterStat: ${orders}">-->
+
+<!--            <td th:utext="${iterStat.count}"/>-->
+<!--            <td th:text="${orders.dateTime}"/>-->
+<!--            <td th:text="${orders.email}"/>-->
+<!--            <td th:text="${orders.phone}"/>-->
+<!--            <td th:text="${orders.name}"/>-->
+<!--            <td th:text="${orders.lastName}"/>-->
+
+
+<!--            &lt;!&ndash; <td th:text="${orders.address}" />-->
+<!--            <td th:text="${orders.housingType}" />-->
+<!--            <td th:text="${orders.squareFt}" />-->
+<!--            <td th:text="${orders.bedrooms}" />-->
+<!--            <td th:text="${orders.bathrooms}" />-->
+<!--            <td th:text="${orders.halfBathrooms}" />-->
+<!--            <td th:text="${orders.greenClean}" />-->
+<!--            <td th:text="${orders.deepClean}" />-->
+<!--            <td th:text="${orders.microwaveClean}" />-->
+<!--            <td th:text="${orders.refrigeratorClean}" />-->
+<!--            <td th:text="${orders.ovenClean}" />-->
+<!--            <td th:text="${orders.windowClean}" />-->
+<!--            <td th:text="${orders.cabinetClean}" />-->
+<!--            <td th:text="${orders.dishesClean}" />-->
+
+<!--            <td th:text="${orders.dateTime}" />-->
+
+<!--            <td th:text="${orders.estimatedTime}" />-->
+<!--            <td th:text="${orders.estimatedPrice}" /> &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</section>-->
+
+<script crossorigin="anonymous"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 </html>

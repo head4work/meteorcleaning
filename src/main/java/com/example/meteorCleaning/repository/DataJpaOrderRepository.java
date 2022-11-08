@@ -1,6 +1,8 @@
 package com.example.meteorCleaning.repository;
 
 import com.example.meteorCleaning.model.EstimateOrder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,5 +34,9 @@ public class DataJpaOrderRepository {
 
     public List<EstimateOrder> getAll() {
         return repository.findAll();
+    }
+
+    public Page<EstimateOrder> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }
