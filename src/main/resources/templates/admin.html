@@ -8,7 +8,6 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-
     <title>Admin</title>
 </head>
 <body>
@@ -41,6 +40,8 @@
                                 First Name</a>
                         </th>
                         <th scope="col">Last name</th>
+                        <th scope="col">Address</th>
+
                     </tr>
                     </thead>
                         
@@ -55,6 +56,7 @@
                         <td th:text="${orders.phone}"></td>
                         <td th:text="${orders.name}"></td>
                         <td th:text="${orders.lastName}"></td>
+                        <td th:text="${orders.address}"></td>
                     </tr>
 
                     <tr>
@@ -63,7 +65,7 @@
                                 <table class="table table-striped">
                                     <tbody>
                                     <tr>
-                                        <td><a class="btn btn-warning" href="#" role="button">Edit</a>
+                                        <td><a class="btn btn-warning" href="#" role="button" th:href="@{/admin/orders/edit/{id}(id=${orders.id})}">Edit</a>
                                         </td>
                                         <td><a class="btn btn-danger" href="#" role="button">Delete</a>
                                         </td>

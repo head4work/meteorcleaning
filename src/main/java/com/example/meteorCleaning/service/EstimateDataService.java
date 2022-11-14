@@ -28,9 +28,9 @@ public class EstimateDataService {
         return repository.getAll();
     }
 
-    public Page<EstimateOrder> findPage(int pageNumber,int pageSize,String sortField, String sortDirection){
+    public Page<EstimateOrder> findPage(int pageNumber, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(pageNumber -1,pageSize,sort);
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
         return repository.getAll(pageable);
     }
 
@@ -44,4 +44,11 @@ public class EstimateDataService {
         mailSender.send(message);
     }
 
+    public EstimateOrder get(int id) {
+        return repository.get(id);
+    }
+
+    public EstimateOrder save(EstimateOrder order) {
+        return repository.save(order);
+    }
 }

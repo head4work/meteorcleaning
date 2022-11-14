@@ -192,7 +192,7 @@ function estimateCount() {
   return count;
 }
 
-$(".btn").on("click", function () {
+$("#carouselBook1,#carouselBook2,#carouselBook3").on("click", function () {
   openModal();
 });
 
