@@ -39,4 +39,8 @@ public class DataJpaOrderRepository {
     public Page<EstimateOrder> getAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
+
+    public Integer delete(int id){
+      return   repository.delete(id);
+    }
 }

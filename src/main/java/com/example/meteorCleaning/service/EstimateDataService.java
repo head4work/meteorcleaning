@@ -51,4 +51,8 @@ public class EstimateDataService {
     public EstimateOrder save(EstimateOrder order) {
         return repository.save(order);
     }
+
+    public boolean delete(int id) {
+     return repository.delete(id) != 0;
+    }
 }

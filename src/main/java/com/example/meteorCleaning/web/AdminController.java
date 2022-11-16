@@ -52,13 +52,22 @@ public class AdminController {
         return "admin";
     }
     @GetMapping("/orders/edit/{id}")
-    public String lotUpdate(@PathVariable int id, Model model) {
-        model.addAttribute("order", service.get(id));
+    public String orderUpdate(@PathVariable int id, Model model) {
+        EstimateOrder order = service.get(id);
+        model.addAttribute("order", order );
         return "edit";
     }
+
+    @GetMapping("/orders/delete/{id}")
+    public String orderDelete(@PathVariable int id) {
+         service.delete(id);
+        return "redirect:/admin";
+    }
+
     @PostMapping("/orders/save")
     public String submitForm(@ModelAttribute("order") EstimateOrder order) {
+        System.out.println("saving");
         service.save(order);
-        return "admin";
+        return "redirect:/admin";
     }
 }

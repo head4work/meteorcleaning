@@ -305,8 +305,10 @@ function fire_ajax_submit() {
   estimateData["address"] = $("#address").val();
   estimateData["email"] = $("#email").val();
   estimateData["phone"] = $("#phone").val();
-  estimateData["housingType"] = $("#housing-type option:selected").text();
-  if (parseInt($("#housing-type").val()) > 1) {
+  //estimateData["housingType"] = $("#housing-type option:selected").text();
+  estimateData["housingType"] = parseInt($("#housing-type").val());
+
+  if (estimateData.housingType > 1) {
     estimateData["squareFt"] = $("#square-ft").val();
   }
   estimateData["bedrooms"] = parseInt($("#bedroom-count").val()) + 1;

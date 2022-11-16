@@ -7,11 +7,11 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet">
     <title>Admin</title>
 </head>
-<body>
 
+<body>
 
 
 <div class="container">
@@ -27,16 +27,19 @@
                         <th></th>
                         <th scope="col">#</th>
                         <th scope="col">
-                            <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=dateTime&sortDir=' + ${reverseSortDir}}">
+                            <a
+                                    th:href="@{'/admin/page/' + ${currentPage} + '?sortField=dateTime&sortDir=' + ${reverseSortDir}}">
                                 Date</a>
                         </th>
                         <th scope="col">
-                            <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                            <a
+                                    th:href="@{'/admin/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
                                 Email</a>
                         </th>
                         <th scope="col">Phone</th>
                         <th scope="col">
-                            <a th:href="@{'/admin/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                            <a
+                                    th:href="@{'/admin/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
                                 First Name</a>
                         </th>
                         <th scope="col">Last name</th>
@@ -44,66 +47,94 @@
 
                     </tr>
                     </thead>
-                        
+
                     <tbody>
-                        <th:block th:each="orders, iterStat: ${orders}">
-                    <tr  class="accordion-toggle" data-toggle="collapse"  th:attr="data-target='#accordion-'+${orders.id}">
-                        <td><button class="btn btn-default btn-xs"><span
-                                class="glyphicon glyphicon-eye-open"></span></button></td>
-                        <td th:utext="${iterStat.count}"></td>
-                        <td th:text="${orders.dateTime}"></td>
-                        <td th:text="${orders.email}"></td>
-                        <td th:text="${orders.phone}"></td>
-                        <td th:text="${orders.name}"></td>
-                        <td th:text="${orders.lastName}"></td>
-                        <td th:text="${orders.address}"></td>
-                    </tr>
+                    <th:block th:each="orders, iterStat: ${orders}">
+                        <tr class="accordion-toggle" data-toggle="collapse"
+                            th:attr="data-target='#accordion-'+${orders.id}">
+                            <td>
+                                <button class="btn btn-default btn-xs"><span
+                                        class="glyphicon glyphicon-eye-open"></span></button>
+                            </td>
+                            <td th:utext="${iterStat.count}"></td>
+                            <td th:text="${orders.dateTime}"></td>
+                            <td th:text="${orders.email}"></td>
+                            <td th:text="${orders.phone}"></td>
+                            <td th:text="${orders.name}"></td>
+                            <td th:text="${orders.lastName}"></td>
+                            <td th:text="${orders.address}"></td>
+                        </tr>
 
-                    <tr>
-                        <td class="hiddenRow" colspan="12">
-                            <div class="accordian-body collapse" th:id="'accordion-'+${orders.id}" >
-                                <table class="table table-striped">
-                                    <tbody>
-                                    <tr>
-                                        <td><a class="btn btn-warning" href="#" role="button" th:href="@{/admin/orders/edit/{id}(id=${orders.id})}">Edit</a>
-                                        </td>
-                                        <td><a class="btn btn-danger" href="#" role="button">Delete</a>
-                                        </td>
-                                    </tr>
+                        <tr>
+                            <td class="hiddenRow" colspan="12">
+                                <div class="accordian-body collapse" th:id="'accordion-'+${orders.id}">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                        <tr>
+                                            <td><a class="btn btn-warning" href="#" role="button"
+                                                   th:href="@{/admin/orders/edit/{id}(id=${orders.id})}">Edit</a>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger" role="button"
+                                                        th:onclick="deleteOrder([(${orders.id})])">Delete
+                                                </button>
+                                            </td>
+                                        </tr>
 
-                                    <div class="hiden-info">
-                                        <ul>
-                                            <h3>HOUSE DATA</h3>
-                                            <li >Housing type: [(${orders.housingType})]</li>
-                                            <li>Square ft: [(${orders.squareFt})]</li>
-                                            <li>Bedrooms: [(${orders.bedrooms})]</li>
-                                            <li>Bathrooms: [(${orders.bathrooms})]</li>
-                                            <li>Half bathrooms: [(${orders.halfBathrooms})]</li>
-                                            <li>Green clean:<span th:text="${orders.greenClean} ? '&#9989;' : '&#10006;' "></li>
-                                            <li>Deep clean: <span th:text="${orders.deepClean} ? '&#9989;' : '&#10006;' "></li>
-                                            <li>Microwave clean: <span th:text="${orders.microwaveClean} ? '&#9989;' : '&#10006;' "></li>
-                                            <li>Refrigerator clean: <span th:text="${orders.refrigeratorClean} ? '&#9989;' : '&#10006;' "></li>
-                                            <li>Oven clean: <span th:text="${orders.ovenClean} ? '&#9989;' : '&#10006;' "></li>
-                                            <li>Windows clean: <span th:text="${orders.windowClean} == 0 ? '&#10006;' : ${orders.windowClean}  "></li>
-                                            <li>Cabinets clean: <span th:text="${orders.cabinetClean} == 0 ? '&#10006;' : ${orders.cabinetClean} "></li>
-                                            <li>Dishes clean: <span th:text="${orders.dishesClean} ? '&#9989;' : '&#10006;' "></span></li>
+                                        <div class="hiden-info">
+                                            <ul>
+                                                <h3>HOUSE DATA</h3>
+                                                <div th:switch="${orders.housingType}">
+                                                    <li th:case="1">Housing type: Apartments</li>
+                                                    <li th:case="2">Housing type: House</li>
+                                                    <li th:case="3">Housing type: Office</li>
+                                                    <li th:case="*">Housing type: Studio</li>
+                                                </div>
+                                                <li>Square ft: [(${orders.squareFt})]</li>
+                                                <li>Bedrooms: [(${orders.bedrooms} +1 )]</li>
+                                                <li>Bathrooms: [(${orders.bathrooms} +1)]</li>
+                                                <li>Half bathrooms: [(${orders.halfBathrooms})]</li>
+                                                <li>Green clean:<span
+                                                        th:text="${orders.greenClean} ? '&#9989;' : '&#10006;' ">
+                                                </li>
+                                                <li>Deep clean: <span
+                                                        th:text="${orders.deepClean} ? '&#9989;' : '&#10006;' ">
+                                                </li>
+                                                <li>Microwave clean: <span
+                                                        th:text="${orders.microwaveClean} ? '&#9989;' : '&#10006;' ">
+                                                </li>
+                                                <li>Refrigerator clean: <span
+                                                        th:text="${orders.refrigeratorClean} ? '&#9989;' : '&#10006;' ">
+                                                </li>
+                                                <li>Oven clean: <span
+                                                        th:text="${orders.ovenClean} ? '&#9989;' : '&#10006;' ">
+                                                </li>
+                                                <li>Windows clean: <span
+                                                        th:text="${orders.windowClean} == 0 ? '&#10006;' : ${orders.windowClean}  ">
+                                                </li>
+                                                <li>Cabinets clean: <span
+                                                        th:text="${orders.cabinetClean} == 0 ? '&#10006;' : ${orders.cabinetClean} ">
+                                                </li>
+                                                <li>Dishes clean: <span
+                                                        th:text="${orders.dishesClean} ? '&#9989;' : '&#10006;' "></span>
+                                                </li>
 
-                                            <h3>CLEANING DATE AND TIME</h3>
-                                            <li>Date: [(${orders.dateTime})]</li>
-                                            <li>Time: [(${orders.dateTime})]</li>
+                                                <h3>CLEANING DATE AND TIME</h3>
+                                                <li>Date: [(${orders.dateTime})]</li>
+                                                <li>Time: [(${orders.dateTime})]</li>
 
-                                            <h3>ESTIMATED TIME AND PRICE</h3>
-                                            <li>Estimated time: [(${orders.estimatedTime})]</li>
-                                            <li>Estimated price: [(${orders.estimatedPrice})]</li>
-                                        </ul>
-                                    </div>
-                                    </tbody>
-                                </table>
+                                                <h3>ESTIMATED TIME AND PRICE</h3>
+                                                <li>Estimated time: [(${orders.estimatedTime})]</li>
+                                                <li>Estimated price: [(${orders.estimatedPrice})]</li>
+                                            </ul>
+                                        </div>
+                                        </tbody>
+                                    </table>
 
-                            </div>
-                        </td>
-                    </tr>
-                </th:block>
+                                </div>
+                            </td>
+                        </tr>
+                    </th:block>
                     </tbody>
                 </table>
             </div>
@@ -111,31 +142,35 @@
         </div>
 
     </div>
-    <div th:if = "${totalPages > 1}">
-        <div class = "row col-sm-10">
-            <div class = "col-sm-2">
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
                 Total orders: [[${totalItems}]]
             </div>
 
-            <div class = "col-sm-1">
-                <a th:href="@{'/admin/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage > 1}">Prev</a>
+            <div class="col-sm-1">
+                <a th:href="@{'/admin/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                   th:if="${currentPage > 1}">Prev</a>
                 <span th:unless="${currentPage > 1 }">Prev</span>
             </div>
 
-            <div class = "col-sm-1">
-					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:href="@{'/admin/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage != i}">[[${i}]]</a>
-						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
-					</span>
+            <div class="col-sm-1">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:href="@{'/admin/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                           th:if="${currentPage != i}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                    </span>
             </div>
 
-            <div class = "col-sm-1">
-                <a th:href="@{'/admin/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage < totalPages}">Next</a>
+            <div class="col-sm-1">
+                <a th:href="@{'/admin/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                   th:if="${currentPage < totalPages}">Next</a>
                 <span th:unless="${currentPage < totalPages}">Next</span>
             </div>
 
             <div class="col-sm-1">
-                <a th:href="@{'/admin/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" th:if="${currentPage < totalPages}">Last</a>
+                <a th:href="@{'/admin/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                   th:if="${currentPage < totalPages}">Last</a>
                 <span th:unless="${currentPage < totalPages}">Last</span>
             </div>
 
@@ -200,9 +235,39 @@
 <!--    </table>-->
 <!--</section>-->
 
-<script crossorigin="anonymous"
-        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script crossorigin="anonymous" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script>
 
+    function deleteOrder(id) {
+        $.confirm({
+            title: 'Delete the order!',
+            type: 'red',
+            typeAnimated: true,
+            backgroundDismiss: true,
+            buttons: {
+                confirm: {
+
+                    text: 'delete',
+                    btnClass: 'btn-red',
+                    action: function () {
+                        document.location.href = '/admin/orders/delete/' + id;
+
+                        //  $.alert('Confirmed!');
+
+                    }
+                },
+                close: function () {
+                }
+            }
+        });
+
+    }
+
+
+</script>
 </body>
+
 </html>

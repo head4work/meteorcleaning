@@ -65,12 +65,12 @@ public class EstimateOrder extends AbstractNamedEntity {
     @Column(name = "oven_clean", columnDefinition = "bool default false")
     private boolean ovenClean;
 
-    @Column(name="windows")
+    @Column(name = "windows")
     @Min(value = 0, message = "{Size.Order.Windows]")
     @Max(value = 15, message = "{Size.Order.Windows]")
     private Integer windowClean;
 
-    @Column(name="cabinets")
+    @Column(name = "cabinets")
     @Min(value = 0, message = "{Size.Order.Cabinets]")
     @Max(value = 15, message = "{Size.Order.Cabinets]")
     private Integer cabinetClean;
@@ -80,6 +80,8 @@ public class EstimateOrder extends AbstractNamedEntity {
 
     @Column(name = "date_time")
     @NotNull(message = "{Size.Order.Date}")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+
     private LocalDateTime dateTime;
 
     @Column(name = "estimated_price")
@@ -130,9 +132,24 @@ public class EstimateOrder extends AbstractNamedEntity {
         String ref = refrigeratorClean ? yes : no;
         String oven = ovenClean ? yes : no;
         String window = windowClean > 0 ? String.valueOf(windowClean) : no;
-        String cabinet = cabinetClean > 0 ?  String.valueOf(cabinetClean) : no;
+        String cabinet = cabinetClean > 0 ? String.valueOf(cabinetClean) : no;
         String dish = dishesClean ? yes : no;
         String square = (squareFt == null) ? "none" : squareFt;
+        String house;
+        switch (Integer.parseInt(housingType)) {
+            case 1:
+                house = "Apartments";
+                break;
+            case 2:
+                house = "House";
+                break;
+            case 3:
+                house = "Office";
+                break;
+            case 0:
+            default:
+                house = "Studio";
+        }
 
         String htmlMailString =
                 "<h1>ESTIMATE ORDER DATA</h1>" +
@@ -144,7 +161,7 @@ public class EstimateOrder extends AbstractNamedEntity {
                         "<li>Email: " + email + "</li>" +
                         "<li>Phone: " + phone + "</li>" +
                         "<h2>HOUSE DATA</h2>" +
-                        "<li>Housing type: " + housingType + "</li>" +
+                        "<li>Housing type: " + house + "</li>" +
                         "<li>Square ft: " + square + "</li>" +
                         "<li>Bedrooms: " + bedrooms + "</li>" +
                         "<li>Bathrooms: " + bathrooms + "</li>" +
