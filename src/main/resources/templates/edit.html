@@ -11,18 +11,39 @@
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
     <style>
+        .wraper {
+            display: grid;
+            justify-content: center;
+        }
+
         .house-form {
             display: grid;
-            width: 70%;
-            padding-left: 100px;
-            padding-top: 70px;
             justify-content: space-around;
             gap: 10px;
             grid-template-areas:
-                ". user user user"
-                ". house options date"
-
+                "user user user"
+                "house options date"
             ;
+        }
+
+        @media screen and (max-width: 900px) {
+            .house-form {
+                display: grid;
+                justify-content: center;
+                gap: 10px;
+                grid-template-areas:
+                    "user "
+                    "house "
+                    "options"
+                    "date"
+                ;
+
+            }
+
+            .options {
+
+                justify-self: center;
+            }
         }
 
         .user-data {
@@ -74,202 +95,212 @@
 </head>
 
 <body>
-    <form action="#" class="estimate-form" id="estimate" method="post" th:action="@{/admin/orders/save}"
-        th:object="${order}">
-        <input th:field="*{id}" type="hidden" />
-        <div class="house-form shadow-sm p-3 mb-5 bg-body rounded ">
-            <div class="user-data shadow-sm p-3 mb-5 bg-body rounded">
-                <!-- 2 column grid layout with text inputs for the first and last names -->
-                <div class="row mb-4">
-                    <div class="col">
-                        <div class="form-outline">
-                            <input class="form-control" form="estimate" id="firstName" required th:field="*{name}"
-                                type="text" />
-                            <label class="form-label" for="firstName">First name</label>
+    <div class="wraper">
+        <form action="#" class="estimate-form" id="estimate" method="post" th:action="@{/admin/orders/save}"
+            th:object="${order}">
+            <input th:field="*{id}" type="hidden" />
+            <div class="house-form shadow-sm p-3 mb-5 bg-body rounded ">
+                <div class="user-data shadow-sm p-3 mb-5 bg-body rounded">
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row mb-1">
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control" form="estimate" id="firstName" required th:field="*{name}"
+                                    type="text" />
+                                <label class="form-label" for="firstName">First name</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control" form="estimate" id="lastName" th:field="*{lastName}"
+                                    type="text" />
+                                <label class="form-label" for="lastName">Last name</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="form-outline">
-                            <input class="form-control" form="estimate" id="lastName" th:field="*{lastName}"
-                                type="text" />
-                            <label class="form-label" for="lastName">Last name</label>
+
+
+                    <!-- Text input -->
+                    <div class="form-outline mb-1">
+                        <input class="form-control" form="estimate" id="address" required th:field="*{address}"
+                            type="text" />
+                        <label class="form-label" for="address">Address</label>
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-1">
+                        <input class="form-control" form="estimate" id="email" required th:field="*{email}"
+                            type="email" />
+                        <label class="form-label" for="email">Email</label>
+                    </div>
+
+                    <!-- Number input -->
+                    <div class="form-outline mb-1">
+                        <input class="form-control" form="estimate" id="phone" required th:field="*{phone}"
+                            type="number" />
+                        <label class="form-label" for="phone">Phone</label>
+                    </div>
+
+                </div>
+
+                <div class="house-data shadow p-3 mb-5 bg-body rounded">
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="housing-type">Housing type:</label>
+                        <select class="form-select" form="estimate" id="housing-type" th:field="*{housingType}">
+                            <option value="0">Studio</option>
+                            <option value="1">Apartments</option>
+                            <option value="2">House</option>
+                            <option value="3">Office</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-2" id="square-count">
+                        <label class="input-group-text" for="square-ft">square ft :</label>
+                        <input class="form-control" form="estimate" id="square-ft" max="10000" min="100"
+                            th:field="*{squareFt}" type="number" value="100" />
+                    </div>
+
+
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="bedroom-count">Bedroom:</label>
+                        <select class="form-select" form="estimate" id="bedroom-count" th:field="*{bedrooms}">
+                            <option selected value="0">One</option>
+                            <option value="1">Two</option>
+                            <option value="2">Three</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="bathroom-count">Bathroom:</label>
+                        <select class="form-select" form="estimate" id="bathroom-count" th:field="*{bathrooms}">
+                            <option selected value="0">One</option>
+                            <option value="1">Two</option>
+                            <option value="2">Three</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="half-bathroom-count">1/2 bathroom:</label>
+                        <select class="form-select" form="estimate" id="half-bathroom-count"
+                            th:field="*{halfBathrooms}">
+                            <option selected value="0">none</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="windows">Windows inside :</label>
+                        <input class="form-control" form="estimate" id="windows" max="15" min="0"
+                            th:field="*{windowClean}" type="number" value="0" />
+                    </div>
+
+
+
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="cabinets">Cabinet inside :</label>
+                        <input class="form-control" form="estimate" id="cabinets" max="15" min="0"
+                            th:field="*{cabinetClean}" type="number" value="0" />
+                    </div>
+
+                </div>
+
+                <div class="options shadow p-3 mb-5 bg-body rounded">
+
+                    <div class="option-wrap border border-1 rounded mb-2">
+                        <label for="greenCheck">Green clean :</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" form="estimate" id="greenCheck"
+                                th:checked="${order.greenClean}" th:field="*{greenClean}" type="checkbox"
+                                value="green" />
                         </div>
                     </div>
-                </div>
 
-
-                <!-- Text input -->
-                <div class="form-outline mb-4">
-                    <input class="form-control" form="estimate" id="address" required th:field="*{address}"
-                        type="text" />
-                    <label class="form-label" for="address">Address</label>
-                </div>
-
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                    <input class="form-control" form="estimate" id="email" required th:field="*{email}" type="email" />
-                    <label class="form-label" for="email">Email</label>
-                </div>
-
-                <!-- Number input -->
-                <div class="form-outline mb-4">
-                    <input class="form-control" form="estimate" id="phone" required th:field="*{phone}" type="number" />
-                    <label class="form-label" for="phone">Phone</label>
-                </div>
-
-            </div>
-
-            <div class="house-data shadow p-3 mb-5 bg-body rounded">
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="housing-type">Housing type:</label>
-                    <select class="form-select" form="estimate" id="housing-type" th:field="*{housingType}">
-                        <option value="0">Studio</option>
-                        <option value="1">Apartments</option>
-                        <option value="2">House</option>
-                        <option value="3">Office</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3" id="square-count">
-                    <label class="input-group-text" for="square-ft">square ft :</label>
-                    <input class="form-control" form="estimate" id="square-ft" max="10000" min="100"
-                        th:field="*{squareFt}" type="number" value="100" />
-                </div>
-
-
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="bedroom-count">Bedroom:</label>
-                    <select class="form-select" form="estimate" id="bedroom-count" th:field="*{bedrooms}">
-                        <option selected value="0">One</option>
-                        <option value="1">Two</option>
-                        <option value="2">Three</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="bathroom-count">Bathroom:</label>
-                    <select class="form-select" form="estimate" id="bathroom-count" th:field="*{bathrooms}">
-                        <option selected value="0">One</option>
-                        <option value="1">Two</option>
-                        <option value="2">Three</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="half-bathroom-count">1/2 bathroom:</label>
-                    <select class="form-select" form="estimate" id="half-bathroom-count" th:field="*{halfBathrooms}">
-                        <option selected value="0">none</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="windows">Windows inside :</label>
-                    <input class="form-control" form="estimate" id="windows" max="15" min="0" th:field="*{windowClean}"
-                        type="number" value="0" />
-                </div>
-
-
-
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="cabinets">Cabinet inside :</label>
-                    <input class="form-control" form="estimate" id="cabinets" max="15" min="0"
-                        th:field="*{cabinetClean}" type="number" value="0" />
-                </div>
-
-            </div>
-
-            <div class="options shadow p-3 mb-5 bg-body rounded">
-
-                <div class="option-wrap border border-1 rounded mb-2">
-                    <label for="greenCheck">Green clean :</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input"  form="estimate" id="greenCheck" th:checked="${order.greenClean}" th:field="*{greenClean}"
-                            type="checkbox" value="green" />
+                    <div class="option-wrap border border-1 rounded mb-2">
+                        <label for="deepCheck">Deep clean :</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input " form="estimate" id="deepCheck"
+                                th:checked="${order.deepClean}" th:field="*{deepClean}" type="checkbox" value="deep" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="option-wrap border border-1 rounded mb-2">
-                    <label for="deepCheck">Deep clean :</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input " form="estimate" id="deepCheck" th:checked="${order.deepClean}" th:field="*{deepClean}"
-                            type="checkbox" value="deep" />
-                    </div>
-                </div>
-
-                <!-- <div class="select-wrap">
+                    <!-- <div class="select-wrap">
                 <label for="steamCheck">Steam clean :</label>
                 <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox"
                     value="steam" />
             </div> -->
 
-                <div class="option-wrap border border-1 rounded mb-2">
-                    <label for="microwaveCheck">Microvawe clean :</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" form="estimate" id="microwaveCheck" th:checked="${order.microwaveClean}"
-                            th:field="*{microwaveClean}" type="checkbox" value="microwave" />
+                    <div class="option-wrap border border-1 rounded mb-2">
+                        <label for="microwaveCheck">Microvawe clean :</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" form="estimate" id="microwaveCheck"
+                                th:checked="${order.microwaveClean}" th:field="*{microwaveClean}" type="checkbox"
+                                value="microwave" />
+                        </div>
+                    </div>
+
+                    <div class="option-wrap border border-1 rounded mb-2">
+                        <label for="refrigeratorCheck">Refrigerator clean :</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" form="estimate" id="refrigeratorCheck"
+                                th:checked="${order.refrigeratorClean}" th:field="*{refrigeratorClean}" type="checkbox"
+                                value="refrigerator" />
+                        </div>
+                    </div>
+
+                    <div class="option-wrap border border-1 rounded mb-2">
+                        <label for="ovenCheck">Oven clean :</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" form="estimate" id="ovenCheck"
+                                th:checked="${order.ovenClean}" th:field="*{ovenClean}" type="checkbox" value="oven" />
+                        </div>
+                    </div>
+
+                    <div class="option-wrap border border-1 rounded mb-2">
+                        <label for="dishesCheck">Dishes wash :</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" form="estimate" id="dishesCheck"
+                                th:checked="${order.dishesClean}" th:field="*{dishesClean}" type="checkbox"
+                                value="dishes" />
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <input id="date-field" th:field="*{dateTime}" type="hidden"></input>
+                <input th:field="*{estimatedPrice}" type="hidden"></input>
+                <input th:field="*{estimatedTime}" type="hidden"></input>
+
+                <div class="date shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <label for="estimate-time">Date :</label>
+                        <input class="date-selector mb-3" form="estimate" id="estimate-time" name="estimate-time"
+                            required type="date">
+                        <div class="select-interval mb-3">
+                            <label for="select-time-interval">Choose time:</label>
+                            <select class="select" form="estimate" id="select-time-interval">
+                                <option selected value="0">11:AM - 2:PM</option>
+                                <option value="1">3:PM - 6:PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <input class="btn btn-success btn-lg" form="estimate" type="submit"></input>
+                        <button class="btn btn-secondary btn-sm" onclick="history.back()" type="button">cancel</button>
                     </div>
                 </div>
-
-                <div class="option-wrap border border-1 rounded mb-2">
-                    <label for="refrigeratorCheck">Refrigerator clean :</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" form="estimate" id="refrigeratorCheck" th:checked="${order.refrigeratorClean}"
-                            th:field="*{refrigeratorClean}" type="checkbox" value="refrigerator" />
-                    </div>
-                </div>
-
-                <div class="option-wrap border border-1 rounded mb-2">
-                    <label for="ovenCheck">Oven clean :</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" form="estimate" id="ovenCheck" th:checked="${order.ovenClean}" th:field="*{ovenClean}"
-                            type="checkbox" value="oven" />
-                    </div>
-                </div>
-
-                <div class="option-wrap border border-1 rounded mb-2">
-                    <label for="dishesCheck">Dishes wash :</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" form="estimate" id="dishesCheck" th:checked="${order.dishesClean}"
-                            th:field="*{dishesClean}" type="checkbox" value="dishes" />
-                    </div>
-                </div>
-
 
 
 
             </div>
-            <input id="date-field" th:field="*{dateTime}"  type="hidden"></input>
-            <input  th:field="*{estimatedPrice}"  type="hidden"></input>
-            <input  th:field="*{estimatedTime}"  type="hidden"></input>
-
-            <div class="date shadow p-3 mb-5 bg-body rounded">
-                <div>
-                    <label for="estimate-time">Date :</label>
-                    <input  class="date-selector mb-3" form="estimate" id="estimate-time"
-                        name="estimate-time" required type="date">
-                    <div class="select-interval mb-3">
-                        <label for="select-time-interval">Choose time:</label>
-                        <select class="select" form="estimate" id="select-time-interval">
-                            <option selected value="0">11:AM - 2:PM</option>
-                            <option value="1">3:PM - 6:PM</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <input class="btn btn-success btn-lg" form="estimate" type="submit"></input>
-                    <button class="btn btn-secondary btn-sm" onclick="history.back()" type="button">cancel</button>
-                </div>
-            </div>
+        </form>
+    </div>
 
 
-
-        </div>
-    </form>
-
-    <script crossorigin="anonymous"
-        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -297,7 +328,7 @@
 
         $(".date-selector, #select-time-interval").change(changeDate);
 
-        function changeDate(){
+        function changeDate() {
             updateDate = getDateTime();
             console.log(updateDate);
             $("#date-field").val(updateDate);
