@@ -82,6 +82,23 @@ datePickerConfig = {
 }
 
 //INIT FUNCTIONS
+$(function() {
+  $.ajax({
+    type: "GET",
+    url: "/prices",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function (response) {
+      console.log(response.apartments);
+    },
+    failure: function (response) {
+      alert("Failed to load prices");
+    },
+    error: function (response) {
+      alert("Failed to load prices");
+    }
+  });
+});
 estimateCount();
 setDataMinToday();
 const fp = flatpickr("#estimate-time", datePickerConfig);
