@@ -12,9 +12,9 @@ public class DataJpaPriceRepository {
 
     public OrderPrices getPrices() {
         return repository.findAll().stream().findFirst().orElse(new OrderPrices(true,
-                100,100,100,1,1,
-                50,24,50,50,50,
-                50,50,5,5,50,50));
+                140,170,220,0.5,0.3,
+                20,24,40,1.3,20,
+                30,30,8,10,10,50));
     }
 
     public OrderPrices save(OrderPrices prices) {

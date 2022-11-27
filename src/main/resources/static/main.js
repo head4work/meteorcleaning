@@ -82,24 +82,7 @@ datePickerConfig = {
 }
 
 //INIT FUNCTIONS
-$(function() {
-  $.ajax({
-    type: "GET",
-    url: "/prices",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (response) {
-      console.log(response.apartments);
-    },
-    failure: function (response) {
-      alert("Failed to load prices");
-    },
-    error: function (response) {
-      alert("Failed to load prices");
-    }
-  });
-});
-estimateCount();
+getPrices();
 setDataMinToday();
 const fp = flatpickr("#estimate-time", datePickerConfig);
 checkOfficeType();
@@ -121,6 +104,24 @@ function openTimeSelector() {
 }
 
 // FUNCTION
+function getPrices(){
+  $.ajax({
+    type: "GET",
+    url: "/prices",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function (response) {
+      let newPrices = Object.assign(prices,response);
+      estimateCount();
+    },
+    failure: function (response) {
+      alert("Failed to load prices");
+    },
+    error: function (response) {
+      alert("Failed to load prices");
+    }
+  });
+}
 function estimateCount() {
   count = 0;
   time = 0;
@@ -210,6 +211,7 @@ function estimateCount() {
 }
 
 $("#carouselBook1,#carouselBook2,#carouselBook3").on("click", function () {
+  estimateCount();
   openModal();
 });
 

@@ -22,10 +22,10 @@ public class OrderPrices {
     private Integer house;
 
     @Column(name = "housesqr")
-    private Integer houseFt; //per sq ft
+    private double houseFt; //per sq ft
 
     @Column(name = "office")
-    private Integer office; //per sq ft
+    private double office; //per sq ft
 
     @Column(name = "bedroom")
     private Integer bedroom;
@@ -37,7 +37,7 @@ public class OrderPrices {
     private Integer greenClean;
 
     @Column(name = "deep")
-    private Integer deepClean; // coaf * multiply base + rooms
+    private double deepClean; // coaf * multiply base + rooms
 
     @Column(name = "microwave")
     private Integer microwaveClean;
@@ -79,7 +79,7 @@ public class OrderPrices {
 //    weekend: 50
 
 
-    public OrderPrices(Boolean prices_id, Integer studio, Integer apartments, Integer house, Integer houseFt, Integer office, Integer bedroom, Integer bathroom, Integer greenClean, Integer deepClean,
+    public OrderPrices(Boolean prices_id, Integer studio, Integer apartments, Integer house, double houseFt, double office, Integer bedroom, Integer bathroom, Integer greenClean, double deepClean,
                        Integer microwaveClean, Integer refrigeratorClean, Integer ovenClean, Integer windows, Integer cabinet, Integer dishesWash, Integer weekend) {
         this.prices_id = prices_id;
         this.studio = studio;
@@ -127,19 +127,19 @@ public class OrderPrices {
         this.house = house;
     }
 
-    public Integer getHouseFt() {
+    public double getHouseFt() {
         return houseFt;
     }
 
-    public void setHouseFt(Integer houseFt) {
+    public void setHouseFt(double houseFt) {
         this.houseFt = houseFt;
     }
 
-    public Integer getOffice() {
+    public double getOffice() {
         return office;
     }
 
-    public void setOffice(Integer office) {
+    public void setOffice(double office) {
         this.office = office;
     }
 
@@ -167,11 +167,11 @@ public class OrderPrices {
         this.greenClean = greenClean;
     }
 
-    public Integer getDeepClean() {
+    public double getDeepClean() {
         return deepClean;
     }
 
-    public void setDeepClean(Integer deepClean) {
+    public void setDeepClean(double deepClean) {
         this.deepClean = deepClean;
     }
 
