@@ -1,6 +1,7 @@
 package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.model.EstimateOrder;
+import com.example.meteorCleaning.model.OrderPrices;
 import com.example.meteorCleaning.service.EstimateDataService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,19 @@ public class AdminController {
         List<EstimateOrder> orders =  service.getAll() ;
         model.addAttribute("orders", orders);
         return "admin";
+    }
+
+    @GetMapping("/prices")
+    public String getPrices(Model model) {
+        OrderPrices prices =  service.getPrices() ;
+        model.addAttribute("prices", prices);
+        return "prices";
+    }
+
+    @PostMapping("/prices/save")
+    public String savePrices(@ModelAttribute("prices") OrderPrices prices) {
+        service.savePrices(prices);
+        return "redirect:/admin";
     }
 
     @GetMapping("/page/{pageNumber}")
@@ -66,7 +80,6 @@ public class AdminController {
 
     @PostMapping("/orders/save")
     public String submitForm(@ModelAttribute("order") EstimateOrder order) {
-        System.out.println("saving");
         service.save(order);
         return "redirect:/admin";
     }
