@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    <style>
+        .hidden-h3{
+            margin-top: 20px;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
@@ -18,7 +23,7 @@
 </head>
 
 <body>
-    
+
     <div th:insert="fragments/components :: sidebar"></div>
 
     <div class="container">
@@ -61,8 +66,7 @@
                                 <tr class="accordion-toggle" data-bs-toggle="collapse"
                                     th:attr="data-bs-target='#accordion-'+${orders.id}">
                                     <td>
-                                        <button class="btn btn-default btn-xs"><span
-                                                class="glyphicon glyphicon-eye-open"></span></button>
+                                        <button class="btn btn-default btn-xs"><i class='bx bxs-edit bx-xs'></i></button>
                                     </td>
                                     <td th:utext="${iterStat.count}"></td>
                                     <td th:text="${orders.dateTime}"></td>
@@ -91,7 +95,7 @@
     
                                                 <div class="hiden-info">
                                                     <ul>
-                                                        <h3>HOUSE DATA</h3>
+                                                        <h3 class="hidden-h3">HOUSE DATA</h3>
                                                         <div th:switch="${orders.housingType}">
                                                             <li th:case="1">Housing type: Apartments</li>
                                                             <li th:case="2">Housing type: House</li>
@@ -127,11 +131,11 @@
                                                                 th:text="${orders.dishesClean} ? '&#9989;' : '&#10006;' "></span>
                                                         </li>
     
-                                                        <h3>CLEANING DATE AND TIME</h3>
+                                                        <h3 class="hidden-h3">CLEANING DATE AND TIME</h3>
                                                         <li>Date: [(${orders.dateTime})]</li>
                                                         <li>Time: [(${orders.dateTime})]</li>
     
-                                                        <h3>ESTIMATED TIME AND PRICE</h3>
+                                                        <h3 class="hidden-h3">ESTIMATED TIME AND PRICE</h3>
                                                         <li>Estimated time: [(${orders.estimatedTime})]</li>
                                                         <li>Estimated price: [(${orders.estimatedPrice})]</li>
                                                     </ul>
