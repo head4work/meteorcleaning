@@ -281,7 +281,10 @@ function checkOfficeType() {
     $("#bedroom-count, #bathroom-count, #half-bathroom-count").val(0);
   }
   parseInt(house_value) > 1 ? openElementCount(square_count) : closeElementCount(square_count);
-  parseInt(house_value) === 3 || parseInt(house_value) === 0 ? disableHousingElements() : enableHousingElements();
+  if ($('title').text() != "Edit"){
+    parseInt(house_value) === 3 || parseInt(house_value) === 0 ? disableHousingElements() : enableHousingElements();
+  }
+
 }
 
 //AJAX
