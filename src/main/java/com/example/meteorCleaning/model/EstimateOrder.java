@@ -85,7 +85,7 @@ public class EstimateOrder extends AbstractNamedEntity {
     private LocalDateTime dateTime;
 
     @Column(name = "estimated_price")
-    private String estimatedPrice;
+    private Integer estimatedPrice;
 
     @Column(name = "estimated_time")
     private String estimatedTime;
@@ -93,7 +93,7 @@ public class EstimateOrder extends AbstractNamedEntity {
 
     public EstimateOrder(String name, String lastName, String address, String email, String phone, String housingType,
                          String squareFt, String bedrooms, String bathrooms, String halfBathrooms, boolean greenClean, boolean deepClean,
-                         boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, Integer windowClean, Integer cabinetClean, boolean dishesClean, @NotBlank(message = "{Size.Order.Date}") LocalDateTime dateTime, String estimatedPrice, String estimatedTime) {
+                         boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, Integer windowClean, Integer cabinetClean, boolean dishesClean, @NotBlank(message = "{Size.Order.Date}") LocalDateTime dateTime, Integer estimatedPrice, String estimatedTime) {
         this.windowClean = windowClean;
         this.cabinetClean = cabinetClean;
         this.name = name;
@@ -282,11 +282,11 @@ public class EstimateOrder extends AbstractNamedEntity {
         this.dateTime = date;
     }
 
-    public String getEstimatedPrice() {
+    public Integer getEstimatedPrice() {
         return estimatedPrice;
     }
 
-    public void setEstimatedPrice(String estimatedPrice) {
+    public void setEstimatedPrice(Integer estimatedPrice) {
         this.estimatedPrice = estimatedPrice;
     }
 

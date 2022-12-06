@@ -195,16 +195,16 @@
                     </div>
 
                     <div class="input-group mb-2">
-                        <label class="input-group-text" for="windows">Windows inside :</label>
-                        <input class="form-control" form="estimate" id="windows" max="15" min="0"
+                        <label class="input-group-text" for="windowCheck">Windows inside :</label>
+                        <input class="form-control" form="estimate" id="windowCheck" max="15" min="0"
                             th:field="*{windowClean}" type="number" value="0" />
                     </div>
 
 
 
                     <div class="input-group mb-2">
-                        <label class="input-group-text" for="cabinets">Cabinet inside :</label>
-                        <input class="form-control" form="estimate" id="cabinets" max="15" min="0"
+                        <label class="input-group-text" for="cabinetCheck">Cabinet inside :</label>
+                        <input class="form-control" form="estimate" id="cabinetCheck" max="15" min="0"
                             th:field="*{cabinetClean}" type="number" value="0" />
                     </div>
 
@@ -275,7 +275,6 @@
 
                 </div>
                 <input id="date-field" th:field="*{dateTime}" type="hidden"></input>
-                <input th:field="*{estimatedPrice}" type="hidden"></input>
                 <input th:field="*{estimatedTime}" type="hidden"></input>
 
                 <div class="date shadow p-3 mb-5 bg-body rounded">
@@ -291,6 +290,13 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="totalPrice">Estimated price :</label>
+                        <input class="form-control" form="estimate" id="totalPrice" max="10000" min="1" step="any"
+                               th:field="*{estimatedPrice}" type="number" value="100" />
+                    </div>
+
                     <div class="buttons">
                         <input class="btn btn-success btn-lg" form="estimate" type="submit"></input>
                         <button class="btn btn-secondary btn-sm" onclick="history.back()" type="button">cancel</button>
@@ -345,7 +351,18 @@
             return dateTime.toISOString();
         }
     </script>
+    <script src="/main.js" type="module">
+
+        import {estimateCount} from '/main.js'
+        estimateCount();
+        $(".form-control").change(estimateCount);
+
+
+
+    </script>
+
     <script src="/edit.js"></script>
+
 </body>
 
 </html>

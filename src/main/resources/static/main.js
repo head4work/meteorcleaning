@@ -73,7 +73,7 @@ let weekendClean = false;
 
 
 
-datePickerConfig = {
+let datePickerConfig = {
   altInput: true,
   altFormat: "F j, Y ",
   dateFormat: "Z",
@@ -205,6 +205,8 @@ function estimateCount() {
   count += weekendClean ? prices.weekend : 0;
 
   $('#totalPrice').text(count + "$");
+  $('#totalPrice').val(count);
+
   $('#totalTime').text(time_convert(time.toFixed()) + " min");
 
   return count;
@@ -275,6 +277,9 @@ function countSqaureft() {
 function checkOfficeType() {
   let square_count = "#square-count";
   let house_value = $("#housing-type option:selected").val();
+  if (parseInt(house_value) === 0){
+    $("#bedroom-count, #bathroom-count, #half-bathroom-count").val(0);
+  }
   parseInt(house_value) > 1 ? openElementCount(square_count) : closeElementCount(square_count);
   parseInt(house_value) === 3 || parseInt(house_value) === 0 ? disableHousingElements() : enableHousingElements();
 }
@@ -285,14 +290,16 @@ function dateValidRequired() {
 }
 
 $(document).ready(function () {
+  if ($('title').text() != "Edit"){
+    $("#estimate").submit(function (event) {
+      //stop submit the form, we will post it manually.
+      event.preventDefault();
 
-  $("#estimate").submit(function (event) {
-    //stop submit the form, we will post it manually.
-    event.preventDefault();
+      //check email provided
+      dateValidRequired() ? confirm() : emailEmptyPopup();
+    });
+  }
 
-    //check email provided
-    dateValidRequired() ? confirm() : emailEmptyPopup();
-  });
 
 });
 
@@ -353,7 +360,7 @@ function fire_ajax_submit() {
   // estimateData["time"] = $("#select-time-interval option:selected").text();
 
   estimateData["estimatedTime"] = $("#totalTime").text();
-  estimateData["estimatedPrice"] = $("#totalPrice").text();
+  estimateData["estimatedPrice"] = parseInt($("#totalPrice").text().slice(0,-1));
 
   console.log(estimateData);
 
