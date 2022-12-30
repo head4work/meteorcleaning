@@ -70,18 +70,20 @@ let time = 0;
 let maximumDate = new Date().setDate(today.getDate() + 30);
 let tomorrow = new Date().setDate(today.getDate() + 1);
 let weekendClean = false;
-
-
+let ocuupiedDates = [];
+let disableDates = [];
 
 let datePickerConfig = {
   altInput: true,
   altFormat: "F j, Y ",
   dateFormat: "Z",
   minDate: tomorrow,
-  maxDate: maximumDate
+  maxDate: maximumDate,
+  disable : [rmySpecificdays]
 }
 
 //INIT FUNCTIONS
+getOccupiedDateTimes();
 getPrices();
 setDataMinToday();
 const fp = flatpickr("#estimate-time", datePickerConfig);
@@ -99,11 +101,57 @@ fp.config.onChange.push(() => {
   weekendClean = checkSunday();
 });
 
-function openTimeSelector() {
-  $(".select-interval").addClass("active");
-}
+
 
 // FUNCTION
+function openTimeSelector() {
+  enableTime();
+  let date = fp.selectedDates[0].toISOString().substring(0, 10);
+  let index = ocuupiedDates.findIndex(e => e === date);
+
+ if(index > -1 ){
+  let timePeriod = ocuupiedDates[index + 1]
+   disableTime(timePeriod);
+ }
+
+  $(".select-interval").addClass("active");
+}
+function disableTime(time){
+  $('#select-time-interval').val(time === 0 ? 1 : 0);
+  $('#select-time-interval option[value="'+time+'"]').attr("disabled", true);
+}
+
+function enableTime(){
+  $('#select-time-interval').children().attr("disabled", false);
+}
+
+function rmySpecificdays(date) {
+  return disableDates.includes(date.toISOString().substring(0, 10));
+}
+
+
+function getOccupiedDateTimes(){
+  $.ajax({
+    type: "GET",
+    url: "/dates",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function (response) {
+     $.each(response, function(k,v){
+      if(v > 3){
+        disableDates.push(k);
+      } ocuupiedDates.push(k,v);
+     })
+    },
+    failure: function (response) {
+      alert("Failed to load dates");
+    },
+    error: function (response) {
+      alert("Failed to load dates");
+    }
+  });
+}
+
 function getPrices(){
   $.ajax({
     type: "GET",
@@ -365,7 +413,6 @@ function fire_ajax_submit() {
   estimateData["estimatedTime"] = $("#totalTime").text();
   estimateData["estimatedPrice"] = parseInt($("#totalPrice").text().slice(0,-1));
 
-  console.log(estimateData);
 
   $("#make-estimate").prop("disabled", true);
 

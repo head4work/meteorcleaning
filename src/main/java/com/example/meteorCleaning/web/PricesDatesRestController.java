@@ -5,6 +5,8 @@ import com.example.meteorCleaning.service.EstimateDataService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class PricesDatesRestController {
     private final EstimateDataService service;
@@ -17,5 +19,10 @@ public class PricesDatesRestController {
     @GetMapping("/prices")
     OrderPrices getPrices(){
       return   service.getPrices();
+    }
+
+    @GetMapping("/dates")
+    Map<Object, Long> getAllDates(){
+        return service.getAllDates();
     }
 }

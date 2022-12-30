@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EstimateDataService {
@@ -67,5 +68,9 @@ public class EstimateDataService {
 
     public OrderPrices savePrices(OrderPrices prices) {
       return  priceRepository.save(prices);
+    }
+
+    public Map<Object, Long> getAllDates() {
+      return   repository.getAllDates();
     }
 }

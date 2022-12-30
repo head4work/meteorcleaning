@@ -69,7 +69,7 @@
                                         <button class="btn btn-default btn-xs"><i class='bx bxs-edit bx-xs'></i></button>
                                     </td>
                                     <td th:utext="${iterStat.count}"></td>
-                                    <td th:text="${orders.dateTime}"></td>
+                                    <td  th:text="${#temporals.format(orders.dateTime, 'MMMM/dd/y HH:mm')}" ></td>
                                     <td th:text="${orders.email}"></td>
                                     <td th:text="${orders.phone}"></td>
                                     <td th:text="${orders.name}"></td>

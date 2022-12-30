@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class DataJpaOrderRepository {
@@ -44,5 +46,19 @@ public class DataJpaOrderRepository {
       return   repository.delete(id);
     }
 
+    public Map<Object, Long> getAllDates() {
 
+        List<EstimateOrder> futureOrders = repository.getFutureOrders();
+        Map<Object,Long> result = new ConcurrentHashMap<>();
+         futureOrders.forEach(e -> result.compute(e.getDateTime().toLocalDate(), (k, v) -> {
+             if (v == null){
+                 if(e.getDateTime().getHour() == 11){
+                     return 0L;
+                 } return 1L;
+             }
+             return  v + 3L;
+         }));
+
+         return result;
+    }
 }
