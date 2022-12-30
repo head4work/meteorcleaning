@@ -96,9 +96,11 @@ select_element.forEach(e => e.addEventListener('change', estimateCount));
 document.querySelector("#square-ft").addEventListener('input', countSqaureft);
 
 fp.config.onChange.push(() => {
-  openTimeSelector();
-  // check if selected date is sunday
-  weekendClean = checkSunday();
+  if (fp.selectedDates.length > 0){
+    openTimeSelector();
+    // check if selected date is sunday
+    weekendClean = checkSunday();
+  }
 });
 
 
@@ -261,6 +263,7 @@ function estimateCount() {
 }
 
 $("#carouselBook1,#carouselBook2,#carouselBook3").on("click", function () {
+  getOccupiedDateTimes();
   estimateCount();
   openModal();
 });
@@ -433,6 +436,8 @@ function fire_ajax_submit() {
       $.LoadingOverlay("hide");
       successPopUp();
       $("#make-estimate").prop("disabled", false);
+      $("#estimate").trigger("reset");
+      fp.clear();
     },
     error: function (e) {
       console.log("ERROR : ", e);
