@@ -118,11 +118,11 @@ function openTimeSelector() {
 }
 function disableTime(time){
   $('#select-time-interval').val(time === 0 ? 1 : 0);
-  $('#select-time-interval option[value="'+time+'"]').attr("disabled", true);
+  $('#select-time-interval option[value="'+time+'"]').attr("disabled", true).addClass("disabled");
 }
 
 function enableTime(){
-  $('#select-time-interval').children().attr("disabled", false);
+  $('#select-time-interval').children().attr("disabled", false).removeClass("disabled");
 }
 
 function rmySpecificdays(date) {

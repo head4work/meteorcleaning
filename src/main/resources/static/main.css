@@ -388,3 +388,8 @@ footer {
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
+
+.disabled{
+    background-color: rgb(58, 0, 0);
+    color: rgb(58, 0, 0);
+  }
