@@ -71,7 +71,7 @@ let maximumDate = new Date().setDate(today.getDate() + 30);
 let tomorrow = new Date().setDate(today.getDate() + 1);
 let weekendClean = false;
 let ocuupiedDates = [];
-let disableDates = [];
+let disableDates = new Set();
 
 let datePickerConfig = {
   altInput: true,
@@ -79,15 +79,17 @@ let datePickerConfig = {
   dateFormat: "Z",
   minDate: tomorrow,
   maxDate: maximumDate,
-  disable : [rmySpecificdays]
 }
+const fp = flatpickr("#estimate-time",datePickerConfig);
+
 
 //INIT FUNCTIONS
 getOccupiedDateTimes();
+updateDisableDates();
 getPrices();
 setDataMinToday();
-const fp = flatpickr("#estimate-time", datePickerConfig);
 checkOfficeType();
+
 
 
 // EVENT LISTENERS
@@ -106,6 +108,12 @@ fp.config.onChange.push(() => {
 
 
 // FUNCTION
+function updateDisableDates() {
+  $.when(getOccupiedDateTimes()).done(function (){
+    fp.set("disable",[rmySpecificdays]);
+  });
+}
+
 function openTimeSelector() {
   enableTime();
   let date = fp.selectedDates[0].toISOString().substring(0, 10);
@@ -128,12 +136,11 @@ function enableTime(){
 }
 
 function rmySpecificdays(date) {
-  return disableDates.includes(date.toISOString().substring(0, 10));
+  return disableDates.has(date.toISOString().substring(0, 10));
 }
 
-
 function getOccupiedDateTimes(){
-  $.ajax({
+ return  $.ajax({
     type: "GET",
     url: "/dates",
     contentType: "application/json; charset=utf-8",
@@ -141,7 +148,7 @@ function getOccupiedDateTimes(){
     success: function (response) {
      $.each(response, function(k,v){
       if(v > 3){
-        disableDates.push(k);
+        disableDates.add(k);
       } ocuupiedDates.push(k,v);
      })
     },
@@ -437,6 +444,8 @@ function fire_ajax_submit() {
       successPopUp();
       $("#make-estimate").prop("disabled", false);
       $("#estimate").trigger("reset");
+      getOccupiedDateTimes();
+      updateDisableDates();
       fp.clear();
     },
     error: function (e) {
