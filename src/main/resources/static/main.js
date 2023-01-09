@@ -111,6 +111,7 @@ fp.config.onChange.push(() => {
 function updateDisableDates() {
   $.when(getOccupiedDateTimes()).done(function (){
     fp.set("disable",[rmySpecificdays]);
+    console.log(disableDates);
   });
 }
 
