@@ -150,7 +150,7 @@ function getOccupiedDateTimes(){
     dataType: "json",
     success: function (response) {
      $.each(response, function(k,v){
-      if(v > 3){
+      if(v > 2){
         disableDates.add(k);
       } ocuupiedDates.push(k,v);
      })
