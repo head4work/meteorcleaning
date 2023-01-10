@@ -84,7 +84,7 @@ const fp = flatpickr("#estimate-time",datePickerConfig);
 
 
 //INIT FUNCTIONS
-getOccupiedDateTimes();
+//getOccupiedDateTimes();
 updateDisableDates();
 getPrices();
 setDataMinToday();
@@ -112,6 +112,8 @@ function updateDisableDates() {
   $.when(getOccupiedDateTimes()).done(function (){
     fp.set("disable",[rmySpecificdays]);
     console.log(disableDates);
+    console.log(ocuupiedDates);
+
   });
 }
 
@@ -445,7 +447,6 @@ function fire_ajax_submit() {
       successPopUp();
       $("#make-estimate").prop("disabled", false);
       $("#estimate").trigger("reset");
-      getOccupiedDateTimes();
       updateDisableDates();
       fp.clear();
     },
