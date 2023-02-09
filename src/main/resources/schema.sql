@@ -51,34 +51,36 @@ CREATE TABLE orders
 
     date_time          TIMESTAMP             NOT NULL,
     estimated_price    VARCHAR               NOT NULL,
-    estimated_time     VARCHAR               NOT NULL
+    estimated_time     VARCHAR               NOT NULL,
+    user_id            INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+
 );
 create unique index orders_date_time_uindex
     on orders (date_time);
 
 
 
-
 CREATE TABLE prices
 (
-    prices_id         bool PRIMARY KEY DEFAULT TRUE,
+    prices_id    bool PRIMARY KEY DEFAULT TRUE,
 
-    studio            INTEGER          DEFAULT 140,
-    apartments        INTEGER          DEFAULT 170,
-    house             INTEGER          DEFAULT 220,
-    housesqr          NUMERIC(2,1)          DEFAULT 0.5,
-    office            NUMERIC(2,1)          DEFAULT 0.3,
-    bedroom           INTEGER          DEFAULT 20,
-    bathroom          INTEGER          DEFAULT 24,
+    studio       INTEGER          DEFAULT 140,
+    apartments   INTEGER          DEFAULT 170,
+    house        INTEGER          DEFAULT 220,
+    housesqr     NUMERIC(2, 1)    DEFAULT 0.5,
+    office       NUMERIC(2, 1)    DEFAULT 0.3,
+    bedroom      INTEGER          DEFAULT 20,
+    bathroom     INTEGER          DEFAULT 24,
     green        INTEGER          DEFAULT 40,
-    deep         NUMERIC(2,1)          DEFAULT 1.3,
+    deep         NUMERIC(2, 1)    DEFAULT 1.3,
     microwave    INTEGER          DEFAULT 20,
     refrigerator INTEGER          DEFAULT 30,
     oven         INTEGER          DEFAULT 30,
-    windows           INTEGER          DEFAULT 8,
-    cabinet           INTEGER          DEFAULT 10,
-    dishes        INTEGER          DEFAULT 10,
-    weekend           INTEGER          DEFAULT 50,
+    windows      INTEGER          DEFAULT 8,
+    cabinet      INTEGER          DEFAULT 10,
+    dishes       INTEGER          DEFAULT 10,
+    weekend      INTEGER          DEFAULT 50,
 
     CONSTRAINT prices_uni CHECK (prices_id)
 );

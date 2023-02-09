@@ -1,6 +1,7 @@
-package com.example.meteorCleaning.repository;
+package com.example.meteorCleaning.repository.datajpa;
 
 import com.example.meteorCleaning.model.EstimateOrder;
+import com.example.meteorCleaning.repository.OrderCrudRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

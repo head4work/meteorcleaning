@@ -1,6 +1,7 @@
-package com.example.meteorCleaning.repository;
+package com.example.meteorCleaning.repository.datajpa;
 
 import com.example.meteorCleaning.model.OrderPrices;
+import com.example.meteorCleaning.repository.PriceCrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
 public class DataJpaPriceRepository {

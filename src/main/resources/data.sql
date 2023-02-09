@@ -5,6 +5,14 @@ FROM users;
 DELETE
 FROM orders;
 
+INSERT INTO users (name, email, password)
+VALUES ('User', 'user@yandex.ru', 'password'),
+       ('Admin', 'admin@gmail.com', 'admin'),
+       ('Guest', 'guest@gmail.com', 'guest');
+INSERT INTO user_roles (role, user_id)
+VALUES ('USER', 1),
+       ('ADMIN', 2),
+       ('USER', 3);
 
  INSERT INTO orders (name, last_name, email, address, phone,housing_type,square_ft,bedrooms,bathrooms,
                      half_bathrooms,green_clean,deep_clean,microwave_clean,refrigerator_clean,

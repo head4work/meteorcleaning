@@ -357,4 +357,5 @@ public class EstimateOrder extends AbstractNamedEntity {
     public void setCabinetClean(Integer cabinetClean) {
         this.cabinetClean = cabinetClean;
     }
+
 }

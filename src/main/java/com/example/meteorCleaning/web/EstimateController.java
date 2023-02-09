@@ -2,7 +2,7 @@ package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.model.AjaxResponseBody;
 import com.example.meteorCleaning.model.EstimateOrder;
-import com.example.meteorCleaning.repository.DataJpaOrderRepository;
+import com.example.meteorCleaning.repository.datajpa.DataJpaOrderRepository;
 import com.example.meteorCleaning.service.EstimateDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

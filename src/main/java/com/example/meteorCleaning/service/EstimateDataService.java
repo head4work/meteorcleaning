@@ -2,8 +2,8 @@ package com.example.meteorCleaning.service;
 
 import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.OrderPrices;
-import com.example.meteorCleaning.repository.DataJpaOrderRepository;
-import com.example.meteorCleaning.repository.DataJpaPriceRepository;
+import com.example.meteorCleaning.repository.datajpa.DataJpaOrderRepository;
+import com.example.meteorCleaning.repository.datajpa.DataJpaPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
