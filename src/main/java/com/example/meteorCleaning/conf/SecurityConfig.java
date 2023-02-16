@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -39,18 +38,18 @@ public class SecurityConfig {
                 .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                 .requiresSecure();
         http.authorizeRequests()
-                .antMatchers("/","/estimate","/login","/prices","/dates").permitAll()
+                .antMatchers("/","/estimate","/login","/prices","/dates","/css/**","/images/**","/js/**").permitAll()
                 .antMatchers("/admin","/admin/**" ).hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin();
         return http.build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .antMatchers("/css/**","/images/**","/js/**");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring()
+//                .antMatchers("/css/**","/images/**","/js/**");
+//    }
 
 /*    @Bean
     protected InMemoryUserDetailsManager configureAuthentication() {

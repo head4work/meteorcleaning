@@ -1,11 +1,13 @@
 package com.example.meteorCleaning.model;
 
+import com.example.meteorCleaning.HasId;
+
 import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
-public class AbstractBaseEntity {
+public class AbstractBaseEntity implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

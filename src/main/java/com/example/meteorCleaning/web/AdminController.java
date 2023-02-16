@@ -20,7 +20,7 @@ public class AdminController {
     }
     @GetMapping()
     public String getFirstPage(Model model){
-        return getOnePage(model, 1,"dateTime","desc");
+        return getOnePage(model, 1,"dateTime","desc","1");
     }
 
     @GetMapping("/orders")
@@ -47,9 +47,10 @@ public class AdminController {
     public String getOnePage(Model model,
                              @PathVariable("pageNumber") int pageNumber,
                              @RequestParam("sortField") String field,
-                             @RequestParam("sortDir") String direction
+                             @RequestParam("sortDir") String direction,
+                             @RequestParam(name="size",required = false) String size
                              ){
-        int pageSize = 5;
+            int pageSize = size == null ? 1 :  Integer.parseInt(size);
         Page<EstimateOrder> page = service.findPage(pageNumber,pageSize,field,direction);
         List<EstimateOrder> orders = page.getContent();
         model.addAttribute("currentPage", pageNumber);
@@ -58,6 +59,7 @@ public class AdminController {
 
         model.addAttribute("sortField", field);
         model.addAttribute("sortDir", direction);
+        model.addAttribute("size", size);
         model.addAttribute("reverseSortDir", direction.equals("asc") ? "desc" : "asc");
 
 
