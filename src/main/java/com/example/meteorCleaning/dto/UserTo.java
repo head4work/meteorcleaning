@@ -23,15 +23,17 @@ public class UserTo extends BaseTo implements Serializable {
     @Size(min = 5, max = 32, message = "length must be between 5 and 32 characters")
     private String password;
 
+    private boolean enabled ;
 
     public UserTo() {
     }
 
-    public UserTo(Integer id, String name, String email, String password) {
+    public UserTo(Integer id, String name, String email, String password, boolean enabled) {
         super(id);
         this.name = name;
         this.email = email;
         this.password = password;
+        this.enabled = enabled;
     }
 
     public String getPassword() {
@@ -58,7 +60,13 @@ public class UserTo extends BaseTo implements Serializable {
         this.email = email;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     @Override
     public String toString() {

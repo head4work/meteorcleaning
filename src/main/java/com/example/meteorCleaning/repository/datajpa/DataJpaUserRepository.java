@@ -3,6 +3,8 @@ package com.example.meteorCleaning.repository.datajpa;
 import com.example.meteorCleaning.model.User;
 import com.example.meteorCleaning.repository.CrudUserRepository;
 import com.example.meteorCleaning.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -46,5 +48,9 @@ public class DataJpaUserRepository implements UserRepository {
     @Override
     public User getWithOrders(int id) {
         return crudRepository.getWithOrders(id);
+    }
+
+    public Page<User> getAll(Pageable pageable) {
+        return crudRepository.findAll(pageable);
     }
 }
