@@ -38,6 +38,7 @@ nav {
 }
 
 .login{
+    display: none;
     grid-area: login;
     width: 50%;
     align-self: center;
@@ -411,7 +412,8 @@ footer {
     border: 1px solid transparent;
     border-radius: 0.5rem;
 }
-#message{
+.headerText {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
 }

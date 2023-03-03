@@ -546,13 +546,6 @@
                     <!-- Submit button -->
                     <button class="btn btn-primary btn-block mb-4" form="login" onclick="ajaxLogin(event)" type="submit">Sign in</button>
 
-                    <!-- Register buttons -->
-                    <div class="text-center">
-                        <p>Not a member? <a href="#!">Register</a></p>
-                    </div>
-
-                    <!-- Response  message -->
-                    <div class="response"></div>
                 </form>
             </div>
         </section>
@@ -561,8 +554,11 @@
             <div class="row">
                 <div class="col-md-8 mb-4">
                     <div class="card mb-4">
-                        <div class="card-header py-3">
-                            <h5 class="mb-0" id="billingInfo">Biling details</h5>
+                        <div class="card-header py-3 headerText">
+                            <h5 class="mb-0" id="billingInfo">Provide details </h5>
+                            <p id="or" style="margin-left: 15px;margin-bottom: 0;">or</p>
+                            <button class="btn btn-link" data-mdb-ripple-color="#ffffff" id="login-btn" onclick="showLogin()" type="button"> <i class="fas fa-sign-in fa-lg"></i> login </button>
+                            <button class="btn btn-link" data-mdb-ripple-color="#ffffff" id="logout-btn" onclick="window.location.href='/logout';" style="display : none" type="button">  logout <i class="fas fa-sign-out fa-sm"></i></button>
                         </div>
                         <div class="card-body">
 

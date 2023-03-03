@@ -366,6 +366,10 @@ $(document).ready(function () {
 
 
 });
+function showLogin(){
+    $('.login').toggle();
+
+}
 
 function confirm() {
     $.confirm({
@@ -474,9 +478,8 @@ function ajaxLogin(e) {
 
         success: function (response) {
             let data = JSON.parse(response);
-
-            console.log(response);
-            $('.login').hide();
+            $('.login, #login-btn, #or ').hide();
+            $('#logout-btn').show();
             $('#billingInfo').text("Logged as " + data.name)
             $('#firstName').val(data.name).addClass("active")
             $('#email').val(data.email).addClass("active")
