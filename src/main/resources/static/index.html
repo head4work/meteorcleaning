@@ -512,14 +512,57 @@
             </div>
 
         </aside>
+        <section class="login">
+            <div >
+                <form action="/perform_login" class="login-form" id="login" method="post">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input class="form-control" id="login-email" name="email" type="email" />
+                        <label class="form-label" for="login-email">Email address</label>
+                    </div>
 
+                    <!-- Password input -->
+                    <div class="form-outline mb-4 passfield">
+                        <input class="form-control" id="login-password" name="password" type="password" />
+                        <label class="form-label" for="login-password">Password</label>
+                    </div>
+
+                    <!-- 2 column grid layout for inline styling -->
+                    <div class="row mb-4">
+                        <div class="col d-flex justify-content-center">
+                            <!-- Checkbox -->
+                            <div class="form-check">
+                                <input checked class="form-check-input" id="login-remember" type="checkbox" value="" />
+                                <label class="form-check-label" for="login-remember"> Remember me </label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <!-- Simple link -->
+                            <a href="#!">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button class="btn btn-primary btn-block mb-4" form="login" onclick="ajaxLogin(event)" type="submit">Sign in</button>
+
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                        <p>Not a member? <a href="#!">Register</a></p>
+                    </div>
+
+                    <!-- Response  message -->
+                    <div class="response"></div>
+                </form>
+            </div>
+        </section>
         <footer>
 
             <div class="row">
                 <div class="col-md-8 mb-4">
                     <div class="card mb-4">
                         <div class="card-header py-3">
-                            <h5 class="mb-0">Biling details</h5>
+                            <h5 class="mb-0" id="billingInfo">Biling details</h5>
                         </div>
                         <div class="card-body">
 

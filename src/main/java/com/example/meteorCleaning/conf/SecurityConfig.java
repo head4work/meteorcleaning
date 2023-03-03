@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 @Configuration
@@ -18,7 +20,7 @@ public class SecurityConfig {
     private UserService userService;
 
     @Bean
-    public  PasswordEncoder getPasswordEncoder() {
+    public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
 
@@ -38,11 +40,28 @@ public class SecurityConfig {
                 .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                 .requiresSecure();
         http.authorizeRequests()
-                .antMatchers("/","/estimate","/login","/prices","/dates","/css/**","/images/**","/js/**").permitAll()
-                .antMatchers("/admin","/admin/**" ).hasAuthority("ROLE_ADMIN")
+                .antMatchers("/", "/estimate", "/login", "/prices", "/dates", "/css/**", "/images/**", "/js/**", "/perform_login").permitAll()
+                .antMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and().formLogin()
+                .loginPage("/")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .loginProcessingUrl("/perform_login").permitAll()
+                .successHandler(successHandler())
+                //.defaultSuccessUrl("/admin", true)
+                .failureHandler(authenticationFailureHandler());
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
 //    @Bean
@@ -70,7 +89,6 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(userDetails);
 
     }*/
-
 
 
 //    @Bean

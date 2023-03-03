@@ -37,7 +37,13 @@ nav {
     font-size: x-large !important;
 }
 
-
+.login{
+    grid-area: login;
+    width: 50%;
+    align-self: center;
+    justify-self: center;
+    margin-top: 3%;
+}
 
 
 .modal,
@@ -61,6 +67,7 @@ nav {
     /* This way it could be display flex or grid or whatever also. */
     display: grid;
     grid-template-areas:
+        "login login"
         "footer footer"
         "left right"
         "close close"
@@ -226,6 +233,7 @@ footer {
         align-content: space-between;
 
         grid-template-areas:
+            "login"
             "footer"
             "left"
             "right"
@@ -235,7 +243,9 @@ footer {
         min-width: 100%;
         min-height: 100%;
     }
-
+    .login{
+        width: auto;
+    }
     .modal-right-aside {
         justify-self: normal;
         align-self: auto;
@@ -393,3 +403,15 @@ footer {
     background-color: rgb(58, 0, 0);
     color: rgb(58, 0, 0);
   }
+
+.error{
+    background-color: #f9e1e5;
+    color: #af233a;
+    padding: 0.4rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+}
+#message{
+    display: flex;
+    justify-content: center;
+}
