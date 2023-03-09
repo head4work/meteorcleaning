@@ -64,16 +64,18 @@ nav {
     background: rgb(0, 0, 0, 0.8);
 }
 
+.provide-details {
+    grid-area: details;
+}
 
 .modal.active {
     /* This way it could be display flex or grid or whatever also. */
     display: grid;
     grid-template-areas:
         "login login"
-        "footer footer"
+        "details details"
         "left right"
-        "close close"
-    ;
+        "close close";
     gap: 20px;
     grid-template-columns: 1fr 1fr;
 
@@ -243,7 +245,7 @@ footer {
 
         grid-template-areas:
             "login"
-            "footer"
+            "details"
             "left"
             "right"
             "close"
