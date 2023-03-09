@@ -4,6 +4,7 @@ import com.example.meteorCleaning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +42,7 @@ public class SecurityConfig {
                 .requiresSecure();
         http.authorizeRequests()
                 .antMatchers("/", "/estimate", "/login", "/prices", "/dates", "/css/**", "/images/**", "/js/**", "/perform_login").permitAll()
+                .antMatchers(HttpMethod.POST, "/rest/profile").permitAll()
                 .antMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin()

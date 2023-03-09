@@ -92,7 +92,7 @@ checkOfficeType();
 select_housing_value.addEventListener('change', checkOfficeType);
 select_element.forEach(e => e.addEventListener('change', estimateCount));
 document.querySelector("#square-ft").addEventListener('input', countSqaureft);
-
+$('#registration-password-2, #registration-password-1').change(passwordValidation);
 fp.config.onChange.push(() => {
     if (fp.selectedDates.length > 0) {
         openTimeSelector();
@@ -194,9 +194,9 @@ function estimateCount() {
 
     let square_ft_count = countSqaureft();
 
-    count += parseInt(house_value) != 3 ? (Object.values(prices)[house_value]) : prices.office * square_ft_count;
+    count += parseInt(house_value) !== 3 ? (Object.values(prices)[house_value]) : prices.office * square_ft_count;
 
-    time += parseInt(house_value) != 3 ? (Object.values(timings)[house_value]) : timings.office * square_ft_count;
+    time += parseInt(house_value) !== 3 ? (Object.values(timings)[house_value]) : timings.office * square_ft_count;
 
     count += prices.bedroom * bedroom_count;
     time += timings.bedroom * bedroom_count;
@@ -262,8 +262,8 @@ function estimateCount() {
     //check if selected date is weekend
     count += weekendClean ? prices.weekend : 0;
 
-    $('#totalPrice').text(count + "$");
-    $('#totalPrice').val(count);
+    $('#totalPrice').text(count + "$").val(count);
+
 
     $('#totalTime').text(time_convert(time.toFixed()) + " min");
 
@@ -342,7 +342,7 @@ function checkOfficeType() {
         $("#bedroom-count, #bathroom-count, #half-bathroom-count").val(0);
     }
     parseInt(house_value) > 1 ? openElementCount(square_count) : closeElementCount(square_count);
-    if ($('title').text() != "Edit") {
+    if ($('title').text() !== "Edit") {
         parseInt(house_value) === 3 || parseInt(house_value) === 0 ? disableHousingElements() : enableHousingElements();
     }
 
@@ -353,19 +353,26 @@ function dateValidRequired() {
     return !isNaN(getDateTime());
 }
 
+//submit buttons
 $(document).ready(function () {
-    if ($('title').text() != "Edit") {
+
+    if ($('title').text() !== "Edit") {
+
+        $("#registration-form").submit(function (event) {
+            event.preventDefault();
+            ajaxRegistration();
+        });
+
         $("#estimate").submit(function (event) {
             //stop submit the form, we will post it manually.
             event.preventDefault();
 
-            //check email provided
-            dateValidRequired() ? confirm() : emailEmptyPopup();
+            //check date provided
+            dateValidRequired() ? confirm() : dateEmptyPopup();
         });
     }
-
-
 });
+
 function showLogin(){
     $('.login').toggle();
 
@@ -464,6 +471,42 @@ function fire_ajax_submit() {
 
 }
 
+function ajaxRegistration() {
+    let userTo = {};
+    userTo["name"] = $("#registration-name").val();
+    userTo["email"] = $("#registration-email").val();
+    userTo["password"] = $("#registration-password-1").val();
+    userTo["enabled"] = true;
+
+    console.log(userTo);
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/rest/profile",
+        data: JSON.stringify(userTo),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        beforeSend: function () {
+            console.log(userTo);
+
+            $.LoadingOverlay("show");
+
+        },
+        success: function (data) {
+            console.log("SUCCESS : ", data);
+            $("#loading").dialog("close");
+            $.LoadingOverlay("hide");
+
+
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+            $.LoadingOverlay("hide");
+
+        }
+    });
+}
 function ajaxLogin(e) {
 
     e.preventDefault();
@@ -478,6 +521,7 @@ function ajaxLogin(e) {
 
         success: function (response) {
             let data = JSON.parse(response);
+            console.log(data);
             $('.login, #login-btn, #or ').hide();
             $('#logout-btn').show();
             $('#billingInfo').text("Logged as " + data.name)
@@ -522,7 +566,7 @@ function showError(error){
     });
 }
 // POPUPS FUNCTIONS
-function emailEmptyPopup() {
+function dateEmptyPopup() {
     $.alert({
         type: 'red',
         typeAnimated: true,
@@ -549,6 +593,23 @@ function successPopUp() {
             }
         }
     });
+}
+
+function passwordsAreEqual() {
+    return $('#registration-password-1').val() === $('#registration-password-2').val();
+}
+
+function passwordValidation() {
+    if (passwordsAreEqual()) {
+        $('#registration-message').text("all good").removeClass("alert-warning").addClass("alert-success").show()
+        $('#registration-button').prop('disabled', false);
+    } else {
+        $('#registration-button').prop('disabled', true);
+
+        $('#registration-message').removeClass("alert-success").addClass("alert-warning").text("").append('<i class="fas fa-exclamation-triangle fa-lg me-3 fa-fw"></i>' + "passwords are not equal").show();
+    }
+
+
 }
 
 function errorPopUp() {

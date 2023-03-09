@@ -13,6 +13,7 @@ body {
         "nav nav nav"
         ". main ."
         ". services ."
+        " . create ."
         "footer footer footer";
 }
 
@@ -137,6 +138,7 @@ nav {
             "nav"
             "main"
             "services"
+            "create"
             "footer";
     }
 
@@ -151,8 +153,14 @@ nav {
     .caption-text {
         display: none;
     }
-    .service-card{
+
+    .service-card {
         width: 10rem;
+    }
+
+    .create-account {
+        gap: 10px;
+        padding: 2%;
     }
 }
 
@@ -412,8 +420,27 @@ footer {
     border: 1px solid transparent;
     border-radius: 0.5rem;
 }
+
 .headerText {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.create-account {
+    display: grid;
+    grid-area: create;
+    background: #fbfbfb;
+    justify-items: center;
+    margin-bottom: 10px;
+
+}
+
+.create-wraper {
+    height: 100%;
+    width: 100%;
+}
+
+#registration-message {
+    display: none;
 }
