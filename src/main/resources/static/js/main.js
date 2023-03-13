@@ -358,6 +358,12 @@ $(document).ready(function () {
 
     if ($('title').text() !== "Edit") {
 
+
+        $("#login").submit(function (event) {
+            event.preventDefault();
+            ajaxLogin();
+        });
+
         $("#registration-form").submit(function (event) {
             event.preventDefault();
             ajaxRegistration();
@@ -501,15 +507,14 @@ function ajaxRegistration() {
 
         },
         error: function (e) {
-            console.log("ERROR : ", e);
+            showErrorAsDiv(e.responseJSON.detail, $('#password-field-2'));
             $.LoadingOverlay("hide");
 
         }
     });
 }
-function ajaxLogin(e) {
 
-    e.preventDefault();
+function ajaxLogin() {
 
     $.ajax({
         url: "/perform_login",
@@ -521,7 +526,7 @@ function ajaxLogin(e) {
 
         success: function (response) {
             let data = JSON.parse(response);
-            console.log(data);
+
             $('.login, #login-btn, #or ').hide();
             $('#logout-btn').show();
             $('#billingInfo').text("Logged as " + data.name)
@@ -530,24 +535,26 @@ function ajaxLogin(e) {
 
         },
         error: function (res) {
-            console.log("fail");
-            let info = JSON.parse( res.responseText);
-          //  showError(info.exception);
-            showErrorAsDiv(info);
+            console.log(res);
+            let info = JSON.parse(res.responseText);
+            showErrorAsDiv(info.exception, $('.passfield'));
         },
     });
 
 }
-function showErrorAsDiv(error){
-    $('.passfield').removeClass("mb-4").addClass("mb-1");
-    $('<div class=" alert alert-danger" role="alert"></div>').insertAfter('.passfield');
-    $('.alert').text(error.exception);
-    $(document).click(function() {
-        $('.alert').remove();
-        $('.passfield').removeClass("mb-1").addClass("mb-4");
+
+// <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+function showErrorAsDiv(message, element) {
+    element.removeClass("mb-4").addClass("mb-1");
+    $('<div class="d-flex flex-row align-items-center mb-4 alert-wrap"><i class="fas fa-exclamation-triangle fa-lg me-3 fa-fw text-danger"></i><div class=" alert alert-danger" role="alert"></div></div>').insertAfter(element);
+    $('.alert').text(message);
+    $(document).click(function () {
+        $('.alert-wrap').remove();
+        element.removeClass("mb-1").addClass("mb-4");
     });
 }
-function showError(error){
+
+function showError(error) {
     $.confirm({
         title: 'Error',
         content: error,
@@ -601,15 +608,15 @@ function passwordsAreEqual() {
 
 function passwordValidation() {
     if (passwordsAreEqual()) {
-        $('#registration-message').text("all good").removeClass("alert-warning").addClass("alert-success").show()
+        //  $('#registration-message').text("all good").removeClass("alert-warning").addClass("alert-success").show()
+        $('#registration-password-2').removeClass("is-invalid mb-0");
+
         $('#registration-button').prop('disabled', false);
     } else {
         $('#registration-button').prop('disabled', true);
-
-        $('#registration-message').removeClass("alert-success").addClass("alert-warning").text("").append('<i class="fas fa-exclamation-triangle fa-lg me-3 fa-fw"></i>' + "passwords are not equal").show();
+        $('#registration-password-2').addClass("is-invalid mb-0");
+        //  $('#registration-message').removeClass("alert-success").addClass("alert-warning").text("").append('<i class="fas fa-exclamation-triangle fa-lg me-3 fa-fw"></i>' + "passwords are not equal").show();
     }
-
-
 }
 
 function errorPopUp() {

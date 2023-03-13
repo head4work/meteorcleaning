@@ -183,19 +183,17 @@
                                         <form action="/rest/profile"
                                               id="registration-form" method="post">
 
+
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input class="form-control" form="registration-form"
+                                                    <input class="form-control " form="registration-form"
                                                            id="registration-name"
                                                            required
+                                                           pattern=".{2,}" required title="2 characters minimum"
                                                            type="text"/>
                                                     <label class="form-label" for="registration-name"
                                                            style="margin-left: 0px;">Your Name</label>
-                                                    <div class="valid-feedback">Looks good!</div>
-
-                                                    <div class="invalid-feedback">Please choose a username.</div>
-
                                                     <div class="form-notch">
                                                         <div class="form-notch-leading" style="width: 9px;"></div>
                                                         <div class="form-notch-middle" style="width: 71.2px;"></div>
@@ -225,9 +223,10 @@
                                                 <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input class="form-control active"
-                                                           data-gtm-form-interact-field-id="0" form="registration-form"
-                                                           id="registration-password-1" minlength="3"
-                                                           required type="password"/>
+                                                           form="registration-form"
+                                                           id="registration-password-1"
+                                                           pattern=".{5,}" required title="5 characters minimum"
+                                                           type="password"/>
                                                     <label class="form-label" for="registration-password-1"
                                                            style="margin-left: 0px;">Password</label>
                                                     <div class="form-notch">
@@ -238,21 +237,24 @@
                                                 </div>
                                             </div>
 
-                                            <div class="d-flex flex-row align-items-center mb-4">
+                                            <div class="d-flex flex-row align-items-center mb-4  position-relative"
+                                                 id="password-field-2">
                                                 <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input class="form-control active"
-                                                           data-gtm-form-interact-field-id="1"
+                                                    <input class="form-control "
                                                            id="registration-password-2"
                                                            minlength="3"
                                                            required type="password"/>
                                                     <label class="form-label" for="registration-password-2"
                                                            style="margin-left: 0px;">Repeat your password</label>
+                                                    <div class="invalid-tooltip">Password doesn't match</div>
+
                                                     <div class="form-notch">
                                                         <div class="form-notch-leading" style="width: 9px;"></div>
                                                         <div class="form-notch-middle" style="width: 134.4px;"></div>
                                                         <div class="form-notch-trailing"></div>
                                                     </div>
+
                                                 </div>
                                             </div>
 
@@ -689,13 +691,13 @@
             <form action="/perform_login" class="login-form" id="login" method="post">
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input class="form-control" id="login-email" name="email" type="email"/>
+                    <input class="form-control" id="login-email" name="email" required type="email"/>
                     <label class="form-label" for="login-email">Email address</label>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4 passfield">
-                    <input class="form-control" id="login-password" name="password" type="password"/>
+                    <input class="form-control" id="login-password" name="password" required type="password"/>
                     <label class="form-label" for="login-password">Password</label>
                 </div>
 
@@ -716,7 +718,7 @@
                 </div>
 
                 <!-- Submit button -->
-                <button class="btn btn-primary btn-block mb-4" form="login" onclick="ajaxLogin(event)" type="submit">
+                <button class="btn btn-primary btn-block mb-4" form="login" type="submit">
                     Sign in
                 </button>
 
