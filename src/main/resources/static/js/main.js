@@ -20,7 +20,6 @@ const select_checkbox_oven = document.querySelector('#ovenCheck');
 
 const select_checkbox_dishes = document.querySelector('#dishesCheck');
 
-
 //PRICE AND TIME COUNT
 let prices = {
     studio: 140,
@@ -484,7 +483,6 @@ function ajaxRegistration() {
     userTo["password"] = $("#registration-password-1").val();
     userTo["enabled"] = true;
 
-    console.log(userTo);
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -503,15 +501,38 @@ function ajaxRegistration() {
             console.log("SUCCESS : ", data);
             $("#loading").dialog("close");
             $.LoadingOverlay("hide");
+            document.getElementById("registration-form").reset(); //clear form
+
+            $.confirm({
+                title: 'Your account been created!',
+                content: 'You can now proceed to login page or continue browsing',
+                type: 'green',
+                backgroundDismiss: true,
+                typeAnimated: true,
+                buttons: {
+                    login: {
+                        text: 'Login',
+                        btnClass: 'btn-green',
+                        action: function () {
+                            goToProfileLogin();
+                        }
+                    },
+                    close: function () {
+                    }
+                }
+            });
 
 
         },
         error: function (e) {
             showErrorAsDiv(e.responseJSON.detail, $('#password-field-2'));
             $.LoadingOverlay("hide");
-
         }
     });
+}
+
+function goToProfileLogin() {
+    console.log("go to login")
 }
 
 function ajaxLogin() {
@@ -532,6 +553,7 @@ function ajaxLogin() {
             $('#billingInfo').text("Logged as " + data.name)
             $('#firstName').val(data.name).addClass("active")
             $('#email').val(data.email).addClass("active")
+            $("#navlogin-bar").load(location.href + " #navlogin-bar");
 
         },
         error: function (res) {
@@ -543,10 +565,9 @@ function ajaxLogin() {
 
 }
 
-// <i class="fas fa-key fa-lg me-3 fa-fw"></i>
 function showErrorAsDiv(message, element) {
     element.removeClass("mb-4").addClass("mb-1");
-    $('<div class="d-flex flex-row align-items-center mb-4 alert-wrap"><i class="fas fa-exclamation-triangle fa-lg me-3 fa-fw text-danger"></i><div class=" alert alert-danger" role="alert"></div></div>').insertAfter(element);
+    $('<div class="d-flex flex-row align-items-center mb-4 alert-wrap"><i class="fas fa-exclamation-triangle fa-lg me-3 fa-fw text-danger"></i><div class=" alert alert-danger w-100" role="alert"></div></div>').insertAfter(element);
     $('.alert').text(message);
     $(document).click(function () {
         $('.alert-wrap').remove();
