@@ -78,6 +78,8 @@ let datePickerConfig = {
 }
 const fp = flatpickr("#estimate-time", datePickerConfig);
 
+let profile = false;
+
 
 //INIT FUNCTIONS
 //getOccupiedDateTimes();
@@ -272,9 +274,20 @@ function estimateCount() {
 $("#carouselBook1,#carouselBook2,#carouselBook3").on("click", function () {
     getOccupiedDateTimes();
     estimateCount();
+    profile = false;
     openModal();
+    $('.login').hide();
+    $('.modal-left-aside, .modal-right-aside, .provide-details').show();
+
 });
 
+$("#login-nav").on("click", function () {
+    profile = true;
+    openModal();
+    $('.login').show();
+    $('.modal-left-aside, .modal-right-aside, .provide-details').hide();
+
+});
 //removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
 $("#close-button, .close-button-x, .modal-overlay ").on("click", function () {
     closeModal();
@@ -380,7 +393,6 @@ $(document).ready(function () {
 
 function showLogin(){
     $('.login').toggle();
-
 }
 
 function confirm() {
@@ -554,6 +566,9 @@ function ajaxLogin() {
             $('#firstName').val(data.name).addClass("active")
             $('#email').val(data.email).addClass("active")
             $("#navlogin-bar").load(location.href + " #navlogin-bar");
+            if(profile){
+                closeModal();
+            }
 
         },
         error: function (res) {

@@ -446,3 +446,7 @@ footer {
 #registration-message {
     display: none;
 }
+#navlogin-bar{
+    display:flex;
+    align-items: center;
+}
