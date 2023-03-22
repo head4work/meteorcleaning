@@ -38,10 +38,9 @@ nav {
     font-size: x-large !important;
 }
 
-.login{
+#login-section {
     display: none;
     grid-area: login;
-    width: 50%;
     align-self: center;
     justify-self: center;
     margin-top: 3%;
@@ -68,11 +67,14 @@ nav {
     grid-area: details;
 }
 
+.profile-edit {
+    grid-area: login-edit;
+}
+
 .modal.active {
     /* This way it could be display flex or grid or whatever also. */
     display: grid;
     grid-template-areas:
-        "login login"
         "details details"
         "left right"
         "close close";
@@ -108,19 +110,68 @@ nav {
     box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
 }
 
+.modal.active.login {
+    grid-template-areas:
+    "login login"
+    "details details"
+    "left right"
+    "close close";
+}
+
+.modal.active.profile-login {
+    grid-template-areas:
+     "login login"
+    "close close";
+    width: 29em;
+    height: fit-content;
+}
+
+.modal.active.profile-edit {
+    grid-template-areas:
+    "modal-buttons modal-buttons"
+    "login-edit login-edit"
+    "close close";
+}
+
+.modal.active.profile-order {
+    grid-template-areas:
+    "modal-buttons modal-buttons"
+    "details details"
+    "left right"
+    "close close";
+}
+
+.modal.active.profile-archive {
+    grid-template-areas:
+    "modal-buttons modal-buttons"
+    "table table"
+    "close close";
+}
+
+/* "modal-buttons modal-buttons"
+"table table"
+"login-edit login-edit"
+"login login"
+"details details"
+"left right"
+"close close"; */
+
+
 .caption-text {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.services{
+
+.services {
     grid-area: services;
     display: grid;
     justify-items: center;
     padding: 2%;
-    gap:10px;
+    gap: 10px;
 }
-.services-inside{
+
+.services-inside {
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
@@ -128,9 +179,10 @@ nav {
     gap: 15px;
 }
 
-.service-card{
+.service-card {
     width: 14rem;
 }
+
 @media (max-width: 992px) {
     .wrapper {
         align-items: center;
@@ -232,10 +284,20 @@ footer {
     border-radius: 5px;
 }
 
-.select-wrap-col{
+.select-wrap-col {
     justify-self: center;
-        grid-column: span 2;
-    }
+    grid-column: span 2;
+}
+
+.profile-buttons {
+    display: flex;
+    grid-area: modal-buttons;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 40px;
+    align-self: start;
+
+}
 
 @media (max-width: 900px) {
     .modal.active {
@@ -244,19 +306,22 @@ footer {
         align-content: space-between;
 
         grid-template-areas:
+            "modal-buttons"
+            "table"
             "login"
             "details"
             "left"
             "right"
-            "close"
-        ;
+            "close";
         justify-items: center;
         min-width: 100%;
         min-height: 100%;
     }
-    .login{
+
+    #login-section {
         width: auto;
     }
+
     .modal-right-aside {
         justify-self: normal;
         align-self: auto;
@@ -278,11 +343,19 @@ footer {
         box-shadow: none;
         padding: 0;
     }
-    .select-wrap-col{
-        
+
+    .select-wrap-col {
+
         justify-self: center;
-            grid-column: auto;
-        }
+        grid-column: auto;
+    }
+
+    .profile-buttons {
+        display: flex;
+        padding-top: 70px;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
 }
 
 .modal .close-button-x {
@@ -328,11 +401,15 @@ footer {
     display: flex;
 }
 
-#square-count,#window-count,#cabinet-count {
+#square-count,
+#window-count,
+#cabinet-count {
     display: none;
 }
 
-#square-count.active,#window-count.active,#cabinet-count.active {
+#square-count.active,
+#window-count.active,
+#cabinet-count.active {
     display: flex;
 }
 
@@ -384,38 +461,39 @@ footer {
 }
 
 /*effect-underline*/
-.effect-underline{
+.effect-underline {
     position: relative;
 }
+
 .effect-underline:after {
-	content: '';
-  position: absolute;
-  left: 0%;
-  bottom: 10px;
-  display: inline-block;
-  height: 0;
-  width: 100%;
-  border-bottom: 1px solid;
-  margin-top: 10px;
-  opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: scale(0,1);
-	transform: scale(0,1);
+    content: '';
+    position: absolute;
+    left: 0%;
+    bottom: 10px;
+    display: inline-block;
+    height: 0;
+    width: 100%;
+    border-bottom: 1px solid;
+    margin-top: 10px;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: scale(0, 1);
+    transform: scale(0, 1);
 }
 
 .effect-underline:hover:after {
-  opacity: 1;
-	-webkit-transform: scale(1);
-	transform: scale(1);
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }
 
-.disabled{
+.disabled {
     background-color: rgb(58, 0, 0);
     color: rgb(58, 0, 0);
-  }
+}
 
-.error{
+.error {
     background-color: #f9e1e5;
     color: #af233a;
     padding: 0.4rem;
@@ -446,7 +524,15 @@ footer {
 #registration-message {
     display: none;
 }
-#navlogin-bar{
-    display:flex;
+
+#navlogin-bar {
+    display: flex;
     align-items: center;
+}
+
+.archive-table {
+    grid-area: table;
+    width: 50%;
+    align-self: center;
+    justify-self: center;
 }

@@ -79,10 +79,14 @@ let datePickerConfig = {
 const fp = flatpickr("#estimate-time", datePickerConfig);
 
 let profile = false;
-
+let dataSet = {};
 
 //INIT FUNCTIONS
 //getOccupiedDateTimes();
+
+
+//Visual Studio commented
+
 updateDisableDates();
 getPrices();
 setDataMinToday();
@@ -162,6 +166,37 @@ function getOccupiedDateTimes() {
     });
 }
 
+function getOrders() {
+    return $.ajax({
+        type: "GET",
+        url: "/rest/profile/orders",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+
+            $('#archive-orders-table').DataTable({
+                destroy: true,
+                data: response,
+                columns: [
+                    {data: 'dateTime'},
+                    {data: 'name'},
+                    {data: 'address'},
+                    {data: 'estimatedPrice'},
+                    {data: 'phone'},
+                ],
+
+                "language": {
+                    "emptyTable": "You have no archive orders yet"
+                },
+            });
+        },
+        error: function (response) {
+            console.log("Orers load error");
+        }
+    });
+}
+
 function getPrices() {
     $.ajax({
         type: "GET",
@@ -217,10 +252,7 @@ function estimateCount() {
         count = Math.round(count * prices.deepClean);
         time += timings.deepClean;
     }
-    // if (select_checkbox_steam.checked) {
-    //   count += prices.steamClean;
-    //   time += timings.steamClean;
-    // }
+
     if (select_checkbox_microwave.checked) {
         count += prices.microwaveClean;
         time += timings.microwaveClean;
@@ -271,29 +303,67 @@ function estimateCount() {
     return count;
 }
 
+//Buttons binds
+
 $("#carouselBook1,#carouselBook2,#carouselBook3").on("click", function () {
     getOccupiedDateTimes();
     estimateCount();
     profile = false;
     openModal();
-    $('.login').hide();
-    $('.modal-left-aside, .modal-right-aside, .provide-details').show();
+    $('.modal').attr('class', "modal active");
+    openProfile('modal-left-aside', 'modal-right-aside', 'provide-details');
 
 });
+
 
 $("#login-nav").on("click", function () {
     profile = true;
     openModal();
-    $('.login').show();
-    $('.modal-left-aside, .modal-right-aside, .provide-details').hide();
-
+    $('.modal').attr('class', "modal active profile-login");
+    openProfile('login');
 });
+
+
+$('#modal-new-order').on("click", function () {
+    $('.modal').attr('class', "modal active profile-order");
+    openProfile('profile-buttons', 'modal-left-aside', 'modal-right-aside', 'provide-details');
+    fillUserData();
+});
+
+$('#modal-edit').on("click", function () {
+    $('.modal').attr('class', "modal active profile-edit");
+    openProfile('profile-buttons', 'profile-edit');
+});
+
+$('#modal-archive-orders').on("click", function () {
+    $('.modal').attr('class', "modal active profile-archive");
+    openProfile('profile-buttons', 'archive-table');
+    getOrders();
+});
+
 //removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
 $("#close-button, .close-button-x, .modal-overlay ").on("click", function () {
     closeModal();
 });
 
 //HELPER FUNCTIONS
+
+
+// show elements provided in parameters 
+function openProfile(...elements) {
+
+    //default close buttons
+    elements.push('close-button-x', 'close-button');
+
+    $.each($('.modal').children(), function (index, value) {
+        if (elements.includes(value.className)) {
+            $(value).show();
+        } else {
+            $(value).hide();
+        }
+    });
+}
+
 function checkSunday() {
     let date = fp.selectedDates[0];
     return date.getDay() === 0;
@@ -391,8 +461,9 @@ $(document).ready(function () {
     }
 });
 
-function showLogin(){
-    $('.login').toggle();
+function showLogin() {
+    $('.modal').toggleClass("login")
+    $('#login-section').toggle();
 }
 
 function confirm() {
@@ -547,6 +618,7 @@ function goToProfileLogin() {
     console.log("go to login")
 }
 
+let userData = {};
 function ajaxLogin() {
 
     $.ajax({
@@ -558,15 +630,17 @@ function ajaxLogin() {
         data: $('#login').serialize(),
 
         success: function (response) {
-            let data = JSON.parse(response);
 
-            $('.login, #login-btn, #or ').hide();
+            userData = JSON.parse(response);
+
+            $('#login-section, #login-btn, #or ').hide();
             $('#logout-btn').show();
-            $('#billingInfo').text("Logged as " + data.name)
-            $('#firstName').val(data.name).addClass("active")
-            $('#email').val(data.email).addClass("active")
+            fillUserData();
+
+
             $("#navlogin-bar").load(location.href + " #navlogin-bar");
-            if(profile){
+
+            if (profile) {
                 closeModal();
             }
 
@@ -578,6 +652,19 @@ function ajaxLogin() {
         },
     });
 
+}
+
+function fillUserData() {
+    $('#billingInfo').text("Logged as " + userData.name)
+    $('#firstName').val(userData.name).addClass("active")
+    $('#email').val(userData.email).addClass("active")
+}
+
+function openProfileButton() {
+    profile = true;
+    openModal();
+    $('.modal').attr('class', "modal active profile-edit");
+    openProfile('profile-buttons', 'profile-edit');
 }
 
 function showErrorAsDiv(message, element) {
@@ -600,7 +687,7 @@ function showError(error) {
             tryAgain: {
                 text: 'Try again',
                 btnClass: 'btn-red',
-                action: function(){
+                action: function () {
                 }
             },
             close: function () {

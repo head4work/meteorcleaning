@@ -1,6 +1,7 @@
 package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.dto.UserTo;
+import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.User;
 import com.example.meteorCleaning.repository.datajpa.DataJpaUserRepository;
 import com.example.meteorCleaning.service.UserService;
@@ -84,5 +85,10 @@ public abstract class AbstractUserController {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
         return repository.getAll(pageable);
+    }
+
+    protected List<EstimateOrder> getOrders(int id) {
+        log.info("getOrders");
+        return service.getOrders(id);
     }
 }

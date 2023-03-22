@@ -2,6 +2,7 @@ package com.example.meteorCleaning.service;
 
 import com.example.meteorCleaning.AuthorizedUser;
 import com.example.meteorCleaning.dto.UserTo;
+import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.User;
 import com.example.meteorCleaning.repository.UserRepository;
 import com.example.meteorCleaning.util.UsersUtil;
@@ -96,5 +97,10 @@ public class UserService implements UserDetailsService {
 
     public User getWithOrders(int id) {
         return checkNotFoundWithId(repository.getWithOrders(id), id);
+    }
+
+    public List<EstimateOrder> getOrders(int id) {
+        User user = checkNotFoundWithId(repository.getWithOrders(id), id);
+        return user.getOrders();
     }
 }

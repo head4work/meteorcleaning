@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <title>MeteorCleaning</title>
     <link href="/images/logo-no-background.png" rel="icon" type="image/x-icon">
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" rel="stylesheet"/>
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
@@ -61,17 +62,18 @@
                             <li class="nav-item me-3 me-lg-0 dropdown">
                                 <a
                                         aria-expanded="false"
-                                        class="nav-link dropdown-toggle"
+                                        class="nav-link dropdown-toggle btn-sm btn-rounded"
                                         data-mdb-toggle="dropdown"
                                         href="#"
                                         id="navbarDropdown"
                                         role="button"
+                                        style="color:#709ef1;background-color:#374151"
                                 >
-                                    <i class="fas fa-user"></i>
+                                    <i class="fas fa-user"></i> PROFILE
                                 </a>
                                 <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a class="dropdown-item" href="#" onclick="openProfileButton()">Profile</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="#">Settings</a>
@@ -86,16 +88,16 @@
                             </li>
 
                         </div>
+
+                        <div sec:authorize="!isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#create-account">Create account</a>
+                            </li>
+                        </div>
+
                     </div>
 
 
-                    <li class="nav-item">
-
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#create-account">Create account</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#services">Services</a>
                     </li>
@@ -552,6 +554,7 @@
 <div class="modal-overlay"></div>
 
 <div class="modal" id="modal">
+
     <aside class="modal-left-aside">
         <form action="/estimate" class="estimate-form" id="estimate" method="post">
             <div class="house-form">
@@ -731,46 +734,6 @@
 
     </aside>
 
-    <section class="login">
-        <div>
-            <form action="/perform_login" class="login-form" id="login" method="post">
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                    <input class="form-control" id="login-email" name="email" required type="email"/>
-                    <label class="form-label" for="login-email">Email address</label>
-                </div>
-
-                <!-- Password input -->
-                <div class="form-outline mb-4 passfield">
-                    <input class="form-control" id="login-password" name="password" required type="password"/>
-                    <label class="form-label" for="login-password">Password</label>
-                </div>
-
-                <!-- 2 column grid layout for inline styling -->
-                <div class="row mb-4">
-                    <div class="col d-flex justify-content-center">
-                        <!-- Checkbox -->
-                        <div class="form-check">
-                            <input checked class="form-check-input" id="login-remember" type="checkbox" value=""/>
-                            <label class="form-check-label" for="login-remember"> Remember me </label>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <!-- Simple link -->
-                        <a href="#!">Forgot password?</a>
-                    </div>
-                </div>
-
-                <!-- Submit button -->
-                <button class="btn btn-primary btn-block mb-4" form="login" type="submit">
-                    Sign in
-                </button>
-
-            </form>
-        </div>
-    </section>
-
     <section class="provide-details">
         <div class="row">
             <div class="col-md-8 mb-4">
@@ -832,6 +795,131 @@
         </div>
     </section>
 
+    <section class="login" id="login-section">
+        <div>
+            <form action="/perform_login" class="login-form" id="login" method="post">
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <input class="form-control" id="login-email" name="email" required type="email"/>
+                    <label class="form-label" for="login-email">Email address</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4 passfield">
+                    <input class="form-control" id="login-password" name="password" required type="password"/>
+                    <label class="form-label" for="login-password">Password</label>
+                </div>
+
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center">
+                        <!-- Checkbox -->
+                        <div class="form-check">
+                            <input checked class="form-check-input" id="login-remember" type="checkbox" value=""/>
+                            <label class="form-check-label" for="login-remember"> Remember me </label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <!-- Simple link -->
+                        <a href="#!">Forgot password?</a>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <button class="btn btn-primary btn-block mb-4" form="login" type="submit">
+                    Sign in
+                </button>
+
+            </form>
+        </div>
+    </section>
+
+    <section class="profile-buttons">
+        <button class="btn btn-primary btn-rounded" id="modal-new-order" type="button">make new order</button>
+        <button class="btn btn-info  btn-rounded" id="modal-edit" type="button">edit account</button>
+        <button class="btn  btn-secondary btn-rounded" id="modal-archive-orders" type="button">archive orders</button>
+    </section>
+
+    <section class="profile-edit">
+        <form action="/rest/profile/edit"
+              id="profile-edit-form" method="post">
+            <div class="row">
+                <div class="col-md-8 mb-4">
+                    <div class="card mb-4">
+                        <div class="card-header py-3 headerText">
+                            <h4 class="mb-0" id="billingInfo">Edit account </h4>
+                        </div>
+                        <div class="card-body">
+
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            <div class="row mb-4">
+                            <div class="col">
+                                <div class="form-outline">
+                                    <input class="form-control" form="profile-edit-form" id="edit-firstName" required
+                                           type="text"/>
+                                    <label class="form-label" for="firstName">First name</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-outline">
+                                    <input class="form-control" form="profile-edit-form" id="edit-lastName"
+                                           type="text"/>
+                                    <label class="form-label" for="lastName">Last name</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input -->
+                        <div class="form-outline mb-4">
+                            <input class="form-control" form="profile-edit-form" id="edit-address" required
+                                   type="text"/>
+                            <label class="form-label" for="address">Address</label>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input class="form-control" form="profile-edit-form" id="edit-email" required type="email"/>
+                            <label class="form-label" for="email">Email</label>
+                        </div>
+
+                            <!-- Number input -->
+                            <div class="form-outline mb-4">
+                                <input class="form-control" form="profile-edit-form" id="edit-phone" required
+                                       type="number"/>
+                                <label class="form-label" for="phone">Phone</label>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </section>
+
+    <section class="archive-table">
+        <div class="table-responsive">
+            <table class="table  table-hover" id="archive-orders-table" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Price</th>
+                    <th>Phone</th>
+                </tr>
+                </thead>
+
+            </table>
+        </div>
+
+    </section>
+
+
     <div class="close-button">
         <button class="button-5" id="close-button" type="button">cancel</button>
     </div>
@@ -854,6 +942,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script th:src="@{/js/main.js}" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 
 </body>

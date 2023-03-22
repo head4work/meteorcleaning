@@ -1,6 +1,7 @@
 package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.dto.UserTo;
+import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 import static com.example.meteorCleaning.util.SecurityUtil.authUserId;
 
@@ -52,5 +54,10 @@ public class ProfileRestController extends AbstractUserController {
     @GetMapping("/with-orders")
     public User getWithOrders() {
         return super.getWithOrders(authUserId());
+    }
+
+    @GetMapping("/orders")
+    public List<EstimateOrder> getOrders() {
+        return super.getOrders(authUserId());
     }
 }
