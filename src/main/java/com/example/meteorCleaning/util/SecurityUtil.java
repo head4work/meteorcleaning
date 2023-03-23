@@ -28,4 +28,11 @@ public class SecurityUtil {
         return get().getUserTo().id();
     }
 
+    public static int getUserId() {
+        try {
+            return get().getId();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }

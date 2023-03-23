@@ -1,11 +1,12 @@
 package com.example.meteorCleaning.model;
 
 import com.example.meteorCleaning.util.TimeUtil;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -90,10 +91,15 @@ public class EstimateOrder extends AbstractNamedEntity {
     @Column(name = "estimated_time")
     private String estimatedTime;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
     public EstimateOrder(String name, String lastName, String address, String email, String phone, String housingType,
                          String squareFt, String bedrooms, String bathrooms, String halfBathrooms, boolean greenClean, boolean deepClean,
-                         boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, Integer windowClean, Integer cabinetClean, boolean dishesClean, @NotBlank(message = "{Size.Order.Date}") LocalDateTime dateTime, Integer estimatedPrice, String estimatedTime) {
+                         boolean microwaveClean, boolean refrigeratorClean, boolean ovenClean, Integer windowClean, Integer cabinetClean, boolean dishesClean, @NotBlank(message = "{Size.Order.Date}") LocalDateTime dateTime, Integer estimatedPrice, String estimatedTime, User user) {
         this.windowClean = windowClean;
         this.cabinetClean = cabinetClean;
         this.name = name;
@@ -115,6 +121,15 @@ public class EstimateOrder extends AbstractNamedEntity {
         this.dateTime = dateTime;
         this.estimatedPrice = estimatedPrice;
         this.estimatedTime = estimatedTime;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public EstimateOrder() {

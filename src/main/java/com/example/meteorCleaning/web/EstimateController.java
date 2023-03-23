@@ -2,8 +2,10 @@ package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.model.AjaxResponseBody;
 import com.example.meteorCleaning.model.EstimateOrder;
+import com.example.meteorCleaning.repository.UserRepository;
 import com.example.meteorCleaning.repository.datajpa.DataJpaOrderRepository;
 import com.example.meteorCleaning.service.EstimateDataService;
+import com.example.meteorCleaning.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,9 @@ public class EstimateController {
     @Autowired
     EstimateDataService service;
 
+    @Autowired
+    UserRepository userRepository;
+
     @PostMapping("/estimate")
     public ResponseEntity<?> sendEstimateViaAjax(
             @Valid @RequestBody EstimateOrder data, Errors errors) throws MessagingException {
@@ -42,6 +47,11 @@ public class EstimateController {
         }
 
         String[] to = new String[]{homeEmail, data.getEmail()};
+
+        int userId = SecurityUtil.getUserId();
+        if (userId != 0) {
+            data.setUser(userRepository.get(userId));
+        }
         repository.save(data);
         service.sendEmail(to, "CLEANING ORDER", data.toString());
         result.setMsg("success");
