@@ -204,7 +204,7 @@ function getPrices() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let newPrices = Object.assign(prices, response);
+             Object.assign(prices, response);
             estimateCount();
         },
         failure: function (response) {
@@ -212,6 +212,23 @@ function getPrices() {
         },
         error: function (response) {
             alert("Failed to load prices");
+        }
+    });
+}
+
+function getUserData() {
+    $.ajax({
+        type: "GET",
+        url: "/rest/profile",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            debugger;
+            Object.assign(userData, response);
+            fillUserData();
+        },
+        error: function (response) {
+            console.log("Error getting user details : " + response);
         }
     });
 }
@@ -308,6 +325,7 @@ function estimateCount() {
 $("#carouselBook1,#carouselBook2,#carouselBook3").on("click", function () {
     getOccupiedDateTimes();
     estimateCount();
+    getUserData();
     profile = false;
     openModal();
     $('.modal').attr('class', "modal active");
@@ -327,7 +345,6 @@ $("#login-nav").on("click", function () {
 $('#modal-new-order').on("click", function () {
     $('.modal').attr('class', "modal active profile-order");
     openProfile('profile-buttons', 'modal-left-aside', 'modal-right-aside', 'provide-details');
-    fillUserData();
 });
 
 $('#modal-edit').on("click", function () {
@@ -631,12 +648,10 @@ function ajaxLogin() {
 
         success: function (response) {
 
-            userData = JSON.parse(response);
+            //  userData = JSON.parse(response);
 
-            $('#login-section, #login-btn, #or ').hide();
-            $('#logout-btn').show();
-            fillUserData();
 
+            getUserData();
 
             $("#navlogin-bar").load(location.href + " #navlogin-bar");
 
@@ -658,10 +673,15 @@ function fillUserData() {
     $('#billingInfo').text("Logged as " + userData.name)
     $('#firstName').val(userData.name).addClass("active")
     $('#email').val(userData.email).addClass("active")
+
+    $('#login-section, #login-btn, #or ').hide();
+    $('#logout-btn').show();
+
 }
 
 function openProfileButton() {
     profile = true;
+    getUserData();
     openModal();
     $('.modal').attr('class', "modal active profile-edit");
     openProfile('profile-buttons', 'profile-edit');
