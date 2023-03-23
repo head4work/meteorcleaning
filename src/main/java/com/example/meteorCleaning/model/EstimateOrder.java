@@ -30,6 +30,7 @@ public class EstimateOrder extends AbstractNamedEntity {
     @Email
     @Size(max = 100)
     @NotBlank(message = "{Size.Order.Email}")
+    @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\D-]{2,4}$", message = "format is invalid")
     private String email;
 
     @NotBlank(message = "{Size.Order.Phone}")

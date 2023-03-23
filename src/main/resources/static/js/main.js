@@ -569,7 +569,7 @@ function fire_ajax_submit() {
         error: function (e) {
             console.log("ERROR : ", e);
             $.LoadingOverlay("hide");
-            errorPopUp();
+            errorPopUp(e.responseJSON.detail);
             $("#make-estimate").prop("disabled", false);
         }
     });
@@ -762,10 +762,10 @@ function passwordValidation() {
     }
 }
 
-function errorPopUp() {
+function errorPopUp(message) {
     $.confirm({
         title: 'Encountered an error!',
-        content: 'Something went wrong, give it anothe try',
+        content: message,
         type: 'red',
         backgroundDismiss: true,
         typeAnimated: true,
