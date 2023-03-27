@@ -299,6 +299,19 @@ footer {
 
 }
 
+.login-profile {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.archive-table {
+    grid-area: table;
+    width: 50%;
+    align-self: center;
+    justify-self: center;
+}
+
 @media (max-width: 900px) {
     .modal.active {
         grid-template-columns: 1fr;
@@ -306,9 +319,6 @@ footer {
         align-content: space-between;
 
         grid-template-areas:
-            "modal-buttons"
-            "table"
-            "login"
             "details"
             "left"
             "right"
@@ -316,6 +326,52 @@ footer {
         justify-items: center;
         min-width: 100%;
         min-height: 100%;
+    }
+
+    .modal.active.login {
+        grid-template-areas:
+        "login"
+        "details"
+        "left"
+        "right"
+        "close";
+    }
+
+    .modal.active.profile-login {
+        grid-template-areas:
+         "login"
+        "close";
+        width: 29em;
+        height: fit-content;
+    }
+
+    .modal.active.profile-edit {
+        grid-template-areas:
+        "modal-buttons"
+        "login-edit"
+        "close";
+    }
+
+    .modal.active.profile-order {
+        grid-template-areas:
+        "modal-buttons"
+        "details"
+        "left"
+         "right"
+        "close";
+    }
+
+    .modal.active.profile-archive {
+        grid-template-areas:
+        "modal-buttons"
+        "table"
+        "close";
+    }
+
+    .archive-table {
+        width: auto;
+        align-self: center;
+        justify-self: center;
     }
 
     #login-section {
@@ -355,6 +411,10 @@ footer {
         padding-top: 70px;
         gap: 20px;
         flex-wrap: wrap;
+    }
+
+    .login-profile {
+        display: block;
     }
 }
 
@@ -530,9 +590,3 @@ footer {
     align-items: center;
 }
 
-.archive-table {
-    grid-area: table;
-    width: 50%;
-    align-self: center;
-    justify-self: center;
-}

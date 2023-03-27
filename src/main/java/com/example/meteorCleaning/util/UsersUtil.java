@@ -21,7 +21,17 @@ public class UsersUtil {
         user.setEmail(userTo.getEmail().toLowerCase());
         user.setName(userTo.getName());
         user.setEnabled(userTo.isEnabled());
-        if(!password.isBlank()){
+        if (!password.isBlank()) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
+        return user;
+    }
+
+    public static User updateFromProfile(User user, User userTo, PasswordEncoder passwordEncoder) {
+        String password = userTo.getPassword();
+        user.setEmail(userTo.getEmail().toLowerCase());
+        user.setName(userTo.getName());
+        if (!password.isBlank()) {
             user.setPassword(passwordEncoder.encode(password));
         }
         return user;

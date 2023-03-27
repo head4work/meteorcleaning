@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -47,55 +46,43 @@
                 <!-- Left links -->
 
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <div id="navlogin-bar" >
-                        <li class="nav-item" sec:authorize="!isAuthenticated()">
-                            <button class="btn btn-sm btn-rounded" data-mdb-ripple-color="#ffffff"
-                                    id="login-nav" style="color:#709ef1;background-color:#374151" type="button"><i
-                                    class="fas fa-sign-in fa-lg"></i> login
-                            </button>
-                        </li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-nav">
 
-                        <div sec:authorize="isAuthenticated()">
 
-                            <!-- Icon dropdown -->
-                            <li class="nav-item me-3 me-lg-0 dropdown">
-                                <a
-                                        aria-expanded="false"
-                                        class="nav-link dropdown-toggle btn-sm btn-rounded"
-                                        data-mdb-toggle="dropdown"
-                                        href="#"
-                                        id="navbarDropdown"
-                                        role="button"
-                                        style="color:#709ef1;background-color:#374151"
-                                >
-                                    <i class="fas fa-user"></i> PROFILE
-                                </a>
-                                <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
-                                    <li>
-                                        <a class="dropdown-item" href="#" onclick="openProfileButton()">Profile</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Settings</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider"/>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/logout">Logout</a>
-                                    </li>
-                                </ul>
+                    <li class="nav-item login-profile" sec:authorize="!isAuthenticated()">
+                        <button class="btn btn-sm btn-rounded " data-mdb-ripple-color="#ffffff" id="login-nav"
+                                style="color:#709ef1;background-color:#374151" type="button"><i
+                                class="fas fa-sign-in fa-lg"></i> login
+                        </button>
+                    </li>
+
+
+                    <!-- Icon dropdown -->
+                    <li class=" nav-item me-3 me-lg-0 dropdown login-profile " sec:authorize="isAuthenticated()">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle btn-sm btn-rounded"
+                           data-mdb-toggle="dropdown" href="#" id="navbarDropdown" role="button"
+                           style="color:#709ef1;background-color:#374151;width: max-content; ">
+                            <i class="fas fa-user"></i> PROFILE
+                        </a>
+                        <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="openProfileButton()">Profile</a>
                             </li>
-
-                        </div>
-
-                        <div sec:authorize="!isAuthenticated()">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#create-account">Create account</a>
+                            <li>
+                                <a class="dropdown-item" href="#">Settings</a>
                             </li>
-                        </div>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                    </div>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" href="#create-account">Create account</a>
+                    </li>
 
 
                     <li class="nav-item">
@@ -170,7 +157,8 @@
                         </button>
                         <div class="caption-text">
                             <h5>Green cleaning solutions</h5>
-                            <p>Meteor cleaning service offer a wide variety of non-toxic eco friendly natural cleaning
+                            <p>Meteor cleaning service offer a wide variety of non-toxic eco friendly natural
+                                cleaning
                                 solutions</p>
                         </div>
                     </div>
@@ -186,7 +174,8 @@
                         </button>
                         <div class="caption-text">
                             <h5>Time is most valuable nonrenewable resource</h5>
-                            <p>Let meteor cleaning employees take care of cleaning your house, so you have more time for
+                            <p>Let meteor cleaning employees take care of cleaning your house, so you have more time
+                                for
                                 things you do
                                 value the most</p>
                         </div>
@@ -210,8 +199,10 @@
 
     <section class="create-account" id="create-account">
         <h2>Create account</h2>
-        <p>Creating an account on a meteorcleaning website can offer many benefits to customers. It allows them to
-            manage orders, save time by auto-filling information, receive personalized offers and promotions, and make
+        <p style="padding: 10px">Creating an account on a meteorcleaning website can offer many benefits to
+            customers. It allows them to
+            manage orders, save time by auto-filling information, receive personalized offers and promotions, and
+            make
             the booking process more convenient.</p>
 
         <div>
@@ -226,18 +217,15 @@
 
                                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                        <form action="/rest/profile"
-                                              id="registration-form" method="post">
+                                        <form action="/rest/profile" id="registration-form" method="post">
 
 
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input class="form-control " form="registration-form"
-                                                           id="registration-name"
-
-                                                           pattern=".{2,}" required title="2 characters minimum"
-                                                           type="text"/>
+                                                           id="registration-name" pattern=".{2,}" required
+                                                           title="2 characters minimum" type="text"/>
                                                     <label class="form-label" for="registration-name"
                                                            style="margin-left: 0px;">Your Name</label>
                                                     <div class="form-notch">
@@ -253,8 +241,7 @@
                                                 <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input class="form-control" form="registration-form"
-                                                           id="registration-email"
-                                                           required type="email"/>
+                                                           id="registration-email" required type="email"/>
                                                     <label class="form-label" for="registration-email"
                                                            style="margin-left: 0px;">Your Email</label>
                                                     <div class="form-notch">
@@ -268,11 +255,9 @@
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input class="form-control active"
-                                                           form="registration-form"
-                                                           id="registration-password-1"
-                                                           pattern=".{5,}" required title="5 characters minimum"
-                                                           type="password"/>
+                                                    <input class="form-control active" form="registration-form"
+                                                           id="registration-password-1" pattern=".{5,}" required
+                                                           title="5 characters minimum" type="password"/>
                                                     <label class="form-label" for="registration-password-1"
                                                            style="margin-left: 0px;">Password</label>
                                                     <div class="form-notch">
@@ -287,17 +272,16 @@
                                                  id="password-field-2">
                                                 <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input class="form-control "
-                                                           id="registration-password-2"
-                                                           minlength="3"
-                                                           required type="password"/>
+                                                    <input class="form-control " id="registration-password-2"
+                                                           minlength="3" required type="password"/>
                                                     <label class="form-label" for="registration-password-2"
                                                            style="margin-left: 0px;">Repeat your password</label>
                                                     <div class="invalid-tooltip">Password doesn't match</div>
 
                                                     <div class="form-notch">
                                                         <div class="form-notch-leading" style="width: 9px;"></div>
-                                                        <div class="form-notch-middle" style="width: 134.4px;"></div>
+                                                        <div class="form-notch-middle" style="width: 134.4px;">
+                                                        </div>
                                                         <div class="form-notch-trailing"></div>
                                                     </div>
 
@@ -320,16 +304,15 @@
 
                                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                                 <button class="btn btn-primary btn-lg" form="registration-form"
-                                                        id="registration-button"
-                                                        type="submit"
-                                                > Register
+                                                        id="registration-button" type="submit"> Register
                                                 </button>
                                             </div>
 
                                         </form>
 
                                     </div>
-                                    <div class="col-md-10 col-lg-6 col-xl-7 d-none d-sm-flex align-items-center order-1 order-lg-2">
+                                    <div
+                                            class="col-md-10 col-lg-6 col-xl-7 d-none d-sm-flex align-items-center order-1 order-lg-2">
 
                                         <img alt="Sample image" class="img-fluid"
                                              th:src="@{/images/design/login-1.png}">
@@ -351,8 +334,10 @@
     <section class="services" id="services">
         <h2>Services</h2>
         <p>Meteor cleaning base cleaning service includes: vacuuming and wet mopping floors, wiping all furniture
-            surfaces, cleaning the bathroom. You are welcome to choose additional services to satisfy your particular
-            needs. If you can’t find what you are looking for, just call us + 1(323)491-62-19 and we’ll do our best to
+            surfaces, cleaning the bathroom. You are welcome to choose additional services to satisfy your
+            particular
+            needs. If you can’t find what you are looking for, just call us + 1(323)491-62-19 and we’ll do our best
+            to
             help you.</p>
 
         <div class="services-inside">
@@ -368,7 +353,8 @@
             <div class="card service-card">
                 <img alt="hard cleaning" class="card-img-top" src="/images/design/polishing.png"/>
                 <div class="card-body">
-                    <p class="card-text">Deep cleaning is an option for more intense and multiply commits cleaning to
+                    <p class="card-text">Deep cleaning is an option for more intense and multiply commits cleaning
+                        to
                         deal with tough dirt</p>
                 </div>
             </div>
@@ -384,7 +370,8 @@
             <div class="card service-card">
                 <img alt="refrigerator" class="card-img-top" src="/images/design/refrigerator.png"/>
                 <div class="card-body">
-                    <p class="card-text">Meteor cleaning provides inside refrigerator cleaning with steam and cleaning
+                    <p class="card-text">Meteor cleaning provides inside refrigerator cleaning with steam and
+                        cleaning
                         solutions</p>
                 </div>
             </div>
@@ -392,7 +379,8 @@
             <div class="card service-card">
                 <img alt="oven" class="card-img-top" src="/images/design/stove.png"/>
                 <div class="card-body">
-                    <p class="card-text">Meteor cleaning provides inside oven cleaning with steam and grease dissolving
+                    <p class="card-text">Meteor cleaning provides inside oven cleaning with steam and grease
+                        dissolving
                         solutions</p>
                 </div>
             </div>
@@ -471,7 +459,8 @@
                         <p>
                             Meteor cleaning is a cleaning service located in West Hollywood,
                             we are gladly offering all variety of cleaning options to satisfy your needs.
-                            Meteor cleaning service provide all kind of natural non allergic solutions in our work to
+                            Meteor cleaning service provide all kind of natural non allergic solutions in our work
+                            to
                             keep
                             you home clean and safe.
                         </p>
@@ -587,7 +576,8 @@
                         </select>
                     </div>
 
-                    <div class="select-wrap rooms effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip"
+                    <div class="select-wrap rooms effect-underline" data-mdb-placement="top"
+                         data-mdb-toggle="tooltip"
                          title="If the bathroom needs to be cleaned with detergent and be sanitized please pick a deep cleaning option then.">
                         <label for="bathroom-count">Bathroom:</label>
                         <select class="select" form="estimate" id="bathroom-count">
@@ -626,10 +616,10 @@
 
 
                     <!-- <div class="select-wrap">
-                        <label for="steamCheck">Steam clean :</label>
-                        <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox"
-                            value="steam" />
-                    </div> -->
+                    <label for="steamCheck">Steam clean :</label>
+                    <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox"
+                        value="steam" />
+                </div> -->
 
                     <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip"
                          title="Inside microwave cleaning with steam and grease dissolving solutions">
@@ -658,7 +648,8 @@
                         <input class="form-check-input" form="estimate" id="windowCheck" type="checkbox"
                                value="windows"/>
                         <div class="select-wrap" id="window-count">
-                            <input form="estimate" id="windows" max="15" min="0" type="number" value="0"/>
+                            <input form="estimate" id="windows" max="20" min="1" type="number" value="1"/>
+                            <div class="invalid-feedback">Please choose the amount of windows to be cleaned</div>
                         </div>
                     </div>
 
@@ -669,7 +660,8 @@
                         <input class="form-check-input" form="estimate" id="cabinetCheck" type="checkbox"
                                value="cabinets"/>
                         <div class="select-wrap" id="cabinet-count">
-                            <input form="estimate" id="cabinets" max="15" min="0" type="number" value="0"/>
+                            <input form="estimate" id="cabinets" max="20" min="1" type="number" value="1"/>
+                            <div class="invalid-feedback">Please choose the amount of cabinets to be cleaned</div>
                         </div>
                     </div>
 
@@ -712,9 +704,9 @@
                             <span id="totalTime"></span>
                         </li>
                         <!-- <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Shipping
-                            <span>Gratis</span>
-                        </li> -->
+                        Shipping
+                        <span>Gratis</span>
+                    </li> -->
                         <li
                                 class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                             <div>
@@ -838,12 +830,14 @@
     <section class="profile-buttons">
         <button class="btn btn-primary btn-rounded" id="modal-new-order" type="button">make new order</button>
         <button class="btn btn-info  btn-rounded" id="modal-edit" type="button">edit account</button>
-        <button class="btn  btn-secondary btn-rounded" id="modal-archive-orders" type="button">archive orders</button>
+        <button class="btn  btn-secondary btn-rounded" id="modal-archive-orders" type="button">archive
+            orders
+        </button>
     </section>
 
     <section class="profile-edit">
-        <form action="/rest/profile/edit"
-              id="profile-edit-form" method="post">
+        <form action="/rest/profile" autocomplete="off" id="profile-edit-form" method="put">
+            <input autocomplete="off" name="hidden" style="display:none;" type="text">
             <div class="row">
                 <div class="col-md-8 mb-4">
                     <div class="card mb-4">
@@ -854,44 +848,65 @@
 
                             <!-- 2 column grid layout with text inputs for the first and last names -->
                             <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-outline">
-                                    <input class="form-control" form="profile-edit-form" id="edit-firstName" required
-                                           type="text"/>
-                                    <label class="form-label" for="firstName">First name</label>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input class="form-control" form="profile-edit-form" id="edit-firstName"
+                                               required type="text"/>
+                                        <label class="form-label" for="firstName">First name</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input class="form-control" form="profile-edit-form" id="edit-lastName"
+                                               type="text"/>
+                                        <label class="form-label" for="lastName">Last name</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-outline">
-                                    <input class="form-control" form="profile-edit-form" id="edit-lastName"
-                                           type="text"/>
-                                    <label class="form-label" for="lastName">Last name</label>
-                                </div>
+
+                            <!-- Text input -->
+                            <div class="form-outline mb-4">
+                                <input class="form-control" form="profile-edit-form" id="edit-address"
+                                       type="text"/>
+                                <label class="form-label" for="address">Address</label>
                             </div>
-                        </div>
 
-
-                        <!-- Text input -->
-                        <div class="form-outline mb-4">
-                            <input class="form-control" form="profile-edit-form" id="edit-address" required
-                                   type="text"/>
-                            <label class="form-label" for="address">Address</label>
-                        </div>
-
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <input class="form-control" form="profile-edit-form" id="edit-email" required type="email"/>
-                            <label class="form-label" for="email">Email</label>
-                        </div>
 
                             <!-- Number input -->
                             <div class="form-outline mb-4">
-                                <input class="form-control" form="profile-edit-form" id="edit-phone" required
+                                <input class="form-control" form="profile-edit-form" id="edit-phone"
                                        type="number"/>
                                 <label class="form-label" for="phone">Phone</label>
                             </div>
 
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input class="form-control" form="profile-edit-form" id="edit-email" required
+                                       type="email"/>
+                                <label class="form-label" for="email">Email</label>
+                            </div>
 
+                            <!-- password input -->
+                            <div class="form-outline mb-4">
+                                <input autocomplete="off" class="form-control" form="profile-edit-form"
+                                       id="edit-password1"
+                                       type="password"/>
+                                <label class="form-label" for="email">new password</label>
+                            </div>
+
+                            <!-- password input -->
+                            <div class="form-outline mb-4 passfield">
+                                <input autocomplete="off" class="form-control" form="profile-edit-form"
+                                       id="edit-password2"
+                                       type="password"/>
+                                <label class="form-label" for="email">confirm new password</label>
+                                <div class="invalid-tooltip">Password doesn't match</div>
+
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" form="profile-edit-form"
+                                    id="profile-update" type="submit">
+                                UPDATE ACCOUNT
+                            </button>
                         </div>
                     </div>
                 </div>

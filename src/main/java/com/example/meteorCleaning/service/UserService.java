@@ -71,7 +71,14 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void update(UserTo userTo) {
         User user = get(userTo.id());
-        UsersUtil.updateFromTo(user, userTo,passwordEncoder);
+        UsersUtil.updateFromTo(user, userTo, passwordEncoder);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
+    public void updateFromProfile(User userTo) {
+        User user = get(userTo.id());
+        UsersUtil.updateFromProfile(user, userTo, passwordEncoder);
     }
 
     @CacheEvict(value = "users", allEntries = true)

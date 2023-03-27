@@ -97,7 +97,9 @@ checkOfficeType();
 select_housing_value.addEventListener('change', checkOfficeType);
 select_element.forEach(e => e.addEventListener('change', estimateCount));
 document.querySelector("#square-ft").addEventListener('input', countSqaureft);
-$('#registration-password-2, #registration-password-1').change(passwordValidation);
+$('#registration-password-1, #registration-password-2').change(startValidation1);
+$('#edit-password1, #edit-password2').change(startValidation2);
+
 fp.config.onChange.push(() => {
     if (fp.selectedDates.length > 0) {
         openTimeSelector();
@@ -106,6 +108,13 @@ fp.config.onChange.push(() => {
     }
 });
 
+function startValidation1() {
+    passwordValidation($('#registration-password-1'), $('#registration-password-2'), $('#registration-button'));
+}
+
+function startValidation2() {
+    passwordValidation($('#edit-password1'), $('#edit-password2'), $('#profile-update'));
+}
 
 // FUNCTION
 function updateDisableDates() {
@@ -287,9 +296,16 @@ function estimateCount() {
         openElementCount("#window-count");
         count += prices.window * windows_amount;
         time += timings.dishesWash;
+        // $("#windows").change(function(){
+        //     if( parseInt($("#windows").val())  === 0 ){
+        //         $("#windows").addClass("is-invalid");
+        //     } else{
+        //         $("#windows").removeClass("is-invalid");
+        //     } 
+        // });
     } else {
         closeElementCount("#window-count");
-        $("#windows").val(0);
+        $("#windows").val(1);
     }
 
     if (select_checkbox_cabinet.checked) {
@@ -298,7 +314,7 @@ function estimateCount() {
         time += timings.dishesWash;
     } else {
         closeElementCount("#cabinet-count");
-        $("#cabinets").val(0);
+        $("#cabinets").val(1);
     }
 
     if (select_checkbox_dishes.checked) {
@@ -462,7 +478,6 @@ $(document).ready(function () {
             event.preventDefault();
             ajaxLogin();
         });
-
         $("#registration-form").submit(function (event) {
             event.preventDefault();
             ajaxRegistration();
@@ -472,8 +487,36 @@ $(document).ready(function () {
             //stop submit the form, we will post it manually.
             event.preventDefault();
 
+            // if(select_checkbox_window.checked && parseInt($("#windows").val())  === 0 ){
+            //     $("#windows").addClass("is-invalid");
+            // } else{
+            //     $("#windows").removeClass("is-invalid");
+
             //check date provided
             dateValidRequired() ? confirm() : dateEmptyPopup();
+            //   }
+
+        });
+
+        $("#profile-edit-form").submit(function (event) {
+            event.preventDefault();
+            $.confirm({
+                title: 'Confirm your selections',
+                content: 'Update account information',
+                buttons: {
+
+                    confirm: {
+                        btnClass: 'btn-green',
+                        text: 'Confirm',
+                        action: function () {
+                            ajaxUpdate();
+                        }
+                    },
+                    cancel: function () {
+                    }
+                }
+
+            });
         });
     }
 });
@@ -648,12 +691,11 @@ function ajaxLogin() {
 
         success: function (response) {
 
-            //  userData = JSON.parse(response);
-
-
             getUserData();
 
-            $("#navlogin-bar").load(location.href + " #navlogin-bar");
+
+            //refresh element
+            $("#navbar-nav").load(location.href + " #navbar-nav");
 
             if (profile) {
                 closeModal();
@@ -669,14 +711,53 @@ function ajaxLogin() {
 
 }
 
-function fillUserData() {
-    $('#billingInfo').text("Logged as " + userData.name)
-    $('#firstName').val(userData.name).addClass("active")
-    $('#email').val(userData.email).addClass("active")
+function ajaxUpdate() {
+    let userTo = {};
+    userTo["name"] = $("#edit-firstName").val();
+    userTo["email"] = $("#edit-email").val();
+    userTo["password"] = $("#edit-password1").val();
+    userTo["enabled"] = true;
 
+
+    $.ajax({
+        url: "/rest/profile",
+        type: 'PUT',
+        contentType: "application/json",
+        data: JSON.stringify(userTo),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+
+        beforeSend: function (xhr) {
+            $.LoadingOverlay("show");
+        },
+
+        success: function (response) {
+            $("#loading").dialog("close");
+            $.LoadingOverlay("hide");
+
+            getUserData();
+        },
+        error: function (res) {
+            $("#loading").dialog("close");
+            $.LoadingOverlay("hide");
+            console.log(res);
+            let info = JSON.parse(res.responseText);
+            showErrorAsDiv(info.detail, $('.passfield'));
+        },
+    });
+
+}
+
+function
+fillUserData() {
+    $('#billingInfo').text("Logged as " + userData.name);
+    $('#firstName,#edit-firstName').val(userData.name).addClass("active");
+    $('#email, #edit-email').val(userData.email).addClass("active");
+
+    //replace login button with logout
     $('#login-section, #login-btn, #or ').hide();
     $('#logout-btn').show();
-
 }
 
 function openProfileButton() {
@@ -745,20 +826,17 @@ function successPopUp() {
     });
 }
 
-function passwordsAreEqual() {
-    return $('#registration-password-1').val() === $('#registration-password-2').val();
+function passwordsAreEqual(el1, el2) {
+    return $(el1).val() === $(el2).val();
 }
 
-function passwordValidation() {
-    if (passwordsAreEqual()) {
-        //  $('#registration-message').text("all good").removeClass("alert-warning").addClass("alert-success").show()
-        $('#registration-password-2').removeClass("is-invalid mb-0");
-
-        $('#registration-button').prop('disabled', false);
+function passwordValidation(element1, element2, button) {
+    if (passwordsAreEqual(element1, element2)) {
+        element2.removeClass("is-invalid mb-0");
+        button.prop('disabled', false);
     } else {
-        $('#registration-button').prop('disabled', true);
-        $('#registration-password-2').addClass("is-invalid mb-0");
-        //  $('#registration-message').removeClass("alert-success").addClass("alert-warning").text("").append('<i class="fas fa-exclamation-triangle fa-lg me-3 fa-fw"></i>' + "passwords are not equal").show();
+        button.prop('disabled', true);
+        element2.addClass("is-invalid mb-0");
     }
 }
 

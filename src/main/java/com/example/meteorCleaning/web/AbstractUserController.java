@@ -60,6 +60,12 @@ public abstract class AbstractUserController {
         service.update(user);
     }
 
+    public void updateFromProfile(User user, int id) {
+        log.info("update {} with id={}", user, id);
+        assureIdConsistent(user, id);
+        service.updateFromProfile(user);
+    }
+
     public void update(UserTo userTo, int id) {
         log.info("update {} with id={}", userTo, id);
         assureIdConsistent(userTo, id);
