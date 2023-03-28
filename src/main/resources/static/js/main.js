@@ -87,10 +87,10 @@ let dataSet = {};
 
 //Visual Studio commented
 
-updateDisableDates();
-getPrices();
-setDataMinToday();
-checkOfficeType();
+// updateDisableDates();
+// getPrices();
+// setDataMinToday();
+// checkOfficeType();
 
 
 // EVENT LISTENERS
@@ -213,7 +213,7 @@ function getPrices() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-             Object.assign(prices, response);
+            Object.assign(prices, response);
             estimateCount();
         },
         failure: function (response) {
@@ -520,6 +520,26 @@ $(document).ready(function () {
         });
     }
 });
+
+function forgotPassword() {
+    $('.passfield, #forget-remember').hide();
+    $('#login-submit').text("Recover password");
+    $(document).click(function (e) {
+        if ($(e.target).is('.modal-overlay,#close-button, .btn-close, #login-btn')) {
+            $('.passfield, #forget-remember').show();
+            $('#login-submit').text("Sign in");
+        }
+    });
+
+    $("#login").submit(function (event) {
+        event.preventDefault();
+        retrievePassword();
+    });
+}
+
+function retrievePassword() {
+
+}
 
 function showLogin() {
     $('.modal').toggleClass("login")

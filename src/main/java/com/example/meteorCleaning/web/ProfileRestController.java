@@ -2,13 +2,18 @@ package com.example.meteorCleaning.web;
 
 import com.example.meteorCleaning.dto.UserTo;
 import com.example.meteorCleaning.model.EstimateOrder;
+import com.example.meteorCleaning.model.ForgottenPasswordToken;
 import com.example.meteorCleaning.model.User;
+import com.example.meteorCleaning.service.EstimateDataService;
+import com.example.meteorCleaning.service.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -19,10 +24,31 @@ import static com.example.meteorCleaning.util.SecurityUtil.authUserId;
 @RequestMapping(value = ProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileRestController extends AbstractUserController {
     static final String REST_URL = "/rest/profile";
+    @Autowired
+    TokenService tokenService;
+
+    @Autowired
+    EstimateDataService service;
 
     @GetMapping
     public User get() {
         return super.get(authUserId());
+    }
+
+    @PostMapping("/forget")
+    public ResponseEntity<String> forgetPassword(@RequestParam String email) throws MessagingException {
+        //if user exist
+        User user = super.getByMail(email);
+
+        // create token
+        ForgottenPasswordToken token = tokenService.create(user);
+
+        //send token
+        String[] to = new String[]{user.getEmail()};
+
+        service.sendEmail(to, "Meteorcleaning forgotten password", token.toString());
+
+        return new ResponseEntity<>("We send retrieving password link to email:" + user.getEmail(), HttpStatus.OK);
     }
 
     @DeleteMapping
