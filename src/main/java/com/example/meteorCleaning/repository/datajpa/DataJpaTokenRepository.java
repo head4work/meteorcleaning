@@ -4,8 +4,6 @@ import com.example.meteorCleaning.model.ForgottenPasswordToken;
 import com.example.meteorCleaning.repository.TokenRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.function.Supplier;
-
 @Repository
 public class DataJpaTokenRepository {
     private final TokenRepository repository;
@@ -18,7 +16,7 @@ public class DataJpaTokenRepository {
         return repository.save(token);
     }
 
-    public ForgottenPasswordToken get(String token) throws Throwable {
-        return repository.findByToken(token).orElseThrow((Supplier<Throwable>) () -> null);
+    public ForgottenPasswordToken get(String token) {
+        return repository.findByToken(token);
     }
 }

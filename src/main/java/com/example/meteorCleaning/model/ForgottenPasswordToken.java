@@ -1,23 +1,25 @@
 package com.example.meteorCleaning.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tokens")
 public class ForgottenPasswordToken extends AbstractBaseEntity {
-
+    @NotNull
     @Column(nullable = false)
     private String token;
 
-    @Column(nullable = false)
+    @NotNull
+    @Column(name = "created", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @NotNull
+    @Column(name = "expire", nullable = false)
     private LocalDateTime expiresAt;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -62,5 +64,18 @@ public class ForgottenPasswordToken extends AbstractBaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        String url = "http://localhost:8080/forgot/" + token;
+        String htmlMailString =
+                "<h1>Password Restore Request</h1>" +
+                        "<p>Dear " + user.name + "</p>" +
+                        "<p>You requested a password restore on Meteorcleaning website, the following link will provide a form to change the password,\n" +
+                        "the link would be valid for 24 hours</p>" +
+                        " <a  href='" + url + "'>Click here to restore password </a>" +
+                        "<p>If you have any questions please contact us by phone or email</p>";
+        return htmlMailString;
     }
 }

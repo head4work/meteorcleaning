@@ -14,15 +14,22 @@ VALUES ('USER', 1),
        ('ADMIN', 2),
        ('USER', 3);
 
- INSERT INTO orders (name, last_name, email, address, phone,housing_type,square_ft,bedrooms,bathrooms,
-                     half_bathrooms,green_clean,deep_clean,microwave_clean,refrigerator_clean,
-                    oven_clean,dishes_clean,windows,cabinets,date_time,estimated_price,estimated_time, user_id )
- VALUES ('aName', 'Last Name', 'aaaaaaaaaa@google.com', '1220 N Ogden dr', '12321321',1,'123','2','1','0',true,true,false,true,false,false,1,
-         2,'2023-01-26 15:00:00.000000','220','1hours: 40 min' ,1 ),
-        ('bName', 'Last Name', 'bemail@google.com', '1220 N Ogden dr', '12321321',2,'123','2','1','0',true,true,false,true,false,false,'8',
-         '6','2023-01-26 11:00:00.000000','220','1hours: 40 min',null ),
-        ('cName', 'Last Name', 'cemail@google.com', '1220 N Ogden dr', '12321321',1,'123','2','1','0',false,true,false,true,false,false,'0',
-         '0','2023-01-27 15:00:00.000000','220','1hours: 40 min',null ),
+INSERT INTO tokens(user_id, token, created, expire)
+VALUES (2, '6c287d9b-b495-489c-a591-c24f916d422b', now(), now() + INTERVAL '26hours');
+
+
+INSERT INTO orders (name, last_name, email, address, phone, housing_type, square_ft, bedrooms, bathrooms,
+                    half_bathrooms, green_clean, deep_clean, microwave_clean, refrigerator_clean,
+                    oven_clean, dishes_clean, windows, cabinets, date_time, estimated_price, estimated_time, user_id)
+VALUES ('aName', 'Last Name', 'aaaaaaaaaa@google.com', '1220 N Ogden dr', '12321321', 1, '123', '2', '1', '0', true,
+        true, false, true, false, false, 1,
+        2, '2023-01-26 15:00:00.000000', '220', '1hours: 40 min', 1),
+       ('bName', 'Last Name', 'bemail@google.com', '1220 N Ogden dr', '12321321', 2, '123', '2', '1', '0', true, true,
+        false, true, false, false, '8',
+        '6', '2023-01-26 11:00:00.000000', '220', '1hours: 40 min', null),
+       ('cName', 'Last Name', 'cemail@google.com', '1220 N Ogden dr', '12321321', 1, '123', '2', '1', '0', false, true,
+        false, true, false, false, '0',
+        '0', '2023-01-27 15:00:00.000000', '220', '1hours: 40 min', null),
         ('dName', 'Last Name', 'femail@google.com', '1220 N Ogden dr', '12321321',3,'123','2','1','0',false,true,false,true,false,false,'2',
          '0','2023-01-28 11:00:00.000000','220','1hours: 40 min',null ),
         ('fName', 'Last Name', 'gemail@google.com', '1220 N Ogden dr', '12321321',2,'123','2','1','0',false,true,false,true,false,false,'0',

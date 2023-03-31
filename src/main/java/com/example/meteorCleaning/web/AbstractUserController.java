@@ -1,5 +1,6 @@
 package com.example.meteorCleaning.web;
 
+import com.example.meteorCleaning.dto.PasswordRecoveryTo;
 import com.example.meteorCleaning.dto.UserTo;
 import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.User;
@@ -64,6 +65,11 @@ public abstract class AbstractUserController {
         log.info("update {} with id={}", user, id);
         assureIdConsistent(user, id);
         service.updateFromProfile(user);
+    }
+
+    public void updateFromForgot(PasswordRecoveryTo forgotTo) {
+        log.info("restoring password with token={}", forgotTo.getToken());
+        service.updateFromForgot(forgotTo);
     }
 
     public void update(UserTo userTo, int id) {

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Forgot password recovery</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" rel="stylesheet">
+
+    <style>
+        .main-wrap {
+            display: grid;
+            justify-content: center;
+            padding: 2em;
+        }
+
+        .forgot {
+            width: fit-content;
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrap">
+    <div class="forgot">
+        <div th:if="${#httpServletRequest.getParameter('success') == 'Password been successfully changed'}">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Password has been changed!</h4>
+                <p>You successfully changed password to your account, now you can go to main page and sign in</p>
+                <hr>
+                <p><a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      href="#" th:href="@{/}">Homepage link</a></p>
+
+            </div>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${valid !=null && !valid}">
+            <h4 class="alert-heading">Token has expired!</h4>
+            <p>Please keep in mind that reset password links are valid for 24 hours</p>
+            <hr>
+            <p class="mb-0">Please send another request for password recovery for further processing</p>
+        </div>
+        <form action="#" id="forgot" method="post" th:action="@{/forgot}" th:if="${valid}"
+              th:object="${passwordRecoveryTo}">
+            <input id="token" th:field="*{token}" type="hidden">
+
+            <h4>Provide new password</h4>
+            <div class="mb-3">
+                <label class="form-label" for="password1">Password</label>
+                <input class="form-control" form="forgot" id="password1" required th:field="*{password}"
+                       type="password">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password2">Password</label>
+                <input class="form-control" form="forgot" id="password2" type="password">
+            </div>
+            <button class="btn btn-primary" form="forgot" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<script crossorigin="anonymous" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

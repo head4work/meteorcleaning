@@ -792,13 +792,14 @@
             <form action="/perform_login" class="login-form" id="login" method="post">
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input class="form-control" id="login-email" name="email" required type="email"/>
+                    <input class="form-control" form="login" id="login-email" name="email" required type="email"/>
                     <label class="form-label" for="login-email">Email address</label>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4 passfield">
-                    <input class="form-control" id="login-password" name="password" required type="password"/>
+                    <input class="form-control" form="login" id="login-password" name="password" required
+                           type="password"/>
                     <label class="form-label" for="login-password">Password</label>
                 </div>
 
@@ -807,7 +808,8 @@
                     <div class="col d-flex justify-content-center">
                         <!-- Checkbox -->
                         <div class="form-check">
-                            <input checked class="form-check-input" id="login-remember" type="checkbox" value=""/>
+                            <input checked class="form-check-input" form="login" id="login-remember" type="checkbox"
+                                   value=""/>
                             <label class="form-check-label" for="login-remember"> Remember me </label>
                         </div>
                     </div>
@@ -819,11 +821,26 @@
                 </div>
 
                 <!-- Submit button -->
-                <button class="btn btn-primary btn-block mb-4" form="login" type="submit">
+                <button class="btn btn-primary btn-block mb-4" form="login" id="login-submit" type="submit">
                     Sign in
                 </button>
 
             </form>
+
+            <form action="/rest/profile/forgot" class="login-form" id="forgot" method="post" style="display: none;">
+                <!-- Email input -->
+                <div class="form-outline mb-4" id="forgot-email-div">
+                    <input class="form-control" form="forgot" id="forgot-email" name="email" required="" type="email">
+                    <label class="form-label" for="forgot-email" style="margin-left: 0px;">Email address</label>
+                </div>
+
+                <!-- Submit button -->
+                <button class="btn btn-primary btn-block mb-4" form="forgot" id="forgot-submit" type="submit">Recover
+                    password
+                </button>
+
+            </form>
+
         </div>
     </section>
 

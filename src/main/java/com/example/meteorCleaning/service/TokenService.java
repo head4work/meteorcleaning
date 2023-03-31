@@ -14,6 +14,14 @@ public class TokenService {
     @Autowired
     DataJpaTokenRepository repository;
 
+    public boolean validateTokenExpired(ForgottenPasswordToken token) {
+        return token.getExpiresAt().isAfter(LocalDateTime.now());
+    }
+
+    public ForgottenPasswordToken get(String token) {
+        return repository.get(token);
+    }
+
     public ForgottenPasswordToken create(User user) {
         String token = UUID.randomUUID().toString();
         ForgottenPasswordToken confirmationToken = new ForgottenPasswordToken(

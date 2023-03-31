@@ -1,6 +1,7 @@
 package com.example.meteorCleaning.service;
 
 import com.example.meteorCleaning.AuthorizedUser;
+import com.example.meteorCleaning.dto.PasswordRecoveryTo;
 import com.example.meteorCleaning.dto.UserTo;
 import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.User;
@@ -79,6 +80,13 @@ public class UserService implements UserDetailsService {
     public void updateFromProfile(User userTo) {
         User user = get(userTo.id());
         UsersUtil.updateFromProfile(user, userTo, passwordEncoder);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
+    public void updateFromForgot(PasswordRecoveryTo forgotTo) {
+        User user = get(forgotTo.getToken().getUser().id());
+        UsersUtil.updateFromForgot(user, forgotTo, passwordEncoder);
     }
 
     @CacheEvict(value = "users", allEntries = true)

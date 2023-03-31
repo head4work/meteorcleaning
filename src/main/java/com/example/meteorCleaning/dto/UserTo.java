@@ -1,8 +1,6 @@
 package com.example.meteorCleaning.dto;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,25 +13,18 @@ public class UserTo extends BaseTo implements Serializable {
     @Size(min = 2, max = 100, message = "length must be between 2 and 100 characters")
     private String name;
 
-    @Email
-    @NotBlank
-    @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\D-]{2,4}$", message = "format is invalid")
-    @Size(max = 100, message = "length must be max 100 characters")
-    private String email;
-
     @NotBlank
     @Size(min = 5, max = 32, message = "length must be between 5 and 32 characters")
     private String password;
 
-    private boolean enabled ;
+    private boolean enabled;
 
     public UserTo() {
     }
 
-    public UserTo(Integer id, String name, String email, String password, boolean enabled) {
-        super(id);
+    public UserTo(Integer id, String email, String name, String password, boolean enabled) {
+        super(id, email);
         this.name = name;
-        this.email = email;
         this.password = password;
         this.enabled = enabled;
     }
@@ -54,13 +45,6 @@ public class UserTo extends BaseTo implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public boolean isEnabled() {
         return enabled;

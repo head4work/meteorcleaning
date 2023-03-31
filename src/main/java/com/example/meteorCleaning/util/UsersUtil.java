@@ -1,5 +1,6 @@
 package com.example.meteorCleaning.util;
 
+import com.example.meteorCleaning.dto.PasswordRecoveryTo;
 import com.example.meteorCleaning.dto.UserTo;
 import com.example.meteorCleaning.model.Role;
 import com.example.meteorCleaning.model.User;
@@ -31,6 +32,14 @@ public class UsersUtil {
         String password = userTo.getPassword();
         user.setEmail(userTo.getEmail().toLowerCase());
         user.setName(userTo.getName());
+        if (!password.isBlank()) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
+        return user;
+    }
+
+    public static User updateFromForgot(User user, PasswordRecoveryTo forgotTo, PasswordEncoder passwordEncoder) {
+        String password = forgotTo.getPassword();
         if (!password.isBlank()) {
             user.setPassword(passwordEncoder.encode(password));
         }

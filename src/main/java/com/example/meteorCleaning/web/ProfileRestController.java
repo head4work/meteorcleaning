@@ -1,11 +1,13 @@
 package com.example.meteorCleaning.web;
 
+import com.example.meteorCleaning.dto.ForgotTo;
 import com.example.meteorCleaning.dto.UserTo;
 import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.ForgottenPasswordToken;
 import com.example.meteorCleaning.model.User;
 import com.example.meteorCleaning.service.EstimateDataService;
 import com.example.meteorCleaning.service.TokenService;
+import com.example.meteorCleaning.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.meteorCleaning.util.SecurityUtil.authUserId;
 
@@ -35,20 +39,29 @@ public class ProfileRestController extends AbstractUserController {
         return super.get(authUserId());
     }
 
-    @PostMapping("/forget")
-    public ResponseEntity<String> forgetPassword(@RequestParam String email) throws MessagingException {
-        //if user exist
-        User user = super.getByMail(email);
+    @PostMapping("/forgot")
+    public ResponseEntity<?> forgetPassword(@Valid @RequestBody ForgotTo to) throws MessagingException {
 
+        Map<String, String> result = new HashMap<>();
+
+        //if user exist
+        User user = null;
+        try {
+            user = super.getByMail(to.getEmail());
+        } catch (NotFoundException e) {
+            result.put("detail", to.getEmail() + " " + " do not exist");
+            return ResponseEntity.badRequest().body(result);
+        }
+        result.put("email", to.getEmail());
         // create token
         ForgottenPasswordToken token = tokenService.create(user);
 
         //send token
-        String[] to = new String[]{user.getEmail()};
+        String[] emailTo = new String[]{user.getEmail()};
 
-        service.sendEmail(to, "Meteorcleaning forgotten password", token.toString());
+        service.sendEmail(emailTo, "Meteorcleaning forgotten password", token.toString());
 
-        return new ResponseEntity<>("We send retrieving password link to email:" + user.getEmail(), HttpStatus.OK);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping

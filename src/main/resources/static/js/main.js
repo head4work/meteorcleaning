@@ -232,7 +232,6 @@ function getUserData() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            debugger;
             Object.assign(userData, response);
             fillUserData();
         },
@@ -483,6 +482,11 @@ $(document).ready(function () {
             ajaxRegistration();
         });
 
+        $("#forgot").submit(function (event) {
+            event.preventDefault();
+            retrievePassword();
+        });
+
         $("#estimate").submit(function (event) {
             //stop submit the form, we will post it manually.
             event.preventDefault();
@@ -522,23 +526,40 @@ $(document).ready(function () {
 });
 
 function forgotPassword() {
-    $('.passfield, #forget-remember').hide();
-    $('#login-submit').text("Recover password");
+    $('#login').hide();
+    $('#forgot').show();
+
+
     $(document).click(function (e) {
         if ($(e.target).is('.modal-overlay,#close-button, .btn-close, #login-btn')) {
-            $('.passfield, #forget-remember').show();
-            $('#login-submit').text("Sign in");
+            $('#login').show();
+            $('#forgot').hide();
         }
     });
 
-    $("#login").submit(function (event) {
-        event.preventDefault();
-        retrievePassword();
-    });
+
 }
 
 function retrievePassword() {
+    var search = {}
+    search["email"] = $("#forgot-email").val();
 
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/rest/profile/forgot",
+        data: JSON.stringify(search),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            console.log("SUCCESS : ", data);
+            successPopUp("Success!", "You will recieve an email with further instructions on address: " + data.email)
+        },
+        error: function (e) {
+            showErrorAsDiv(e.responseJSON.detail, $('#forgot-email-div'));
+        }
+    });
 }
 
 function showLogin() {
@@ -623,7 +644,7 @@ function fire_ajax_submit() {
             console.log("SUCCESS : ", data);
             $("#loading").dialog("close");
             $.LoadingOverlay("hide");
-            successPopUp();
+            successPopUp('Confirmed!', 'We got your estimate and will contact you soon !');
             $("#make-estimate").prop("disabled", false);
             $("#estimate").trigger("reset");
             updateDisableDates();
@@ -827,10 +848,10 @@ function dateEmptyPopup() {
     });
 }
 
-function successPopUp() {
+function successPopUp(header, message) {
     $.confirm({
-        title: 'Confirmed!',
-        content: 'We got your estimate and will contact you soon !',
+        title: header,
+        content: message,
         type: 'green',
         backgroundDismiss: true,
         typeAnimated: true,
