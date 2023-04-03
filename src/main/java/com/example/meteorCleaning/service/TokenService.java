@@ -18,6 +18,10 @@ public class TokenService {
         return token.getExpiresAt().isAfter(LocalDateTime.now());
     }
 
+    public boolean delete(String token) {
+        return repository.delete(token) == 1;
+    }
+
     public ForgottenPasswordToken get(String token) {
         return repository.get(token);
     }

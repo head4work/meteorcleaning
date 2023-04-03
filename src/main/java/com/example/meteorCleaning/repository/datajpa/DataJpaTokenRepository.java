@@ -19,4 +19,8 @@ public class DataJpaTokenRepository {
     public ForgottenPasswordToken get(String token) {
         return repository.findByToken(token);
     }
+
+    public int delete(String token) {
+        return repository.deleteByToken(token);
+    }
 }

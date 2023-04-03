@@ -23,8 +23,12 @@ public class ProfileController extends AbstractUserController {
     @GetMapping("/{token}")
     public String forgotPassword(@PathVariable String token, Model model) {
         ForgottenPasswordToken passwordToken = tokenService.get(token);
-        model.addAttribute("valid", tokenService.validateTokenExpired(passwordToken));
-        model.addAttribute("passwordRecoveryTo", new PasswordRecoveryTo(passwordToken));
+        if (passwordToken != null) {
+            model.addAttribute("valid", tokenService.validateTokenExpired(passwordToken));
+            model.addAttribute("passwordRecoveryTo", new PasswordRecoveryTo(passwordToken));
+        } else {
+            model.addAttribute("valid", false);
+        }
         return "forgot";
     }
 
@@ -48,6 +52,7 @@ public class ProfileController extends AbstractUserController {
             return "forgot";
         }
         super.updateFromForgot(passwordRecoveryTo);
+        tokenService.delete(passwordRecoveryTo.getToken().getToken());
         redirectAttributes.addAttribute("success", "Password been successfully changed");
         return "redirect:/forgot";
     }

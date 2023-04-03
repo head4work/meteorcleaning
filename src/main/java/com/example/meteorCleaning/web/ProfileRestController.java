@@ -53,6 +53,7 @@ public class ProfileRestController extends AbstractUserController {
             return ResponseEntity.badRequest().body(result);
         }
         result.put("email", to.getEmail());
+
         // create token
         ForgottenPasswordToken token = tokenService.create(user);
 

@@ -18,6 +18,10 @@
             width: fit-content;
 
         }
+
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -36,31 +40,72 @@
         </div>
         <div class="alert alert-danger" role="alert" th:if="${valid !=null && !valid}">
             <h4 class="alert-heading">Token has expired!</h4>
-            <p>Please keep in mind that reset password links are valid for 24 hours</p>
+            <p>Please keep in mind that reset password links are valid for 24 hours and can be used only once</p>
             <hr>
             <p class="mb-0">Please send another request for password recovery for further processing</p>
         </div>
-        <form action="#" id="forgot" method="post" th:action="@{/forgot}" th:if="${valid}"
+        <form action="#" class="needs-validation" id="forgot" method="post" th:action="@{/forgot}" th:if="${valid}"
               th:object="${passwordRecoveryTo}">
             <input id="token" th:field="*{token}" type="hidden">
 
             <h4>Provide new password</h4>
-            <div class="mb-3">
+            <div class="mb-3 position-relative ">
                 <label class="form-label" for="password1">Password</label>
                 <input class="form-control" form="forgot" id="password1" required th:field="*{password}"
                        type="password">
+                <div class="invalid-tooltip">Password length should be from 5 to 30 characters</div>
             </div>
-            <div class="mb-3">
+
+            <div class="mb-3 position-relative">
                 <label class="form-label" for="password2">Password</label>
                 <input class="form-control" form="forgot" id="password2" type="password">
+                <div class="invalid-tooltip">Password doesn't match</div>
             </div>
-            <button class="btn btn-primary" form="forgot" type="submit">Submit</button>
+            <div th:if="${#fields.hasAnyErrors()}">
+                <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}"
+                     th:text="'password ' + ${err}">
+                    A simple danger alert—check it out!
+                </div>
+            </div>
+            <button class="btn btn-primary" form="forgot" id="forgot-submit" type="submit">Submit</button>
         </form>
     </div>
 </div>
-
-
 <script crossorigin="anonymous" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+<script crossorigin="anonymous" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script>
+    $('#password1, #password2').change(startValidation);
+
+    // $('#password1').change(lengthCheck);
+    // function lengthCheck(){
+    //   if($('#password1').val().length < 5 || $('#password1').val().length > 30) {
+    //     $('#password1').addClass("is-invalid mb-0");
+    //   } else{
+    //     $('#password1').removeClass("is-invalid mb-0");
+    //   }
+    // }
+
+    function startValidation() {
+        passwordValidation($('#password1'), $('#password2'), $('#forgot-submit'));
+    }
+
+    function passwordsAreEqual(el1, el2) {
+        return $(el1).val() === $(el2).val();
+    }
+
+    function passwordValidation(element1, element2, button) {
+        if (passwordsAreEqual(element1, element2)) {
+            element2.removeClass("is-invalid mb-0");
+            button.prop('disabled', false);
+        } else {
+            button.prop('disabled', true);
+            element2.addClass("is-invalid mb-0");
+        }
+    }
+</script>
+
+
 </body>
 </html>

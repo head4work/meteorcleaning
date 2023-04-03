@@ -716,7 +716,9 @@ function ajaxRegistration() {
 }
 
 function goToProfileLogin() {
-    console.log("go to login")
+    openModal();
+    $('.modal').attr('class', "modal active profile-login");
+    openProfile('login');
 }
 
 let userData = {};
