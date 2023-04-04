@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tokens")
 public class ForgottenPasswordToken extends AbstractBaseEntity {
+
     @NotNull
     @Column(nullable = false)
     private String token;
@@ -66,9 +67,8 @@ public class ForgottenPasswordToken extends AbstractBaseEntity {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        String url = "http://localhost:8080/forgot/" + token;
+    public String createEmail(String baseUrl) {
+        String url = baseUrl + token;
         String htmlMailString =
                 "<h1>Password Restore Request</h1>" +
                         "<p>Dear " + user.name + "</p>" +

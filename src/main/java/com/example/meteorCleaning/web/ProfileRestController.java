@@ -9,6 +9,7 @@ import com.example.meteorCleaning.service.EstimateDataService;
 import com.example.meteorCleaning.service.TokenService;
 import com.example.meteorCleaning.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,9 @@ public class ProfileRestController extends AbstractUserController {
 
     @Autowired
     EstimateDataService service;
+
+    @Value("${base.url.address}")
+    private String url;
 
     @GetMapping
     public User get() {
@@ -60,7 +64,7 @@ public class ProfileRestController extends AbstractUserController {
         //send token
         String[] emailTo = new String[]{user.getEmail()};
 
-        service.sendEmail(emailTo, "Meteorcleaning forgotten password", token.toString());
+        service.sendEmail(emailTo, "Meteorcleaning forgotten password", token.createEmail(url));
 
         return ResponseEntity.ok(result);
     }
