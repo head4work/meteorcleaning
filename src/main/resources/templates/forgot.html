@@ -11,12 +11,19 @@
         .main-wrap {
             display: grid;
             justify-content: center;
+            justify-items: center;
             padding: 2em;
         }
 
         .forgot {
             width: fit-content;
 
+        }
+
+        @media (min-width: 900px) {
+            .forgot {
+                width: 50%;
+            }
         }
 
         .error {
@@ -35,7 +42,6 @@
                 <hr>
                 <p><a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                       href="#" th:href="@{/}">Homepage link</a></p>
-
             </div>
         </div>
         <div class="alert alert-danger" role="alert" th:if="${valid !=null && !valid}">
@@ -43,31 +49,84 @@
             <p>Please keep in mind that reset password links are valid for 24 hours and can be used only once</p>
             <hr>
             <p class="mb-0">Please send another request for password recovery for further processing</p>
+            <p><a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                  href="#" th:href="@{/}">Homepage link</a></p>
         </div>
         <form action="#" class="needs-validation" id="forgot" method="post" th:action="@{/forgot}" th:if="${valid}"
               th:object="${passwordRecoveryTo}">
             <input id="token" th:field="*{token}" type="hidden">
 
-            <h4>Provide new password</h4>
-            <div class="mb-3 position-relative ">
-                <label class="form-label" for="password1">Password</label>
-                <input class="form-control" form="forgot" id="password1" required th:field="*{password}"
+            <h4>Set new password</h4>
+            <p>To change your password enter a new password twice, both inputs should be equal to proceed.
+                Make sure that the new password meets the website's requirements, such as a minimum length of 5 simbols
+                and maximun of 32.
+                Click the "Submit" or "Save" button to save the changes.
+                Remember that when creating a new password, it's important to choose a strong and unique password that
+                is difficult to guess.
+                Using a combination of upper and lowercase letters, numbers, and symbols can help make your password
+                more secure. Additionally, it's best to avoid using personal information that someone could easily guess
+                or find online.
+            </p>
+            <!-- <div class="mb-3 position-relative ">
+                <label class="form-label" for="password1">new password</label>
+                <input class="form-control" form="forgot" id="password1"  pattern=".{5,}" required
+                title="5 characters minimum" th:field="*{password}"
                        type="password">
                 <div class="invalid-tooltip">Password length should be from 5 to 30 characters</div>
+            </div> -->
+
+            <div class="mb-3 row g-3 align-items-center position-relative ">
+                <div class="col-auto">
+                    <label class="col-form-label" for="password1">New password</label>
+                </div>
+                <div class="col-auto">
+                    <input aria-labelledby="passwordHelpInline" class="form-control" form="forgot" id="password1"
+                           pattern=".{5,}"
+                           required th:field="*{password}" title="5 characters minimum"
+                           type="password">
+                    <div class="invalid-tooltip">Password length should be from 5 to 30 characters</div>
+                </div>
+                <div class="col-auto">
+                  <span class="form-text" id="passwordHelpInline">
+                    Must be 5-32 characters long.
+                  </span>
+                </div>
             </div>
 
-            <div class="mb-3 position-relative">
-                <label class="form-label" for="password2">Password</label>
-                <input class="form-control" form="forgot" id="password2" type="password">
-                <div class="invalid-tooltip">Password doesn't match</div>
+
+            <div class="mb-3 row g-3 align-items-center position-relative">
+                <div class="col-auto">
+                    <label class="col-form-label" for="password2">Repeat password</label>
+                </div>
+                <div class="col-auto">
+                    <input aria-labelledby="passwordHelpInline" class="form-control" form="forgot" id="password2"
+                           pattern=".{5,}"
+                           required title="5 characters minimum"
+                           type="password">
+                    <div class="invalid-tooltip">Password doesn't match</div>
+                </div>
+                <div class="col-auto">
+                  <span class="form-text" id="passwordHelpInline">
+                    Passwords should be equal.
+                  </span>
+                </div>
             </div>
+
+            <!-- <div class="mb-3 position-relative">
+                <label class="form-label" for="password2">repeat password</label>
+                <input class="form-control" form="forgot" id="password2" type="password" >
+                <div class="invalid-tooltip">Password doesn't match</div>
+            </div> -->
+
+
             <div th:if="${#fields.hasAnyErrors()}">
                 <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}"
                      th:text="'password ' + ${err}">
                     A simple danger alert—check it out!
                 </div>
             </div>
-            <button class="btn btn-primary" form="forgot" id="forgot-submit" type="submit">Submit</button>
+            <button class="btn btn-primary" form="forgot" id="forgot-submit" style="width: 100%;" type="submit">Submit
+            </button>
         </form>
     </div>
 </div>
