@@ -32,6 +32,12 @@ public class UsersUtil {
         String password = userTo.getPassword();
         user.setEmail(userTo.getEmail().toLowerCase());
         user.setName(userTo.getName());
+        if (!userTo.getAddress().isBlank()) {
+            user.setAddress(userTo.getAddress());
+        }
+        if (!userTo.getPhone().isBlank()) {
+            user.setPhone(userTo.getPhone());
+        }
         if (!password.isBlank()) {
             user.setPassword(passwordEncoder.encode(password));
         }

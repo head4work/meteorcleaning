@@ -67,13 +67,19 @@ public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
 
-
     @OneToMany()//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     @OrderBy("dateTime DESC")
     @OnDelete(action = OnDeleteAction.CASCADE) //https://stackoverflow.com/a/44988100/548473
     @JsonManagedReference
     private List<EstimateOrder> orders;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "phone")
+    private String phone;
+
 
     public User() {
     }
@@ -141,6 +147,22 @@ public class User extends AbstractNamedEntity {
 
     public void setOrders(List<EstimateOrder> orders) {
         this.orders = orders;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

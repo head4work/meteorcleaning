@@ -63,8 +63,8 @@ public abstract class AbstractUserController {
 
     public void updateFromProfile(User user, int id) {
         log.info("update {} with id={}", user, id);
-        assureIdConsistent(user, id);
-        service.updateFromProfile(user);
+        //   assureIdConsistent(user, id);
+        service.updateFromProfile(user, id);
     }
 
     public void updateFromForgot(PasswordRecoveryTo forgotTo) {

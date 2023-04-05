@@ -186,6 +186,7 @@ function getOrders() {
 
             $('#archive-orders-table').DataTable({
                 destroy: true,
+                responsive: true,
                 data: response,
                 columns: [
                     {data: 'dateTime'},
@@ -571,6 +572,11 @@ function showLogin() {
     $('#login-section').toggle();
 }
 
+function changePasswordToggle() {
+    $('#change-password').toggle();
+    $('#edit-password1, #edit-password2').prop('disabled', (i, v) => !v);
+}
+
 function confirm() {
     $.confirm({
         title: 'Confirm your selections',
@@ -763,6 +769,8 @@ function ajaxUpdate() {
     userTo["name"] = $("#edit-firstName").val();
     userTo["email"] = $("#edit-email").val();
     userTo["password"] = $("#edit-password1").val();
+    userTo["address"] = $("#edit-address").val();
+    userTo["phone"] = $("#edit-phone").val();
     userTo["enabled"] = true;
 
 
@@ -801,6 +809,12 @@ fillUserData() {
     $('#billingInfo').text("Logged as " + userData.name);
     $('#firstName,#edit-firstName').val(userData.name).addClass("active");
     $('#email, #edit-email').val(userData.email).addClass("active");
+    $('#address, #edit-address').val(userData.address).addClass("active");
+    $('#phone, #edit-phone').val(userData.phone).addClass("active");
+
+    //clear password fields
+    // $('#edit-password1,#edit-password2').val('');
+    // startValidation2();
 
     //replace login button with logout
     $('#login-section, #login-btn, #or ').hide();

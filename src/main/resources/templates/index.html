@@ -903,23 +903,46 @@
                                 <label class="form-label" for="email">Email</label>
                             </div>
 
-                            <!-- password input -->
-                            <div class="form-outline mb-4">
-                                <input autocomplete="off" class="form-control" form="profile-edit-form"
-                                       id="edit-password1"
-                                       type="password"/>
-                                <label class="form-label" for="email">new password</label>
+                            <button class="btn btn-outline-primary mb-3" data-mdb-ripple-color="dark"
+                                    id="change-password-button"
+                                    onclick="changePasswordToggle()" type="button">Change
+                                password
+                            </button>
+
+                            <div id="change-password" style="display: none;">
+                                <h5>Change password</h5>
+                                <p>To change your password enter a new password twice, both inputs should be equal
+                                    to proceed.
+                                    Make sure that the new password meets the website's requirements, such as a
+                                    minimum length of 5 simbols
+                                    and maximun of 32.
+                                    Remember that when creating a new password, it's important to choose a strong
+                                    and unique password that
+                                    is difficult to guess.
+                                    Using a combination of upper and lowercase letters, numbers, and symbols can
+                                    help make your password
+                                    more secure. Additionally, it's best to avoid using personal information that
+                                    someone could easily guess
+                                    or find online.
+                                </p>
+                                <!-- password input -->
+                                <div class="form-outline mb-4">
+                                    <input class="form-control" disabled form="profile-edit-form"
+                                           id="edit-password1" type="password"/>
+                                    <label class="form-label" for="email">new password</label>
+                                </div>
+
+                                <!-- password input -->
+                                <div class="form-outline mb-4">
+                                    <input class="form-control" disabled form="profile-edit-form"
+                                           id="edit-password2" type="password"/>
+                                    <label class="form-label" for="email">confirm new password</label>
+                                    <div class="invalid-tooltip">Password doesn't match</div>
+
+                                </div>
                             </div>
 
-                            <!-- password input -->
-                            <div class="form-outline mb-4 passfield">
-                                <input autocomplete="off" class="form-control" form="profile-edit-form"
-                                       id="edit-password2"
-                                       type="password"/>
-                                <label class="form-label" for="email">confirm new password</label>
-                                <div class="invalid-tooltip">Password doesn't match</div>
 
-                            </div>
                             <button class="btn btn-primary btn-lg btn-block" form="profile-edit-form"
                                     id="profile-update" type="submit">
                                 UPDATE ACCOUNT
