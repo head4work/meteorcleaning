@@ -552,11 +552,15 @@ function retrievePassword() {
         dataType: 'json',
         cache: false,
         timeout: 600000,
+        beforeSend: function () {
+            $.LoadingOverlay("show");
+        },
         success: function (data) {
-            console.log("SUCCESS : ", data);
+            $.LoadingOverlay("hide");
             successPopUp("Success!", "You will recieve an email with further instructions on address: " + data.email)
         },
         error: function (e) {
+            $.LoadingOverlay("hide");
             showErrorAsDiv(e.responseJSON.detail, $('#forgot-email-div'));
         }
     });
