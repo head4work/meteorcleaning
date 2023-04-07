@@ -573,6 +573,7 @@ function showLogin() {
 }
 
 function changePasswordToggle() {
+    $('#edit-password1, #edit-password2').val('');
     $('#change-password').toggle();
     $('#edit-password1, #edit-password2').prop('disabled', (i, v) => !v);
 }
