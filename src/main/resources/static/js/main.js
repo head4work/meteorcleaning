@@ -375,7 +375,7 @@ $('#modal-archive-orders').on("click", function () {
 });
 
 //removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
-$("#close-button, .close-button-x, .modal-overlay ").on("click", function () {
+$(".close-button, .close-button-x, .modal-overlay").on("click", function () {
     closeModal();
 });
 

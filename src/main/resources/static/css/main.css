@@ -65,6 +65,7 @@ nav {
 
 .provide-details {
     grid-area: details;
+    padding-left: 5%;
 }
 
 .profile-edit {
@@ -75,13 +76,13 @@ nav {
     /* This way it could be display flex or grid or whatever also. */
     display: grid;
     grid-template-areas:
-        "details details"
+        "details right"
         "left right"
         "close close";
     gap: 20px;
     grid-template-columns: 1fr 1fr;
 
-    align-items: center;
+    /* align-items: center; */
     /* align-content: center; */
 
     border-radius: 15px;
@@ -90,7 +91,7 @@ nav {
     width: 60%;
     max-width: 100%;
 
-    height: 70%;
+    height: fit-content;
     max-height: 100%;
 
     position: fixed;
@@ -215,6 +216,11 @@ nav {
     .create-account {
         gap: 10px;
         padding: 2%;
+    }
+
+    .provide-details {
+        padding-left: 0;
+
     }
 }
 
@@ -590,3 +596,10 @@ footer {
     align-items: center;
 }
 
+.payment-buttons {
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+}

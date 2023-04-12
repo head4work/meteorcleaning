@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .antMatchers("/", "/estimate", "/login", "/prices", "/dates", "/css/**", "/images/**", "/js/**", "/perform_login").permitAll()
                 .antMatchers(HttpMethod.POST, "/rest/profile", "/rest/profile/forgot").permitAll()
                 .antMatchers("/forgot/**").permitAll()
+                .antMatchers("/create-payment-intent").permitAll()
 
                 .antMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
