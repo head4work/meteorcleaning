@@ -4,9 +4,13 @@ import com.example.meteorCleaning.dto.CreatePayment;
 import com.example.meteorCleaning.dto.CreatePaymentResponse;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +19,7 @@ import javax.annotation.PostConstruct;
 
 @RestController
 public class PaymentController {
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Value("${stripe.api.key}")
     private String apiKey;
@@ -29,6 +34,12 @@ public class PaymentController {
     @PostConstruct
     public void init() {
         Stripe.apiKey = apiKey;
+    }
+
+    @PostMapping("/webhook")
+    public ResponseEntity<String> webhook(@RequestBody Event event) throws StripeException {
+        log.info(event.getType());
+        return ResponseEntity.ok("");
     }
 
     @PostMapping("/create-payment-intent")

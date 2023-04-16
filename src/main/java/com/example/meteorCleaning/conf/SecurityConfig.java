@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/rest/profile", "/rest/profile/forgot").permitAll()
                 .antMatchers("/forgot/**").permitAll()
                 .antMatchers("/create-payment-intent").permitAll()
+                .antMatchers("/webhook").permitAll()
 
                 .antMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()

@@ -547,7 +547,7 @@
 
     <aside class="modal-left-aside">
         <form action="/estimate" class="estimate-form" id="estimate" method="post">
-            <div class="house-form">
+            <div class="house-form" id="house-form">
 
                 <div class="house-form-type">
 
@@ -649,7 +649,7 @@
                         <input class="form-check-input" form="estimate" id="windowCheck" type="checkbox"
                                value="windows"/>
                         <div class="select-wrap" id="window-count">
-                            <input form="estimate" id="windows" max="20" min="1" type="number" value="1"/>
+                            <input form="estimate" id="windows" max="20" min="0" type="number" value="0"/>
                             <div class="invalid-feedback">Please choose the amount of windows to be cleaned</div>
                         </div>
                     </div>
@@ -661,7 +661,7 @@
                         <input class="form-check-input" form="estimate" id="cabinetCheck" type="checkbox"
                                value="cabinets"/>
                         <div class="select-wrap" id="cabinet-count">
-                            <input form="estimate" id="cabinets" max="20" min="1" type="number" value="1"/>
+                            <input form="estimate" id="cabinets" max="20" min="0" type="number" value="0"/>
                             <div class="invalid-feedback">Please choose the amount of cabinets to be cleaned</div>
                         </div>
                     </div>
@@ -986,11 +986,13 @@
             <table class="table  table-hover" id="archive-orders-table" style="width:100%">
                 <thead>
                 <tr>
+                    <th></th>
+                    <th>Number</th>
                     <th>Date</th>
                     <th>Name</th>
                     <th>Address</th>
                     <th>Price</th>
-                    <th>Phone</th>
+
                 </tr>
                 </thead>
 
@@ -1020,8 +1022,9 @@
 "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script th:src="@{/js/main.js}" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script th:src="@{/js/main.js}" type="text/javascript"></script>
+
 <script src="https://js.stripe.com/v3/"></script>
 <script defer src="/js/checkout.js"></script>
 

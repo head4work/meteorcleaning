@@ -137,16 +137,17 @@ nav {
 .modal.active.profile-order {
     grid-template-areas:
     "modal-buttons modal-buttons"
-    "details details"
+    "details right"
     "left right"
     "close close";
 }
 
 .modal.active.profile-archive {
     grid-template-areas:
-    "modal-buttons modal-buttons"
-    "table table"
-    "close close";
+    "modal-buttons"
+    "table"
+    "close";
+    grid-template-columns: auto;
 }
 
 /* "modal-buttons modal-buttons"
@@ -313,7 +314,6 @@ footer {
 
 .archive-table {
     grid-area: table;
-    width: 50%;
     align-self: center;
     justify-self: center;
 }

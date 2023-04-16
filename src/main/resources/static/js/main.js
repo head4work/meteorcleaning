@@ -1,7 +1,6 @@
 const carousel_button_elements = document.querySelectorAll('.btn.btn-info.btn-lg');
 const main_button_element = document.querySelector('.button-element');
 const modal_aside_price_element = document.querySelector('.modal-right-aside');
-const select_element = document.querySelectorAll('select, input');
 const select_housing_value = document.querySelector("#housing-type");
 const select_badroom_value = document.getElementById("badroom-count");
 const select_bathroom_value = document.getElementById("bathroom-count");
@@ -59,6 +58,7 @@ let timings = {
     weekend: 30
 }
 
+let userData = {};
 
 let today = new Date;
 let count = 0;
@@ -68,6 +68,7 @@ let tomorrow = new Date().setDate(today.getDate() + 1);
 let weekendClean = false;
 let ocuupiedDates = [];
 let disableDates = new Set();
+let onlinePaymentBolean = false;
 
 let datePickerConfig = {
     altInput: true,
@@ -80,31 +81,49 @@ const fp = flatpickr("#estimate-time", datePickerConfig);
 
 let profile = false;
 let dataSet = {};
-
+let tableData = {};
 //INIT FUNCTIONS
 //getOccupiedDateTimes();
 
 
 //Visual Studio commented
 
-// updateDisableDates();
-// getPrices();
-// setDataMinToday();
-// checkOfficeType();
+updateDisableDates();
+getPrices();
+setDataMinToday();
+checkOfficeType();
+var table = dataTableInit();
 
 
 // EVENT LISTENERS
 select_housing_value.addEventListener('change', checkOfficeType);
-select_element.forEach(e => e.addEventListener('change', estimateCount));
+document.getElementById('house-form').querySelectorAll('input, select').forEach(e => e.addEventListener('change', estimateCount));
 document.querySelector("#square-ft").addEventListener('input', countSqaureft);
 $('#registration-password-1, #registration-password-2').change(startValidation1);
 $('#edit-password1, #edit-password2').change(startValidation2);
 
+// flatpicker date listener
 fp.config.onChange.push(() => {
     if (fp.selectedDates.length > 0) {
         openTimeSelector();
         // check if selected date is sunday
         weekendClean = checkSunday();
+    }
+});
+
+// Data table event listener for opening and closing details
+$('#archive-orders-table tbody').on('click', 'td.dt-control', function () {
+    var tr = $(this).closest('tr');
+    var row = table.row(tr);
+
+    if (row.child.isShown()) {
+        // This row is already open - close it
+        row.child.hide();
+        tr.removeClass('shown');
+    } else {
+        // Open this row
+        row.child(format(row.data())).show();
+        tr.addClass('shown');
     }
 });
 
@@ -175,6 +194,129 @@ function getOccupiedDateTimes() {
     });
 }
 
+function printSelection(n) {
+    return n ? '&#9989;' : '&#10006;';
+}
+
+function printSelectionCount(n) {
+    return n !== 0 ? n : '&#10006;';
+}
+
+/* Formatting function for row details - modify as you need */
+function format(d) {
+    // `d` is the original data object for the row
+    let house_type = "Studio";
+    switch (d.housingType) {
+        case "1":
+            house_type = "Apartments"
+            break;
+        case "2":
+            house_type = "House"
+            break;
+        case "3":
+            house_type = "Office"
+            break;
+    }
+    let squareFt = d.squareFt !== null ? d.squareFt : '&#10006;';
+    return (
+        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+
+
+        '<tr>' +
+        '<th>HOUSE</th>' +
+        '<th>DATA</th>' +
+        '<th>SELECTION</th>' +
+        '<th>DATA</th>' +
+        '</tr>' +
+
+        '<tr>' +
+        '<td>Housing type:</td>' +
+        '<td>' + house_type + '</td>' +
+        '<td>Green clean:</td>' +
+        '<td>' + printSelection(d.greenClean) + '</td>' +
+        '</tr>' +
+
+        '<tr>' +
+        '<td>Square ft:</td>' +
+        '<td>' + squareFt + '</td>' +
+        '<td>Deep clean:</td>' +
+        '<td>' + printSelection(d.deepClean) + '</td>' +
+        '</tr>' +
+
+        '<tr>' +
+        '<td>Bedrooms:</td>' +
+        '<td>' + d.bedrooms + '</td>' +
+        '<td>Microwave clean:</td>' +
+        '<td>' + printSelection(d.microwaveClean) + '</td>' +
+        '</tr>' +
+
+        '<tr>' +
+        '<td>Bathrooms ft:</td>' +
+        '<td>' + d.bathrooms + '</td>' +
+        '<td>Refrigerator clean:</td>' +
+        '<td>' + printSelection(d.refrigeratorClean) + '</td>' +
+        '</tr>' +
+
+        '<tr>' +
+        '<td>Half bathrooms:</td>' +
+        '<td>' + d.halfBathrooms + '</td>' +
+        '<td>Oven clean:</td>' +
+        '<td>' + printSelection(d.ovenClean) + '</td>' +
+        '</tr>' +
+
+
+        '<tr>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td>Windows clean:</td>' +
+        '<td>' + printSelectionCount(d.windowClean) + '</td>' +
+        '</tr>' +
+
+        '<tr>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td>Cabinet clean:</td>' +
+        '<td>' + printSelectionCount(d.cabinetClean) + '</td>' +
+        '</tr>' +
+
+        '<tr>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td>Dishes clean:</td>' +
+        '<td>' + printSelection(d.dishesClean) + '</td>' +
+        '</tr>' +
+
+        '</table>'
+    );
+}
+
+function dataTableInit() {
+    return $('#archive-orders-table').DataTable({
+        // destroy: true,
+        responsive: true,
+        data: userData.orders,
+        columns: [
+            {
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: '',
+            },
+            {data: 'id'},
+            {data: 'dateTime'},
+            {data: 'name'},
+            {data: 'address'},
+            {data: 'estimatedPrice'},
+        ],
+
+        "language": {
+            "emptyTable": "You have no archive orders yet"
+        },
+    });
+
+}
+
+
 function getOrders() {
     return $.ajax({
         type: "GET",
@@ -182,27 +324,10 @@ function getOrders() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
-
-            $('#archive-orders-table').DataTable({
-                destroy: true,
-                responsive: true,
-                data: response,
-                columns: [
-                    {data: 'dateTime'},
-                    {data: 'name'},
-                    {data: 'address'},
-                    {data: 'estimatedPrice'},
-                    {data: 'phone'},
-                ],
-
-                "language": {
-                    "emptyTable": "You have no archive orders yet"
-                },
-            });
+            Object.assign(tableData, response);
         },
         error: function (response) {
-            console.log("Orers load error");
+            console.log("Orders load error");
         }
     });
 }
@@ -294,6 +419,7 @@ function estimateCount() {
 
     if (select_checkbox_window.checked) {
         openElementCount("#window-count");
+
         count += prices.window * windows_amount;
         time += timings.dishesWash;
         // $("#windows").change(function(){
@@ -305,16 +431,17 @@ function estimateCount() {
         // });
     } else {
         closeElementCount("#window-count");
-        $("#windows").val(1);
+        $("#windows").val(0);
     }
 
     if (select_checkbox_cabinet.checked) {
         openElementCount("#cabinet-count");
+
         count += prices.cabinet * cabinets_amount;
         time += timings.dishesWash;
     } else {
         closeElementCount("#cabinet-count");
-        $("#cabinets").val(1);
+        $("#cabinets").val(0);
     }
 
     if (select_checkbox_dishes.checked) {
@@ -332,7 +459,10 @@ function estimateCount() {
 
 
     $('#totalTime').text(time_convert(time.toFixed()) + " min");
-
+    if (onlinePaymentBolean) {
+        let payment = getPayment();
+        initialize(payment);
+    }
     return count;
 }
 
@@ -371,7 +501,8 @@ $('#modal-edit').on("click", function () {
 $('#modal-archive-orders').on("click", function () {
     $('.modal').attr('class', "modal active profile-archive");
     openProfile('profile-buttons', 'archive-table');
-    getOrders();
+    table.clear().rows.add(userData.orders).draw();
+    // getOrders();
 });
 
 //removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
@@ -598,45 +729,37 @@ function confirm() {
     });
 }
 
-function fire_ajax_submit() {
-
-    var estimateData = {}
+function getEstimateData() {
+    var estimateData = {};
     estimateData["name"] = $("#firstName").val();
     estimateData["lastName"] = $("#lastName").val();
     estimateData["address"] = $("#address").val();
     estimateData["email"] = $("#email").val();
     estimateData["phone"] = $("#phone").val();
-    //estimateData["housingType"] = $("#housing-type option:selected").text();
     estimateData["housingType"] = parseInt($("#housing-type").val());
-
     if (estimateData.housingType > 1) {
         estimateData["squareFt"] = $("#square-ft").val();
     }
     estimateData["bedrooms"] = parseInt($("#bedroom-count").val()) + 1;
     estimateData["bathrooms"] = parseInt($("#bathroom-count").val()) + 1;
     estimateData["halfBathrooms"] = parseInt($("#half-bathroom-count").val());
-
     estimateData["greenClean"] = $("#greenCheck").prop("checked");
     estimateData["deepClean"] = $("#deepCheck").prop("checked");
-    // estimateData["steamClean"] = $("#steamCheck").val();
     estimateData["microwaveClean"] = $("#microwaveCheck").prop("checked");
-
     estimateData["refrigeratorClean"] = $("#refrigeratorCheck").prop("checked");
-
     estimateData["ovenClean"] = $("#ovenCheck").prop("checked");
-
     estimateData["windowClean"] = parseInt($("#windows").val());
     estimateData["cabinetClean"] = parseInt($("#cabinets").val());
-
     estimateData["dishesClean"] = $("#dishesCheck").prop("checked");
-
     estimateData["dateTime"] = getDateTime();
-
-    // estimateData["time"] = $("#select-time-interval option:selected").text();
-
     estimateData["estimatedTime"] = $("#totalTime").text();
     estimateData["estimatedPrice"] = parseInt($("#totalPrice").text().slice(0, -1));
+    return estimateData;
+}
 
+
+function fire_ajax_submit() {
+    var estimateData = getEstimateData();
 
     $("#make-estimate").prop("disabled", true);
 
@@ -732,7 +855,6 @@ function goToProfileLogin() {
     openProfile('login');
 }
 
-let userData = {};
 function ajaxLogin() {
 
     $.ajax({
@@ -744,6 +866,7 @@ function ajaxLogin() {
         data: $('#login').serialize(),
 
         success: function (response) {
+            $('.modal').removeClass("login");
 
             getUserData();
 
