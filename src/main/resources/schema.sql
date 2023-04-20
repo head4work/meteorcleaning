@@ -44,6 +44,7 @@ CREATE TABLE orders
     create_date        DATE                  NOT NULL DEFAULT CURRENT_DATE,
     name               VARCHAR               NOT NULL,
     last_name          VARCHAR,
+    payment_secret     VARCHAR,
     email              VARCHAR               NOT NULL,
     address            VARCHAR               NOT NULL,
     phone              VARCHAR               NOT NULL,
@@ -53,6 +54,7 @@ CREATE TABLE orders
     bathrooms          VARCHAR               NOT NULL,
     half_bathrooms     VARCHAR               NOT NULL,
 
+    paid               BOOL    DEFAULT FALSE NOT NULL,
     green_clean        BOOL    DEFAULT FALSE NOT NULL,
     deep_clean         BOOL    DEFAULT FALSE NOT NULL,
     microwave_clean    BOOL    DEFAULT FALSE NOT NULL,

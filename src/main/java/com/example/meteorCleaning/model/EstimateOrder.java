@@ -22,6 +22,12 @@ public class EstimateOrder extends AbstractNamedEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "payment_secret")
+    private String paymentSecret;
+
+    @Column(name = "paid", columnDefinition = "bool default false")
+    private boolean paid;
+
     @Column(name = "address")
     @NotBlank(message = "{Size.Order.Address}")
     private String address;
@@ -374,4 +380,19 @@ public class EstimateOrder extends AbstractNamedEntity {
         this.cabinetClean = cabinetClean;
     }
 
+    public String getPaymentSecret() {
+        return paymentSecret;
+    }
+
+    public void setPaymentSecret(String paymentSecret) {
+        this.paymentSecret = paymentSecret;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
 }

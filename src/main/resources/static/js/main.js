@@ -266,8 +266,8 @@ function format(d) {
 
 
         '<tr>' +
-        '<td></td>' +
-        '<td></td>' +
+        '<td>Payment status</td>' +
+        '<td>' + d.getDate + '</td>' +
         '<td>Windows clean:</td>' +
         '<td>' + printSelectionCount(d.windowClean) + '</td>' +
         '</tr>' +

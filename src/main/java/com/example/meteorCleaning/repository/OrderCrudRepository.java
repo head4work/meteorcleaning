@@ -18,4 +18,5 @@ public interface OrderCrudRepository extends JpaRepository<EstimateOrder,Integer
     @Query("SELECT o FROM EstimateOrder o WHERE o.dateTime > CURRENT_TIMESTAMP")
     List<EstimateOrder> getFutureOrders();
 
+    EstimateOrder getByPaymentSecret(String paymentSecret);
 }

@@ -4,6 +4,8 @@ import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.OrderPrices;
 import com.example.meteorCleaning.repository.datajpa.DataJpaOrderRepository;
 import com.example.meteorCleaning.repository.datajpa.DataJpaPriceRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,7 @@ import java.util.Map;
 
 @Service
 public class EstimateDataService {
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private JavaMailSender mailSender;
@@ -67,10 +70,19 @@ public class EstimateDataService {
     }
 
     public OrderPrices savePrices(OrderPrices prices) {
-      return  priceRepository.save(prices);
+        return priceRepository.save(prices);
     }
 
     public Map<Object, Long> getAllDates() {
-      return   repository.getAllDates();
+        return repository.getAllDates();
+    }
+
+    public EstimateOrder getByPaymentIntentId(String paymentIntentId) {
+        return repository.getByPaymentIntentId(paymentIntentId);
+    }
+
+    public void update(EstimateOrder order) {
+        log.info("update order with id={}", order.id());
+        repository.update(order);
     }
 }

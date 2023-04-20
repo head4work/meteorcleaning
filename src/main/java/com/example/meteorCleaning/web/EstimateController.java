@@ -49,10 +49,10 @@ public class EstimateController {
         if (userId != 0) {
             data.setUser(userRepository.get(userId));
         }
-        repository.save(data);
+        EstimateOrder order = repository.save(data);
         service.sendEmail(to, "CLEANING ORDER", data.toString());
         result.setMsg("success");
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(order);
     }
 
 }

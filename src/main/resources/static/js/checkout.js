@@ -5,7 +5,7 @@ const stripe = Stripe("pk_test_51MuNeYCxo90t77m1bobhYnDuJBAYbSbLcCoUwGVWkWuLvvMD
 const items = [{id: "xl-tshirt"}];
 
 let elements;
-
+let payment_secret;
 
 document
     .querySelector("#payment-form")
@@ -52,7 +52,7 @@ async function initialize(payment) {
     theme: 'stripe',
   };
   elements = stripe.elements({appearance, clientSecret});
-
+  payment_secret = clientSecret.split('_secret_')[0];
   const paymentElementOptions = {
     layout: "tabs",
   };
@@ -75,6 +75,7 @@ async function handleSubmit(e) {
     setLoading(true);
 
     var estimateData = getEstimateData();
+    estimateData.paymentSecret = payment_secret;
     $.ajax({
       type: "POST",
       contentType: "application/json",

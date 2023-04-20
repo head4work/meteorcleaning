@@ -52,14 +52,19 @@ public class DataJpaOrderRepository {
         List<EstimateOrder> futureOrders = repository.getFutureOrders();
         Map<Object,Long> result = new ConcurrentHashMap<>();
          futureOrders.forEach(e -> result.compute(e.getDateTime().toLocalDate(), (k, v) -> {
-             if (v == null){
-                 if(e.getDateTime().getHour() == 11){
+             if (v == null) {
+                 if (e.getDateTime().getHour() == 11) {
                      return 0L;
-                 } return 1L;
+                 }
+                 return 1L;
              }
-             return  v + 3L;
+             return v + 3L;
          }));
 
-         return result;
+        return result;
+    }
+
+    public EstimateOrder getByPaymentIntentId(String paymentIntentId) {
+        return repository.getByPaymentSecret(paymentIntentId);
     }
 }
