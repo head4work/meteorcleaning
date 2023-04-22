@@ -295,6 +295,11 @@ function dataTableInit() {
         // destroy: true,
         responsive: true,
         data: userData.orders,
+        "createdRow": function (row, data, dataIndex) {
+            if (data.paid) {
+                $(row).addClass('greenClass');
+            }
+        },
         columns: [
             {
                 className: 'dt-control',
@@ -307,6 +312,11 @@ function dataTableInit() {
             {data: 'name'},
             {data: 'address'},
             {data: 'estimatedPrice'},
+            {
+                data: 'paid', render: function (data) {
+                    return printSelection(data)
+                }
+            }
         ],
 
         "language": {

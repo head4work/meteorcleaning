@@ -7,6 +7,7 @@ import com.example.meteorCleaning.service.EstimateDataService;
 import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
 import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
 import com.stripe.net.Webhook;
@@ -69,7 +70,13 @@ public class PaymentController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         if (event.getType().equals("charge.succeeded")) {
-            String paymentIntentId = getPaymentIntentId(payload);
+            Charge intent = (Charge) event
+                    .getDataObjectDeserializer()
+                    .getObject()
+                    .get();
+
+
+            String paymentIntentId = intent.getPaymentIntent();
             if (paymentIntentId != null) {
                 EstimateOrder order = orderService.getByPaymentIntentId(paymentIntentId);
                 order.setPaid(true);

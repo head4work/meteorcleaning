@@ -95,6 +95,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Solutions</a>
                     </li>
+
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="#" th:href="@{/admin}">Admin</a>
+                    </li>
+
+
                 </ul>
                 <!-- Left links -->
             </div>
@@ -617,10 +623,10 @@
 
 
                     <!-- <div class="select-wrap">
-                    <label for="steamCheck">Steam clean :</label>
-                    <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox"
-                        value="steam" />
-                </div> -->
+                <label for="steamCheck">Steam clean :</label>
+                <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox"
+                    value="steam" />
+            </div> -->
 
                     <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip"
                          title="Inside microwave cleaning with steam and grease dissolving solutions">
@@ -705,9 +711,9 @@
                             <span id="totalTime"></span>
                         </li>
                         <!-- <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                        Shipping
-                        <span>Gratis</span>
-                    </li> -->
+                    Shipping
+                    <span>Gratis</span>
+                </li> -->
                         <li
                                 class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                             <div>
@@ -733,13 +739,14 @@
                         </form>
                     </div>
                     <div class="payment-buttons">
-                        <button class="btn text-white" href="#!" id="payment-init" onclick="initPayment()" role="button"
-                                style="background-color: #55acee;" type="button">
+                        <button class="btn text-white" href="#!" id="payment-init" onclick="initPayment()"
+                                role="button" style="background-color: #55acee;" type="button">
                             <i class="far fa-credit-card me-3 fa-lg"></i>
                             Pay with card
                         </button>
                         <!-- <button type="button" class="btn btn-outline-success" data-mdb-ripple-color="dark" onclick="initPayment()">Pay with card</button> -->
-                        <button class="btn btn-primary btn-lg " form="estimate" id="book-cleaning-button" type="submit">
+                        <button class="btn btn-primary btn-lg " form="estimate" id="book-cleaning-button"
+                                type="submit">
                             BOOK CLEANING
                         </button>
                         <button class="btn btn-outline-secondary btn-rounded " data-mdb-ripple-color="dark"
@@ -767,14 +774,13 @@
                             onclick="window.location.href='/logout';" style="display : none" type="button"> logout
                         <i class="fas fa-sign-out fa-sm"></i></button>
                 </div>
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <!-- 2 column grid layout with text inputs for the first and last names -->
-                        <div class="row mb-4">
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row mb-4">
                             <div class="col">
                                 <div class="form-outline">
-                                    <input class="form-control" form="estimate" id="firstName" required
-                                           type="text"/>
+                                    <input class="form-control" form="estimate" id="firstName" required type="text"/>
                                     <label class="form-label" for="firstName">First name</label>
                                 </div>
                             </div>
@@ -799,16 +805,16 @@
                             <label class="form-label" for="email">Email</label>
                         </div>
 
-                        <!-- Number input -->
-                        <div class="form-outline mb-4">
-                            <input class="form-control" form="estimate" id="phone" required type="number"/>
-                            <label class="form-label" for="phone">Phone</label>
-                        </div>
-
-
+                    <!-- Number input -->
+                    <div class="form-outline mb-4">
+                        <input class="form-control" form="estimate" id="phone" required type="number"/>
+                        <label class="form-label" for="phone">Phone</label>
                     </div>
+
+
                 </div>
             </div>
+        </div>
     </section>
 
     <section class="login" id="login-section">
@@ -854,12 +860,14 @@
             <form action="/rest/profile/forgot" class="login-form" id="forgot" method="post" style="display: none;">
                 <!-- Email input -->
                 <div class="form-outline mb-4" id="forgot-email-div">
-                    <input class="form-control" form="forgot" id="forgot-email" name="email" required="" type="email">
+                    <input class="form-control" form="forgot" id="forgot-email" name="email" required=""
+                           type="email">
                     <label class="form-label" for="forgot-email" style="margin-left: 0px;">Email address</label>
                 </div>
 
                 <!-- Submit button -->
-                <button class="btn btn-primary btn-block mb-4" form="forgot" id="forgot-submit" type="submit">Recover
+                <button class="btn btn-primary btn-block mb-4" form="forgot" id="forgot-submit"
+                        type="submit">Recover
                     password
                 </button>
 
@@ -928,8 +936,7 @@
                             </div>
 
                             <button class="btn btn-outline-primary mb-3" data-mdb-ripple-color="dark"
-                                    id="change-password-button"
-                                    onclick="changePasswordToggle()" type="button">Change
+                                    id="change-password-button" onclick="changePasswordToggle()" type="button">Change
                                 password
                             </button>
 
@@ -952,8 +959,8 @@
                                 <!-- password input -->
                                 <div class="form-outline mb-4">
                                     <input class="form-control" disabled form="profile-edit-form"
-                                           id="edit-password1" pattern=".{5,}"
-                                           title="5 characters minimum" type="password"/>
+                                           id="edit-password1" pattern=".{5,}" title="5 characters minimum"
+                                           type="password"/>
                                     <label class="form-label" for="email">new password</label>
                                 </div>
 
@@ -992,6 +999,7 @@
                     <th>Name</th>
                     <th>Address</th>
                     <th>Price</th>
+                    <th>Paid</th>
 
                 </tr>
                 </thead>
