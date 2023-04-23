@@ -226,6 +226,7 @@ function estimateCount() {
     //check if selected date is weekend
     count += weekendClean ? prices.weekend : 0;
 
+    count = Math.round(count);
     $('#totalPrice').text(count + "$").val(count);
 
 
@@ -599,7 +600,10 @@ function countSqaureft() {
 function checkOfficeType() {
     let square_count = "#square-count";
     let house_value = $("#housing-type option:selected").val();
-    if (parseInt(house_value) === 0) {
+    if (parseInt(house_value) === 3) {
+        $("#bedroom-count, #bathroom-count,#half-bathroom-count").val(0);
+        //   $("#half-bathroom-count").val(0);
+    } else {
         $("#bedroom-count, #bathroom-count").val(1);
         $("#half-bathroom-count").val(0);
     }

@@ -171,6 +171,7 @@
                     <div class="input-group mb-2">
                         <label class="input-group-text" for="bedroom-count">Bedroom:</label>
                         <select class="form-select" form="estimate" id="bedroom-count" th:field="*{bedrooms}">
+                            <option value="0">none</option>
                             <option selected value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -180,6 +181,7 @@
                     <div class="input-group mb-2">
                         <label class="input-group-text" for="bathroom-count">Bathroom:</label>
                         <select class="form-select" form="estimate" id="bathroom-count" th:field="*{bathrooms}">
+                            <option value="0">none</option>
                             <option selected value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>

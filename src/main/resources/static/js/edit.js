@@ -159,7 +159,7 @@ function estimateCount() {
 
     //check if selected date is weekend
     count += weekendClean ? prices.weekend : 0;
-
+    count = Math.round(count);
     $('#totalPrice').text(count + "$").val(count);
 
     return count;
