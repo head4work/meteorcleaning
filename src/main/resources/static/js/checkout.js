@@ -6,19 +6,29 @@ const items = [{id: "xl-tshirt"}];
 
 let elements;
 let payment_secret;
+$(function () {
+    document
+        .querySelector("#payment-form")
+        .addEventListener("submit", handleSubmit);
 
-document
-    .querySelector("#payment-form")
-    .addEventListener("submit", handleSubmit);
+    $("#email").change(reInitializePayment);
+
+});
+
 
 let emailAddress = '';
 
+function reInitializePayment() {
+    let payment = getPayment();
+    initialize(payment);
+}
+
 function getPayment() {
-  let payment = {
-    email: $("#email").val(),
-    amount: parseInt($("#totalPrice").text().slice(0, -1))
-  };
-  return payment;
+    let payment = {
+        email: $("#email").val(),
+        amount: parseInt($("#totalPrice").text().slice(0, -1))
+    };
+    return payment;
 }
 
 function initPayment() {
