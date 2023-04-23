@@ -116,8 +116,8 @@
                                                         <li th:case="*">Housing type: Studio</li>
                                                     </div>
                                                     <li>Square ft: [(${orders.squareFt})]</li>
-                                                    <li>Bedrooms: [(${orders.bedrooms} +1 )]</li>
-                                                    <li>Bathrooms: [(${orders.bathrooms} +1)]</li>
+                                                    <li>Bedrooms: [(${orders.bedrooms})]</li>
+                                                    <li>Bathrooms: [(${orders.bathrooms})]</li>
                                                     <li>Half bathrooms: [(${orders.halfBathrooms})]</li>
                                                     <li>Green clean:<span
                                                             th:text="${orders.greenClean} ? '&#9989;' : '&#10006;' ">
