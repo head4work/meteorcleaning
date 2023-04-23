@@ -1,6 +1,6 @@
-function estimateCount() {
-    count = 0;
-    time = 0;
+export function estimateCount() {
+    let count = 0;
+    let time = 0;
     let house_value = $("#housing-type option:selected").val();
     let bedroom_count = $("#bedroom-count option:selected").val();
     let bathroom_count = $("#bathroom-count option:selected").val();

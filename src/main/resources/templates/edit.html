@@ -281,7 +281,7 @@
                     <div>
                         <label for="estimate-time">Date :</label>
                         <input class="date-selector mb-3" form="estimate" id="estimate-time" name="estimate-time"
-                            required type="date">
+                               required type="date">
                         <div class="select-interval mb-3">
                             <label for="select-time-interval">Choose time:</label>
                             <select class="select" form="estimate" id="select-time-interval">
@@ -291,10 +291,18 @@
                         </div>
                     </div>
 
+                    <div class="option-wrap border border-1 rounded mb-2">
+                        <label for="paidCheck">Order is paid :</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input " form="estimate" id="paidCheck"
+                                   th:checked="${order.paid}" th:field="*{paid}" type="checkbox"/>
+                        </div>
+                    </div>
+
                     <div class="input-group mb-2">
                         <label class="input-group-text" for="totalPrice">Estimated price :</label>
                         <input class="form-control" form="estimate" id="totalPrice" max="10000" min="1" step="any"
-                               th:field="*{estimatedPrice}" type="number" value="100" />
+                               th:field="*{estimatedPrice}" type="number" value="100"/>
                     </div>
 
                     <div class="buttons">
@@ -308,7 +316,6 @@
             </div>
         </form>
     </div>
-
 
     <script crossorigin="anonymous" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         src="https://code.jquery.com/jquery-3.6.1.js"></script>
@@ -344,6 +351,7 @@
             console.log(updateDate);
             $("#date-field").val(updateDate);
         }
+
         function getDateTime() {
             let dateTime = new Date($("#estimate-time").val());
             let hours = parseInt($("#select-time-interval").val()) === 0 ? 11 : 15;
@@ -351,18 +359,11 @@
             return dateTime.toISOString();
         }
     </script>
-    <script src="/js/estimateCount-module.js" type="module">
-
-        import {estimateCount} from '/js/estimateCount-module';
-
-        estimateCount();
-        $(".form-control").change(estimateCount);
-
-
-    </script>
-
     <script src="/js/edit.js"></script>
-
+    <script>
+        getPrices();
+        $("#estimate").change(estimateCount);
+    </script>
 </body>
 
 </html>
