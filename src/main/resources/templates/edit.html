@@ -102,8 +102,10 @@
 
     <div class="wraper">
         <form action="#" class="estimate-form" id="estimate" method="post" th:action="@{/admin/orders/save}"
-            th:object="${order}">
-            <input th:field="*{id}" type="hidden" />
+              th:object="${order}">
+            <input th:field="*{id}" type="hidden"/>
+            <input th:field="*{user}" type="hidden"/>
+
             <div class="house-form shadow-sm p-3 mb-5 bg-body rounded ">
                 <div class="user-data shadow-sm p-3 mb-5 bg-body rounded">
                     <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -111,7 +113,7 @@
                         <div class="col">
                             <div class="form-outline">
                                 <input class="form-control" form="estimate" id="firstName" required th:field="*{name}"
-                                    type="text" />
+                                       type="text"/>
                                 <label class="form-label" for="firstName">First name</label>
                             </div>
                         </div>
