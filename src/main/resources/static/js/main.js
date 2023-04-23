@@ -22,9 +22,9 @@ const select_checkbox_dishes = document.querySelector('#dishesCheck');
 
 //PRICE AND TIME COUNT
 let prices = {
-    studio: 140,
-    apartments: 170,
-    house: 220,
+    studio: 100,
+    apartments: 130,
+    house: 180,
     houseFt: 0.5, //per sq ft
     office: 0.3, //per sq ft
     bedroom: 20,
@@ -600,7 +600,8 @@ function checkOfficeType() {
     let square_count = "#square-count";
     let house_value = $("#housing-type option:selected").val();
     if (parseInt(house_value) === 0) {
-        $("#bedroom-count, #bathroom-count, #half-bathroom-count").val(0);
+        $("#bedroom-count, #bathroom-count").val(1);
+        $("#half-bathroom-count").val(0);
     }
     parseInt(house_value) > 1 ? openElementCount(square_count) : closeElementCount(square_count);
     if ($('title').text() !== "Edit") {
@@ -755,8 +756,8 @@ function getEstimateData() {
     if (estimateData.housingType > 1) {
         estimateData["squareFt"] = $("#square-ft").val();
     }
-    estimateData["bedrooms"] = parseInt($("#bedroom-count").val()) + 1;
-    estimateData["bathrooms"] = parseInt($("#bathroom-count").val()) + 1;
+    estimateData["bedrooms"] = parseInt($("#bedroom-count").val());
+    estimateData["bathrooms"] = parseInt($("#bathroom-count").val());
     estimateData["halfBathrooms"] = parseInt($("#half-bathroom-count").val());
     estimateData["greenClean"] = $("#greenCheck").prop("checked");
     estimateData["deepClean"] = $("#deepCheck").prop("checked");
