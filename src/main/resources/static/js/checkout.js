@@ -115,15 +115,15 @@ async function handleSubmit(e) {
         if (error !== undefined) {
 
           if (error.type === "card_error" || error.type === "validation_error") {
-            showMessage(error.message);
+            showMessage(error.message,"alert alert-danger");
           } else {
-            showMessage("An unexpected error occurred.");
+            showMessage("An unexpected error occurred.","alert alert-danger");
           }
           cancelOrder(order.paymentSecret);
 
 
         } else {
-          showMessage("Payment succeeded!");
+          showMessage("Payment succeeded!","alert alert-success");
           successPopUp('Succeeded!', 'Thank you for submitting your order. We will review it and be in touch with you shortly.'
               + 'Once the processing is complete, we will send you a receipt via email. Have a great day!!');
           // close modal and clear form and date field
@@ -139,7 +139,7 @@ async function handleSubmit(e) {
       error: function (e) {
         setLoading(false);
 
-        showMessage(e.responseJSON.detail);
+        showMessage(e.responseJSON.detail,"alert alert-danger");
       }
     });
 
@@ -163,30 +163,30 @@ async function checkStatus() {
 
   switch (paymentIntent.status) {
     case "succeeded":
-      showMessage("Payment succeeded!");
+      showMessage("Payment succeeded!","alert alert-success");
       break;
     case "processing":
-      showMessage("Your payment is processing.");
+      showMessage("Your payment is processing.","alert alert-warning");
       break;
     case "requires_payment_method":
-      showMessage("Your payment was not successful, please try again.");
+      showMessage("Your payment was not successful, please try again.","alert alert-danger");
       break;
     default:
-      showMessage("Something went wrong.");
+      showMessage("Something went wrong.","alert alert-danger");
       break;
   }
 }
 
 // ------- UI helpers -------
 
-function showMessage(messageText) {
+function showMessage(messageText,alertClass) {
   const messageContainer = document.querySelector("#payment-message");
-
+  $('#payment-message').addClass(alertClass);
   messageContainer.classList.remove("hidden");
   messageContainer.textContent = messageText;
 
   setTimeout(function () {
-    messageContainer.classList.add("hidden");
+    messageContainer.setAttribute("class","hidden");
     messageText.textContent = "";
   }, 40000);
 }
