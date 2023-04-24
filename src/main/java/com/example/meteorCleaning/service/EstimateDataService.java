@@ -85,4 +85,9 @@ public class EstimateDataService {
         log.info("update order with id={}", order.id());
         repository.update(order);
     }
+
+    public boolean cancelOrder(String id) {
+        log.info("delete order with payment_id={} ", id);
+        return repository.deleteByPaymentIntent(id) != 0;
+    }
 }

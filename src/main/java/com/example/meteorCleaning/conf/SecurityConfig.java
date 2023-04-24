@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .antMatchers("/forgot/**").permitAll()
                 .antMatchers("/create-payment-intent").permitAll()
                 .antMatchers("/webhook").permitAll()
-
+                .antMatchers("/estimate/**").permitAll()
                 .antMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin()

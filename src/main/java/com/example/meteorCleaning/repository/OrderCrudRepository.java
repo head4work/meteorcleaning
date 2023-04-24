@@ -9,11 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface OrderCrudRepository extends JpaRepository<EstimateOrder,Integer> {
+public interface OrderCrudRepository extends JpaRepository<EstimateOrder, Integer> {
     @Transactional
     @Modifying
     @Query("DELETE FROM EstimateOrder o WHERE o.id=:id")
     int delete(@Param("id") int id);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM EstimateOrder o WHERE o.paymentSecret=:payment_id")
+    int deleteByPaymentIntent(@Param("payment_id") String id);
 
     @Query("SELECT o FROM EstimateOrder o WHERE o.dateTime > CURRENT_TIMESTAMP")
     List<EstimateOrder> getFutureOrders();

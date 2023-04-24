@@ -9,15 +9,14 @@ import com.example.meteorCleaning.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @RestController
 public class EstimateController {
+
     @Value("${HOME_EMAIL:head4work@gmail.com}")
     private String homeEmail;
 
@@ -55,4 +54,8 @@ public class EstimateController {
         return ResponseEntity.ok(order);
     }
 
+    @DeleteMapping("/estimate/cancel")
+    private void delete(@RequestParam("id") String id) {
+        service.cancelOrder(id);
+    }
 }

@@ -7,11 +7,11 @@ const items = [{id: "xl-tshirt"}];
 let elements;
 let payment_secret;
 $(function () {
-    document
-        .querySelector("#payment-form")
-        .addEventListener("submit", handleSubmit);
+  document
+      .querySelector("#payment-form")
+      .addEventListener("submit", handleSubmit);
 
-    $("#email").change(reInitializePayment);
+  $("#email").change(reInitializePayment);
 
 });
 
@@ -19,16 +19,16 @@ $(function () {
 let emailAddress = '';
 
 function reInitializePayment() {
-    let payment = getPayment();
-    initialize(payment);
+  let payment = getPayment();
+  initialize(payment);
 }
 
 function getPayment() {
-    let payment = {
-        email: $("#email").val(),
-        amount: parseInt($("#totalPrice").text().slice(0, -1))
-    };
-    return payment;
+  let payment = {
+    email: $("#email").val(),
+    amount: parseInt($("#totalPrice").text().slice(0, -1))
+  };
+  return payment;
 }
 
 function initPayment() {
@@ -95,7 +95,7 @@ async function handleSubmit(e) {
       cache: false,
       timeout: 600000,
 
-      success: async function (data) {
+      success: async function (order) {
 
         const {error} = await stripe.confirmPayment({
           elements,
@@ -113,19 +113,27 @@ async function handleSubmit(e) {
         // be redirected to an intermediate site first to authorize the payment, then
         // redirected to the `return_url`.
         if (error !== undefined) {
+
           if (error.type === "card_error" || error.type === "validation_error") {
             showMessage(error.message);
           } else {
             showMessage("An unexpected error occurred.");
           }
+          cancelOrder(order.paymentSecret);
+
+
         } else {
           showMessage("Payment succeeded!");
+          successPopUp('Succeeded!', 'Thank you for submitting your order. We will review it and be in touch with you shortly.'
+              + 'Once the processing is complete, we will send you a receipt via email. Have a great day!!');
+          // close modal and clear form and date field
+          closeModal();
+          $("#estimate").trigger("reset");
+          updateDisableDates();
+          fp.clear();
         }
 
-        // clear form and date field
-        $("#estimate").trigger("reset");
-        updateDisableDates();
-        fp.clear();
+
         setLoading(false);
       },
       error: function (e) {
@@ -195,4 +203,21 @@ function setLoading(isLoading) {
     document.querySelector("#spinner").classList.add("hidden");
     document.querySelector("#button-text").classList.remove("hidden");
   }
+}
+
+function cancelOrder(id) {
+  $.ajax({
+    type: "DELETE",
+    url: "/estimate/cancel",
+    data: {
+      id: id
+    },
+
+    success: function (result) {
+      console.log("order canceled");
+    },
+    error: function (e) {
+      console.log(e);
+    }
+  })
 }

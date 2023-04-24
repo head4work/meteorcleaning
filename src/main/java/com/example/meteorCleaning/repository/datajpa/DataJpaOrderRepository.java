@@ -67,4 +67,8 @@ public class DataJpaOrderRepository {
     public EstimateOrder getByPaymentIntentId(String paymentIntentId) {
         return repository.getByPaymentSecret(paymentIntentId);
     }
+
+    public int deleteByPaymentIntent(String id) {
+        return repository.deleteByPaymentIntent(id);
+    }
 }
