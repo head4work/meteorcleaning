@@ -370,7 +370,7 @@ function format(d) {
 
         '<tr>' +
         '<td>Payment status</td>' +
-        '<td>' + d.getDate + '</td>' +
+        '<td>' + printSelection(d.paid) + '</td>' +
         '<td>Windows clean:</td>' +
         '<td>' + printSelectionCount(d.windowClean) + '</td>' +
         '</tr>' +
@@ -396,7 +396,16 @@ function format(d) {
 function dataTableInit() {
     return $('#archive-orders-table').DataTable({
         // destroy: true,
-        responsive: true,
+        responsive: {
+            details: false,
+            breakpoints: [
+                {name: 'desktop', width: Infinity},
+                {name: 'tablet', width: 1024},
+                {name: 'fablet', width: 768},
+                {name: 'phone', width: 480}
+            ]
+        },
+
         data: userData.orders,
         "createdRow": function (row, data, dataIndex) {
             if (data.paid) {
