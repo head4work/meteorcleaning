@@ -420,7 +420,10 @@ function dataTableInit() {
                 defaultContent: '',
             },
             {data: 'id'},
-            {data: 'dateTime'},
+            {
+                data: 'dateTime',
+                render: DataTable.render.datetime()
+            },
             {data: 'name'},
             {data: 'address'},
             {data: 'estimatedPrice'},
