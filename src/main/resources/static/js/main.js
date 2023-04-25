@@ -905,8 +905,8 @@ function ajaxLogin() {
 
             if (profile) {
                 closeModal();
+                openProfileButton();
             }
-
         },
         error: function (res) {
             console.log(res);
