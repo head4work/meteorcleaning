@@ -619,7 +619,13 @@ function checkOfficeType() {
         $("#bedroom-count, #bathroom-count").val(1);
         $("#half-bathroom-count").val(0);
     }
-    parseInt(house_value) > 1 ? openElementCount(square_count) : closeElementCount(square_count);
+    if (parseInt(house_value) > 1) {
+        openElementCount(square_count);
+    } else {
+        closeElementCount(square_count);
+        $('#square-ft').val(100);
+    }
+
     if ($('title').text() !== "Edit") {
         parseInt(house_value) === 3 || parseInt(house_value) === 0 ? disableHousingElements() : enableHousingElements();
     }
