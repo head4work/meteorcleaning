@@ -152,7 +152,7 @@ function estimateCount() {
 
     let square_ft_count = countSqaureft();
 
-    count += parseInt(house_value) !== 3 ? (Object.values(prices)[house_value]) : prices.office * square_ft_count;
+    count += parseInt(house_value) == 3 ? prices.office * square_ft_count : parseInt(house_value) == 2 ? countHouseBaseByFt() : (Object.values(prices)[house_value]);
 
     time += parseInt(house_value) !== 3 ? (Object.values(timings)[house_value]) : timings.office * square_ft_count;
 
@@ -221,7 +221,7 @@ function estimateCount() {
     }
 
     // price for house declare by choosing higher option
-    count = count > prices.houseFt * $("#square-ft").val() ? count : prices.houseFt * $("#square-ft").val();
+    //  count = count > prices.houseFt * countSqaureft() ? count : prices.houseFt * countSqaureft();
 
     //check if selected date is weekend
     count += weekendClean ? prices.weekend : 0;
@@ -607,6 +607,11 @@ function enableHousingElements() {
 
 function countSqaureft() {
     return ($("#square-ft").val());
+}
+
+function countHouseBaseByFt() {
+    let feets = parseInt(countSqaureft());
+    return feets - 1000 > 0 ? ((feets - 1000) * prices.houseFt) + prices.house : prices.house;
 }
 
 function checkOfficeType() {
