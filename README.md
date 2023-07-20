@@ -4,27 +4,18 @@
 </h1>
 
 ## Introduction
-A full-featured Spring/JPA Enterprise e-commerce application  with  role-based authorization, online order placing, online payment with stripe api, storing all information in postgres database, deployed on heroku.
+A full-featured Spring/JPA Enterprise e-commerce application  with  role-based authorization, online order placing, online payment with stripe api, storing all information in postgres database, deployed on heroku.   
+   
+![java](https://github.com/head4work/meteorcleaning/assets/72076525/3627b7d2-cb78-4c5a-a94f-5b9fbf77106f)
+
 
 ## Table of contents
-- [Motivation](#motivation)
-- [Interface-centricity](#interface-centricity)
+- [Task](#task)
+- [Technologies](#technologies)
 - [More than embedded](#more-than-embedded)
 - [Composition](#composition)
 - [Clone sources](#clone-sources)
-- [Quick build](#quick-build)
-  - [Build with `cmake`](#build-with-cmake)
-  - [Build with `make`](#build-with-make)
-  - [Build with `msbuild`](#build-with-msbuild)
-  - [Build with WSL](#build-with-wsl)
-  - [Build with IDEs](#build-with-ides)
-    - [Build with Microsoft Visual Studio](#build-with-microsoft-visual-studio)
-    - [Build with Visual Studio Code](#build-with-visual-studio-code)
-- [Integration](#integration)
-  - [Start a Project](#start-a-project)
-  - [Create Services](#create-services)
-  - [Configure Multicast Router](#configure-multicast-router)
-  - [Configure Logging](#configure-logging)
+
 - [Pipeline](#pipeline)
 - [Use cases and benefits](#use-cases-and-benefits)
 - [Examples](#examples)
@@ -34,22 +25,34 @@ A full-featured Spring/JPA Enterprise e-commerce application  with  role-based a
 
 ---
 
-## Motivation[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#motivation)
+## Task
+The task is:
+Build a e-commerce web application for online booking a cleaning service with online payment ability 
+2 types of users: admin and client users
+Admin can add/get/edit/delete orders and users accounts through an admin dedicated page   
+Users can register/edit/delete their account on profile page, users can book a cleaning by picking an available date and time in the interactive calendar or pay with pay button through Stripe api payment service 
 
-Traditionally, devices act as connected clients to stream data to the cloud or fog servers for further processing.
+## Technologies
+Project is created with:
+* Java openjdk 15
+* JavaScript
+* Spring boot framework 
+* Spring web 
+* Spring web mvc 
+* Spring security 
+* Spring-data-jpa
+* Spring validation
+* Jakarta validation
+* Spring mail
+* Thymeleaf
+* Boostrap
+* Jquery
+* Ajax
+* PostgreSql database 
+* Jackson json 
 
-<div align="center"><a href="https://github.com/aregtech/areg-sdk/blob/master/docs/img/mist-network.png"><img src="https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/mist-network.png" alt="IoT-to-Cloud (Nebula) network" style="width:70%;height:70%"/></a></div>
 
-As data is generated and collected at the edge of the network (**mist network**), it is logical to redefine the role of connected Things and enable network-accessible services (_Public Services_) on them, thereby extending the _Cloud_ to the extreme edge. This approach serves as a strong foundation for implementing robust solutions such as:
-* _Increase data privacy_, which is an important factor for sensitive data.
-* _Decrease data streaming_, which is a fundamental condition to optimize network communication.
-* _Autonomous, intelligent and self-aware devices_ with services directly in the environment of data origin.
-
-<div align="right">[ <a href="#table-of-contents">↑ Back to top ↑</a> ]</div>
-
----
-
-## Interface-centricity[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#interface-centricity)
+## Interface-centricity
 
 **ORPC**, or _Object Remote Procedure Call_, is a remote procedure call concept that targets an interface on an object. It enables the construction of a _service mesh_ (or _service grid_), where applications offer reusable services, and programmable client objects request method execution of programmable server objects without needing to know their location in the network.
 
