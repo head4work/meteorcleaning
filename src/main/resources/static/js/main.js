@@ -611,7 +611,7 @@ function countSqaureft() {
 
 function countHouseBaseByFt() {
     let feets = parseInt(countSqaureft());
-    return feets - 1000 > 0 ? ((feets - 1000) * prices.houseFt) + prices.house : prices.house;
+    return feets > 1000 ? ((feets - 1000) * prices.houseFt) + prices.house : prices.house;
 }
 
 function checkOfficeType() {

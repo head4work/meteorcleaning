@@ -4,6 +4,7 @@ import com.example.meteorCleaning.model.EstimateOrder;
 import com.example.meteorCleaning.model.OrderPrices;
 import com.example.meteorCleaning.repository.datajpa.DataJpaOrderRepository;
 import com.example.meteorCleaning.repository.datajpa.DataJpaPriceRepository;
+import com.example.meteorCleaning.util.exception.IllegalRequestDataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,12 @@ import java.util.Map;
 @Service
 public class EstimateDataService {
     protected final Logger log = LoggerFactory.getLogger(getClass());
-
-    @Autowired
-    private JavaMailSender mailSender;
-
     @Autowired
     DataJpaOrderRepository repository;
-
     @Autowired
     DataJpaPriceRepository priceRepository;
+    @Autowired
+    private JavaMailSender mailSender;
 
     public List<EstimateOrder> getAll() {
         return repository.getAll();
@@ -58,15 +56,77 @@ public class EstimateDataService {
     }
 
     public EstimateOrder save(EstimateOrder order) {
+        if (!validatePriceIntegrity(order)) {
+            throw new IllegalRequestDataException("Price integrity validation failed");
+        }
         return repository.save(order);
     }
 
     public boolean delete(int id) {
-     return repository.delete(id) != 0;
+        return repository.delete(id) != 0;
     }
 
     public OrderPrices getPrices() {
         return priceRepository.getPrices();
+    }
+
+    public boolean validatePriceIntegrity(EstimateOrder order) {
+        double count = 0;
+        OrderPrices prices = getPrices();
+        int houseType = Integer.parseInt(order.getHousingType());
+        int squareFtCount = order.getSquareFt() != null ? Integer.parseInt(order.getSquareFt()) : 0;
+        switch (houseType) {
+            case 0 -> count += prices.getStudio();
+            case 1 -> count += prices.getApartments();
+            case 2 -> count += countHouseBaseByFt(squareFtCount, prices.getHouseFt(), prices.getHouse());
+            case 3 -> count += prices.getOffice() * squareFtCount;
+        }
+
+        count += prices.getBedroom() * Integer.parseInt(order.getBedrooms());
+
+        count += prices.getBathroom() * Integer.parseInt(order.getBathrooms());
+
+        count += ((double) prices.getBathroom() / 2) * Integer.parseInt(order.getHalfBathrooms());
+
+        if (order.getGreenClean()) {
+            count += prices.getGreenClean();
+        }
+        if (order.getDeepClean()) {
+            count = Math.round(count * prices.getDeepClean());
+        }
+
+        if (order.getMicrowaveClean()) {
+            count += prices.getMicrowaveClean();
+        }
+        if (order.getRefrigeratorClean()) {
+            count += prices.getRefrigeratorClean();
+        }
+        if (order.getOvenClean()) {
+            count += prices.getOvenClean();
+        }
+
+        if (order.getWindowClean() > 0) {
+            count += prices.getWindows() * order.getWindowClean();
+        }
+
+        if (order.getCabinetClean() > 0) {
+            count += prices.getCabinet() * order.getCabinetClean();
+        }
+
+        if (order.getDishesClean()) {
+            count += prices.getDishesWash();
+        }
+
+        //check if selected date is weekend
+        count += order.getDateTime().getDayOfWeek().getValue() == 7 ? prices.getWeekend() : 0;
+
+        count = Math.round(count);
+
+        return count == order.getEstimatedPrice();
+    }
+
+    private double countHouseBaseByFt(int squareFt, double sqPrice, int housePrice) {
+        return squareFt > 1000 ? (squareFt - 1000) * sqPrice : housePrice;
     }
 
     public OrderPrices savePrices(OrderPrices prices) {
