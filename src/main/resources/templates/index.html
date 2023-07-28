@@ -93,10 +93,10 @@
                         <a class="nav-link" href="#services">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Team</a>
+                        <a class="nav-link" href="#how-it-works">Guideline</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Solutions</a>
+                        <a class="nav-link" href="#solutions">Solutions</a>
                     </li>
 
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
@@ -113,7 +113,7 @@
 
                 <div>
                     <iconify-icon icon="bxs:phone-call" inline style="color: green; " width="25"></iconify-icon>
-                    +1(323)491-62-19 &nbsp;
+                    +1(323)688-99-47 &nbsp;
                 </div>
                 <div class="work-time">
                     <iconify-icon icon="ic:round-access-time" style="color: green;" width="25"></iconify-icon>
@@ -324,7 +324,7 @@
                                     <div
                                             class="col-md-10 col-lg-6 col-xl-7 d-none d-sm-flex align-items-center order-1 order-lg-2">
 
-                                        <img alt="Sample image" class="img-fluid"
+                                        <img alt="Create account image" class="img-fluid"
                                              th:src="@{/images/design/login-1.png}">
 
                                     </div>
@@ -340,13 +340,76 @@
 
     </section>
 
+    <section class="how-it-works" id="how-it-works">
+        <h2 style="justify-self: center;">How it works</h2>
+        <div class="card-wraper">
+            <div class="mcard  ">
+                <img alt="sign-in image" class="mcard-img " th:src="@{/images/design/reg.png}">
+                <div class="mcard-guts">
+                    <h5>Sign-in or proceed as guest</h5>
+                    <button class="btn btn-info  ripple-surface-dark" data-mdb-ripple-color="dark"
+                            id="how-it-works-book" type="button">GET
+                        FREE ESTIMATE
+                    </button>
+                </div>
+            </div>
+            <iconify-icon height="3rem" icon="noto:right-arrow"></iconify-icon>
+            <div class="mcard  ">
+                <img alt="form list" class="mcard-img " th:src="@{/images/design/list.png}">
+                <div class="mcard-guts">
+                    <h5>Fill the estimate form</h5>
+                </div>
+            </div>
+            <iconify-icon height="3rem" icon="noto:right-arrow"></iconify-icon>
+
+            <div class="mcard  ">
+                <img alt="calendar" class="mcard-img " th:src="@{/images/design/calendar.png}">
+                <div class="mcard-guts">
+                    <h5>Pick a convenient date</h5>
+                </div>
+            </div>
+            <iconify-icon height="3rem" icon="noto:right-arrow"></iconify-icon>
+
+            <div class="mcard  ">
+                <img alt="pay and book buttons" class="mcard-img " th:src="@{/images/design/buttons.png}">
+                <div class="mcard-guts">
+                    <h5>Pay or get booking to pay later</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solutions" id="solutions">
+        <h2 style="justify-self: center;">Solutions</h2>
+        <div class="solutions-inside">
+
+            <img alt="gradient" class="img-solutions" th:src="@{images/design/gradient.png}">
+            <img alt="regular solution" class="img-solutions" th:src="@{images/design/15.png}">
+            <img alt="versus" class="img-solutions" style="width: 70%;" th:src="@{images/design/vs.png}">
+            <img alt="organic solution" class="img-solutions" th:src="@{images/design/16.png}">
+            <img alt="gradient reverse" class="img-solutions" style="transform: scaleX(-1);"
+                 th:src="@{images/design/gradient.png}">
+
+        </div>
+        <p>
+            At Meteor Cleaning, we empower our clients with a diverse range of choices for their cleaning needs. Our
+            commitment to eco-friendly solutions remains at the forefront, as we prioritize safety by offering
+            products free from harsh chemicals. By providing a wide array of options, including both eco-friendly
+            and traditional cleaning methods, we put the decision in your hands. Choose what aligns best with your
+            preferences and values, knowing that with Meteor Cleaning, you can still make a positive impact on the
+            environment. We believe in offering flexibility without compromising on our dedication to your
+            well-being and the planet. Make your choice today and experience the power of eco-friendly cleaning with
+            Meteor Cleaning.</p>
+
+        <!-- <hr class="hr hr-blurry" /> -->
+    </section>
 
     <section class="services" id="services">
         <h2>Services</h2>
         <p>Meteor cleaning base cleaning service includes: vacuuming and wet mopping floors, wiping all furniture
             surfaces, cleaning the bathroom. You are welcome to choose additional services to satisfy your
             particular
-            needs. If you can’t find what you are looking for, just call us + 1(323)491-62-19 and we’ll do our best
+            needs. If you can’t find what you are looking for, just call us + 1(323)688-99-47 and we’ll do our best
             to
             help you.</p>
 
@@ -432,22 +495,22 @@
 
             <!-- Right -->
             <div>
-                <a class="me-4 text-reset" href="">
+                <a class="me-4 text-reset" href="https://www.facebook.com/">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a class="me-4 text-reset" href="">
+                <a class="me-4 text-reset" href="https://twitter.com/">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a class="me-4 text-reset" href="">
+                <a class="me-4 text-reset" href="https://www.google.com/">
                     <i class="fab fa-google"></i>
                 </a>
-                <a class="me-4 text-reset" href="">
+                <a class="me-4 text-reset" href="https://www.instagram.com/">
                     <i class="fab fa-instagram"></i>
                 </a>
                 <a class="me-4 text-reset" href="https://www.linkedin.com/in/igor-demishev-23331924a/">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a class="me-4 text-reset" href="">
+                <a class="me-4 text-reset" href="https://github.com/head4work">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
@@ -481,19 +544,19 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">
-                            Products
+                            Tools
                         </h6>
                         <p>
-                            <a class="text-reset" href="#!">Angular</a>
+                            <a class="text-reset" href="https://angular.io/">Angular</a>
                         </p>
                         <p>
-                            <a class="text-reset" href="#!">React</a>
+                            <a class="text-reset" href="https://react.dev/">React</a>
                         </p>
                         <p>
-                            <a class="text-reset" href="#!">Vue</a>
+                            <a class="text-reset" href="https://vuejs.org/">Vue</a>
                         </p>
                         <p>
-                            <a class="text-reset" href="#!">Laravel</a>
+                            <a class="text-reset" href="https://laravel.com/">Laravel</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -505,16 +568,16 @@
                             Useful links
                         </h6>
                         <p>
-                            <a class="text-reset" href="#!">Pricing</a>
+                            <a class="text-reset bookin" href="#!">Pricing</a>
                         </p>
                         <p>
-                            <a class="text-reset" href="#!">Settings</a>
+                            <a class="text-reset bookin" href="#!">Settings</a>
                         </p>
                         <p>
-                            <a class="text-reset" href="#!">Orders</a>
+                            <a class="text-reset bookin" href="#!">Orders</a>
                         </p>
                         <p>
-                            <a class="text-reset" href="#!">Help</a>
+                            <a class="text-reset" href="#how-it-works">Help</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -528,7 +591,7 @@
                             <i class="fas fa-envelope me-3"></i>
                             info@meteorcleaning.com
                         </p>
-                        <p><i class="fas fa-phone me-3"></i> + 1 (323) 491-62-19 </p>
+                        <p><i class="fas fa-phone me-3"></i> + 1 (323) 688-99-47 </p>
 
                     </div>
                     <!-- Grid column -->
@@ -628,10 +691,10 @@
 
 
                     <!-- <div class="select-wrap">
-                <label for="steamCheck">Steam clean :</label>
-                <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox"
-                    value="steam" />
-            </div> -->
+            <label for="steamCheck">Steam clean :</label>
+            <input class="form-check-input" form="estimate" id="steamCheck" type="checkbox"
+                value="steam" />
+        </div> -->
 
                     <div class="select-wrap effect-underline" data-mdb-placement="top" data-mdb-toggle="tooltip"
                          title="Inside microwave cleaning with steam and grease dissolving solutions">
@@ -716,9 +779,9 @@
                             <span id="totalTime"></span>
                         </li>
                         <!-- <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                    Shipping
-                    <span>Gratis</span>
-                </li> -->
+                Shipping
+                <span>Gratis</span>
+            </li> -->
                         <li
                                 class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                             <div>
@@ -783,16 +846,16 @@
 
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-outline">
-                                    <input class="form-control" form="estimate" id="firstName" required type="text"/>
-                                    <label class="form-label" for="firstName">First name</label>
-                                </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control" form="estimate" id="firstName" required type="text"/>
+                                <label class="form-label" for="firstName">First name</label>
                             </div>
-                            <div class="col">
-                                <div class="form-outline">
-                                    <input class="form-control" form="estimate" id="lastName" type="text"/>
-                                    <label class="form-label" for="lastName">Last name</label>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input class="form-control" form="estimate" id="lastName" type="text"/>
+                                <label class="form-label" for="lastName">Last name</label>
                                 </div>
                             </div>
                         </div>
@@ -804,11 +867,11 @@
                             <label class="form-label" for="address">Address</label>
                         </div>
 
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <input class="form-control" form="estimate" id="email" required type="email"/>
-                            <label class="form-label" for="email">Email</label>
-                        </div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input class="form-control" form="estimate" id="email" required type="email"/>
+                        <label class="form-label" for="email">Email</label>
+                    </div>
 
                     <!-- Number input -->
                     <div class="form-outline mb-4">

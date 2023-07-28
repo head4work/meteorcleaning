@@ -121,12 +121,12 @@ public class EstimateDataService {
         count += order.getDateTime().getDayOfWeek().getValue() == 7 ? prices.getWeekend() : 0;
 
         count = Math.round(count);
-
+        log.info("Server price:{} UI price:{}", count, order.getEstimatedPrice());
         return count == order.getEstimatedPrice();
     }
 
     private double countHouseBaseByFt(int squareFt, double sqPrice, int housePrice) {
-        return squareFt > 1000 ? (squareFt - 1000) * sqPrice : housePrice;
+        return squareFt > 1000 ? ((squareFt - 1000) * sqPrice) + housePrice : housePrice;
     }
 
     public OrderPrices savePrices(OrderPrices prices) {

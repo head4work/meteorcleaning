@@ -496,7 +496,7 @@ function getUserData() {
 
 //Buttons binds
 
-$("#carouselBook1,#carouselBook2,#carouselBook3").on("click", function () {
+$("#carouselBook1,#carouselBook2,#carouselBook3,#how-it-works-book,.bookin").on("click", function () {
     getOccupiedDateTimes();
     estimateCount();
     getUserData();

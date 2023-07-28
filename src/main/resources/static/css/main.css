@@ -7,11 +7,14 @@ body {
 .wrapper {
     min-height: 100%;
     display: grid;
+    gap: 2rem;
     grid-template-columns: 12% 1fr 12%;
     grid-template-rows: 50px 1fr auto;
     grid-template-areas:
         "nav nav nav"
         ". main ."
+        ". how-it-works ."
+        ". solutions ."
         ". services ."
         " . create ."
         "footer footer footer";
@@ -113,40 +116,40 @@ nav {
 
 .modal.active.login {
     grid-template-areas:
-    "login login"
-    "details details"
-    "left right"
-    "close close";
+        "login login"
+        "details details"
+        "left right"
+        "close close";
 }
 
 .modal.active.profile-login {
     grid-template-areas:
-     "login login"
-    "close close";
+        "login login"
+        "close close";
     width: 29em;
     height: fit-content;
 }
 
 .modal.active.profile-edit {
     grid-template-areas:
-    "modal-buttons modal-buttons"
-    "login-edit login-edit"
-    "close close";
+        "modal-buttons modal-buttons"
+        "login-edit login-edit"
+        "close close";
 }
 
 .modal.active.profile-order {
     grid-template-areas:
-    "modal-buttons modal-buttons"
-    "details right"
-    "left right"
-    "close close";
+        "modal-buttons modal-buttons"
+        "details right"
+        "left right"
+        "close close";
 }
 
 .modal.active.profile-archive {
     grid-template-areas:
-    "modal-buttons"
-    "table"
-    "close";
+        "modal-buttons"
+        "table"
+        "close";
     grid-template-columns: auto;
 }
 
@@ -165,12 +168,13 @@ nav {
     align-items: center;
 }
 
+
 .services {
     grid-area: services;
     display: grid;
     justify-items: center;
-    padding: 2%;
     gap: 10px;
+    background: #fbfbfb;
 }
 
 .services-inside {
@@ -193,6 +197,8 @@ nav {
         grid-template-areas:
             "nav"
             "main"
+            "how-it-works"
+            "solutions"
             "services"
             "create"
             "footer";
@@ -336,42 +342,42 @@ footer {
 
     .modal.active.login {
         grid-template-areas:
-        "login"
-        "details"
-        "left"
-        "right"
-        "close";
+            "login"
+            "details"
+            "left"
+            "right"
+            "close";
     }
 
     .modal.active.profile-login {
         grid-template-areas:
-         "login"
-        "close";
+            "login"
+            "close";
         width: 29em;
         height: fit-content;
     }
 
     .modal.active.profile-edit {
         grid-template-areas:
-        "modal-buttons"
-        "login-edit"
-        "close";
+            "modal-buttons"
+            "login-edit"
+            "close";
     }
 
     .modal.active.profile-order {
         grid-template-areas:
-        "modal-buttons"
-        "details"
-        "left"
-         "right"
-        "close";
+            "modal-buttons"
+            "details"
+            "left"
+            "right"
+            "close";
     }
 
     .modal.active.profile-archive {
         grid-template-areas:
-        "modal-buttons"
-        "table"
-        "close";
+            "modal-buttons"
+            "table"
+            "close";
     }
 
     .archive-table {
@@ -576,9 +582,7 @@ footer {
 .create-account {
     display: grid;
     grid-area: create;
-    background: #fbfbfb;
     justify-items: center;
-    margin-bottom: 10px;
 
 }
 
@@ -606,4 +610,95 @@ footer {
 
 .greenClass {
     background-color: #d4edda !important;
+}
+
+.how-it-works {
+    grid-area: how-it-works;
+    display: grid;
+    background: #fbfbfb;
+
+
+}
+
+.card-wraper {
+    display: flex;
+
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    /* display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px; */
+}
+
+.mcard {
+    display: grid;
+    width: 200px;
+    text-align: center;
+    justify-items: center;
+    padding: 10px;
+}
+
+.mcard-img {
+
+    width: 150px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; */
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    /* box-shadow: rgba(13, 110, 253, 0.4) -5px -5px , rgba(13, 110, 253, 0.3) -10px -10px, rgba(13, 110, 253, 0.2) -15px -15px, rgba(13, 110, 253, 0.1) -20px -20px, rgba(13, 110, 253, 0.05) -25px -25px; */
+    border-radius: 50%;
+}
+
+.mcard-guts {
+    padding-top: 1rem;
+    display: flex;
+    flex-flow: column;
+}
+
+
+.solutions {
+    display: grid;
+    grid-area: solutions;
+
+}
+
+.img-solutions {
+    max-width: 100%;
+
+    height: auto;
+    margin: 10px;
+}
+
+.solutions-inside {
+    display: grid;
+    grid-template-columns: repeat(5, 200px);
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    /* align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(5,200px); */
+}
+
+@media (max-width: 992px) {
+    .solutions-inside {
+
+        grid-template-columns: repeat(5, 1fr);
+
+        /* align-items: center;
+        justify-items: center;
+        grid-template-columns: repeat(5,200px); */
+    }
+
+    .mcard {
+        width: 20rem;
+    }
+
+    p {
+        padding: 5%;
+    }
+
+    .img-solutions {
+        max-width: 100%;
+    }
 }
