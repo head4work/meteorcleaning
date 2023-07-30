@@ -7,7 +7,7 @@ body {
 .wrapper {
     min-height: 100%;
     display: grid;
-    gap: 2rem;
+    gap: 5rem;
     grid-template-columns: 12% 1fr 12%;
     grid-template-rows: 50px 1fr auto;
     grid-template-areas:
@@ -17,6 +17,7 @@ body {
         ". solutions ."
         ". services ."
         " . create ."
+        ". faq ."
         "footer footer footer";
 }
 
@@ -201,6 +202,7 @@ nav {
             "solutions"
             "services"
             "create"
+            "faq"
             "footer";
     }
 
@@ -680,6 +682,26 @@ footer {
     grid-template-columns: repeat(5,200px); */
 }
 
+.faq-accordion {
+    display: grid;
+    grid-area: faq;
+}
+
+.faq-inside {
+    display: grid;
+}
+
+.map {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: grid;
+    justify-content: center;
+    gap: 1rem;
+    background: #fbfbfb;
+
+}
+
+
 @media (max-width: 992px) {
     .solutions-inside {
 
@@ -700,5 +722,9 @@ footer {
 
     .img-solutions {
         max-width: 100%;
+    }
+
+    #map-frame {
+        width: 100%;
     }
 }
