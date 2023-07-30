@@ -98,6 +98,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#solutions">Solutions</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
 
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link" href="#" th:href="@{/admin}">Admin</a>
@@ -482,7 +485,7 @@
 
         </div>
     </section>
-    <section class="faq-accordion">
+    <section class="faq-accordion" id="faq">
 
         <h2 style="justify-self: center;">
             <iconify-icon icon="mdi:frequently-asked-questions"
@@ -664,7 +667,7 @@
                             <a class="text-reset bookin" href="#!">Orders</a>
                         </p>
                         <p>
-                            <a class="text-reset" href="#how-it-works">Help</a>
+                            <a class="text-reset" href="#faq">Help</a>
                         </p>
                     </div>
                     <!-- Grid column -->
