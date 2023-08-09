@@ -701,6 +701,48 @@ footer {
 
 }
 
+.phone-number {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.bubble {
+    font-family: "Press Start 2P", cursive;
+    min-width: 50%;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    margin: 15px;
+    background-color: #61a1d1;
+    color: #fff;
+    padding: 12px;
+    box-shadow: 0 -4px #fff, 0 -8px #374151, 4px 0 #fff, 4px -4px #374151, 8px 0 #374151, 0 4px #fff, 0 8px #374151,
+    -4px 0 #fff, -4px 4px #374151, -8px 0 #374151, -4px -4px #374151, 4px 4px #374151, 4px 12px rgba(0, 0, 0, 0.1),
+    12px 4px rgba(0, 0, 0, 0.1), 8px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.bubble::after {
+    content: "";
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    height: 4px;
+    width: 4px;
+    top: -8px;
+    left: 32px;
+    box-shadow: 0 -4px #374151, 0 -8px #374151, 0 -12px #374151, 0 -16px #374151, -4px -12px #374151,
+    -8px -8px #374151, -12px -4px #000, -4px -4px #fff, -8px -4px #fff, -4px -8px #fff,
+    -4px 0 #fff, -8px 0 #fff, -12px 0 #fff;
+}
 
 @media (max-width: 992px) {
     .solutions-inside {
@@ -710,6 +752,10 @@ footer {
         /* align-items: center;
         justify-items: center;
         grid-template-columns: repeat(5,200px); */
+    }
+
+    .bubble {
+        font-size: x-small;
     }
 
     .mcard {
