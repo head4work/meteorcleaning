@@ -957,16 +957,30 @@
                             <div class="form-outline">
                                 <input class="form-control" form="estimate" id="lastName" type="text"/>
                                 <label class="form-label" for="lastName">Last name</label>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input -->
+                    <div class="row mb-4">
+
+                        <div class="col">
+                            <div class="form-outline ">
+                                <input class="form-control" form="estimate" id="address" required type="text"/>
+                                <label class="form-label" for="address">Address</label>
                             </div>
                         </div>
 
-
-                        <!-- Text input -->
-                        <div class="form-outline mb-4">
-                            <input class="form-control" form="estimate" id="address" required type="text"/>
-                            <label class="form-label" for="address">Address</label>
+                        <div class="col-xl-4">
+                            <div class="form-outline ">
+                                <input class="form-control" form="estimate" id="zipcode" pattern="\d{5}" required
+                                       title="Please provide 5 digits zipcode" type="text"/>
+                                <label class="form-label" for="zipcode">Zip code</label>
+                            </div>
                         </div>
+
+                    </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4">

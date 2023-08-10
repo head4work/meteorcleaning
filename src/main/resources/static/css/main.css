@@ -604,7 +604,6 @@ footer {
 }
 
 .payment-buttons {
-
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -777,10 +776,19 @@ footer {
         width: 100%;
     }
 
+    #zipcode {
+        margin-top: 0.75rem;
+    }
+
     .map {
         margin-top: 1rem;
         margin-bottom: 0;
         padding: 0;
+    }
+
+    .payment-buttons {
+        padding: 0;
+        gap: .5rem;
     }
 
 }
