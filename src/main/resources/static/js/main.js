@@ -1047,7 +1047,8 @@ function zipOutOfOpertaionZone() {
         typeAnimated: true,
         closeIcon: true,
         title: 'The address is out of the operational range.',
-        content: 'Unfortunately, your address is currently outside of our operational zone. We apologize for the inconvenience and hope that we can serve you in the future! ',
+        content: 'Unfortunately, your address is currently outside of our operational zone. We apologize for the inconvenience and hope that we can serve you in the future! ' +
+            '<br> <h3 style="justify-self: center;padding-top:1rem">Operational zone</h3> <br><iframe style="width:100%;" id="map-frame" src="https://www.google.com/maps/d/embed?mid=1N0DL_3qPEBhVvMsA58JpuxC5bNknJVc&ehbc=2E312F" width="640" height="480"></iframe> ',
     });
 }
 
