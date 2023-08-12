@@ -501,14 +501,7 @@ function getUserData() {
 //Buttons binds
 
 $("#carouselBook1,#carouselBook2,#carouselBook3,#how-it-works-book,.bookin").on("click", function () {
-    getOccupiedDateTimes();
-    estimateCount();
-    getUserData();
-    profile = false;
-    openModal();
-    $('.modal').attr('class', "modal active");
-    openProfile('modal-left-aside', 'modal-right-aside', 'provide-details');
-
+openEstimate();
 });
 
 
@@ -543,7 +536,15 @@ $(".close-button, .close-button-x, .modal-overlay").on("click", function () {
 });
 
 //HELPER FUNCTIONS
-
+function openEstimate() {
+    getOccupiedDateTimes();
+    estimateCount();
+    getUserData();
+    profile = false;
+    openModal();
+    $('.modal').attr('class', "modal active");
+    openProfile('modal-left-aside', 'modal-right-aside', 'provide-details');
+}
 
 // show elements provided in parameters 
 function openProfile(...elements) {
