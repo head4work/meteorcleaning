@@ -77,6 +77,9 @@ public class User extends AbstractNamedEntity {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "zipcode")
+    private String zipcode;
+
     @Column(name = "phone")
     private String phone;
 
@@ -131,6 +134,14 @@ public class User extends AbstractNamedEntity {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getPassword() {

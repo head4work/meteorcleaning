@@ -35,6 +35,9 @@ public class UsersUtil {
         if (!userTo.getAddress().isBlank()) {
             user.setAddress(userTo.getAddress());
         }
+        if (!userTo.getZipcode().isBlank()) {
+            user.setZipcode(userTo.getZipcode());
+        }
         if (!userTo.getPhone().isBlank()) {
             user.setPhone(userTo.getPhone());
         }

@@ -14,6 +14,7 @@ CREATE TABLE users
     registered TIMESTAMP DEFAULT now() NOT NULL,
     address    VARCHAR,
     phone      VARCHAR,
+    zipcode    VARCHAR,
     enabled    BOOL      DEFAULT TRUE  NOT NULL
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);

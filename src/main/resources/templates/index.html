@@ -1097,10 +1097,23 @@
                             </div>
 
                             <!-- Text input -->
-                            <div class="form-outline mb-4">
-                                <input class="form-control" form="profile-edit-form" id="edit-address"
-                                       type="text"/>
-                                <label class="form-label" for="address">Address</label>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline ">
+                                        <input class="form-control" form="profile-edit-form" id="edit-address" required
+                                               type="text"/>
+                                        <label class="form-label" for="edit-address">Address</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4">
+                                    <div class="form-outline ">
+                                        <input class="form-control" form="profile-edit-form" id="edit-zipcode"
+                                               pattern="\d{5}" required
+                                               title="Please provide 5 digits zipcode" type="text"/>
+                                        <label class="form-label" for="edit-zipcode">Zip code</label>
+                                    </div>
+                                </div>
                             </div>
 
 

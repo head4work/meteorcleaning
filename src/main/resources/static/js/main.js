@@ -943,6 +943,7 @@ function ajaxUpdate() {
     userTo["email"] = $("#edit-email").val();
     userTo["password"] = $("#edit-password1").val();
     userTo["address"] = $("#edit-address").val();
+    userTo["zipcode"] = $("#edit-zipcode").val();
     userTo["phone"] = $("#edit-phone").val();
     userTo["enabled"] = true;
 
@@ -983,6 +984,7 @@ fillUserData() {
     $('#firstName,#edit-firstName').val(userData.name).addClass("active");
     $('#email, #edit-email').val(userData.email).addClass("active");
     $('#address, #edit-address').val(userData.address).addClass("active");
+    $('#zipcode, #edit-zipcode').val(userData.zipcode).addClass("active");
     $('#phone, #edit-phone').val(userData.phone).addClass("active");
 
     //clear password fields
