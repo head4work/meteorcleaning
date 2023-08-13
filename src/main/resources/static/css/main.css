@@ -608,6 +608,7 @@ footer {
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 20px;
+    gap: .8rem;
 }
 
 .greenClass {
