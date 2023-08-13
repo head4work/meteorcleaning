@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                 .requiresSecure();
         http.authorizeRequests()
-                .antMatchers("/", "/estimate", "/login", "/prices", "/dates", "/css/**", "/images/**", "/js/**", "/perform_login").permitAll()
+                .antMatchers("/", "/estimate", "/login", "/prices", "/dates", "/css/**", "/images/**", "/js/**", "/perform_login", "/public_key").permitAll()
                 .antMatchers(HttpMethod.POST, "/rest/profile", "/rest/profile/forgot").permitAll()
                 .antMatchers("/forgot/**").permitAll()
                 .antMatchers("/create-payment-intent").permitAll()

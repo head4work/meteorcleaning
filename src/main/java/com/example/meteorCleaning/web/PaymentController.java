@@ -17,10 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -39,6 +36,9 @@ public class PaymentController {
     @Value("${stripe.api.key}")
     private String apiKey;
 
+    @Value("${stripe.public.key}")
+    private String publicApiKey;
+
     static Long calculateOrderAmount(int amount) {
         // Replace this constant with a calculation of the order's amount
         // Calculate the order total on the server to prevent
@@ -49,6 +49,11 @@ public class PaymentController {
     @PostConstruct
     public void init() {
         Stripe.apiKey = apiKey;
+    }
+
+    @GetMapping("/public_key")
+    private ResponseEntity<String> getPublicKey() {
+        return ResponseEntity.ok(publicApiKey);
     }
 
     @PostMapping("/webhook")

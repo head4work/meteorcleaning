@@ -21,9 +21,9 @@ const select_checkbox_oven = document.querySelector('#ovenCheck');
 const select_checkbox_dishes = document.querySelector('#dishesCheck');
 
 //valid zipcodes
-const zipcodes = new Array(90402, 90401, 90406, 90407, 90408, 90409, 90410, 90411,
+const zipcodes = [90402, 90401, 90406, 90407, 90408, 90409, 90410, 90411,
     90403, 90404, 90405, 90291, 90077, 90073, 90084, 90025, 90095, 90024, 90064, 90210,
-    90067, 90212, 90034, 90209, 90213, 90035, 90211, 90069, 90048, 90046, 90036, 90019, 90028, 90038);
+    90067, 90212, 90034, 90209, 90213, 90035, 90211, 90069, 90048, 90046, 90036, 90019, 90028, 90038];
 //PRICE AND TIME COUNT
 let prices = {
     studio: 100,

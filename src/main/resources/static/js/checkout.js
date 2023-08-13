@@ -1,9 +1,28 @@
-// This is your test publishable API key.
-const stripe = Stripe("pk_test_51MuNeYCxo90t77m1bobhYnDuJBAYbSbLcCoUwGVWkWuLvvMDwX49m3LCGAdgEu5M19RRYDSKA5XOuvYdWsU2N1iu00enztfEX5");
+const stripe = getPublicKey() ? Stripe(getPublicKey()) : null;
 
+function getPublicKey() {
+  let result;
+  $.ajax({
+    type: "GET",
+    url: "/public_key",
+    dataType: "text",
+    contentType: "application/json; charset=utf-8",
+    async: false,
+    success: function (response) {
+      result = response;
+    },
+    error: function (response) {
+      alert("Error getting stripe api key : ");
+    }
+  });
+  return result;
+}
+
+
+const hello = "hellow world";
+// This is your test publishable API key.
 // The items the customer wants to buy
 const items = [{id: "xl-tshirt"}];
-
 let elements;
 let payment_secret;
 $(function () {
@@ -32,14 +51,18 @@ function getPayment() {
 }
 
 function initPayment() {
-  $(".payment-body, #book-cleaning-button, #payment-init").toggleClass('hidden');
-  $("#payment-cancel-button").toggle();
-  let payment = getPayment();
-  emailAddress = payment.email;
-  initialize(payment);
-  checkStatus();
+  if (stripe !== null) {
+    $(".payment-body, #book-cleaning-button, #payment-init").toggleClass('hidden');
+    $("#payment-cancel-button").toggle();
+    let payment = getPayment();
+    emailAddress = payment.email;
+    initialize(payment);
+    checkStatus();
+    onlinePaymentBolean = true;
+  } else {
+    errorPopUp("Stripe public key is not defined");
+  }
 
-  onlinePaymentBolean = true;
 }
 
 function cancelPayment() {
@@ -61,6 +84,8 @@ async function initialize(payment) {
   const appearance = {
     theme: 'stripe',
   };
+  console.log(stripe);
+
   elements = stripe.elements({appearance, clientSecret});
   payment_secret = clientSecret.split('_secret_')[0];
   const paymentElementOptions = {
@@ -115,15 +140,15 @@ async function handleSubmit(e) {
         if (error !== undefined) {
 
           if (error.type === "card_error" || error.type === "validation_error") {
-            showMessage(error.message,"alert alert-danger");
+            showMessage(error.message, "alert alert-danger");
           } else {
-            showMessage("An unexpected error occurred.","alert alert-danger");
+            showMessage("An unexpected error occurred.", "alert alert-danger");
           }
           cancelOrder(order.paymentSecret);
 
 
         } else {
-          showMessage("Payment succeeded!","alert alert-success");
+          showMessage("Payment succeeded!", "alert alert-success");
           successPopUp('Succeeded!', 'Thank you for submitting your order. We will review it and be in touch with you shortly.'
               + 'Once the processing is complete, we will send you a receipt via email. Have a great day!!');
           // close modal and clear form and date field
@@ -139,7 +164,7 @@ async function handleSubmit(e) {
       error: function (e) {
         setLoading(false);
 
-        showMessage(e.responseJSON.detail,"alert alert-danger");
+        showMessage(e.responseJSON.detail, "alert alert-danger");
       }
     });
 
@@ -163,30 +188,30 @@ async function checkStatus() {
 
   switch (paymentIntent.status) {
     case "succeeded":
-      showMessage("Payment succeeded!","alert alert-success");
+      showMessage("Payment succeeded!", "alert alert-success");
       break;
     case "processing":
-      showMessage("Your payment is processing.","alert alert-warning");
+      showMessage("Your payment is processing.", "alert alert-warning");
       break;
     case "requires_payment_method":
-      showMessage("Your payment was not successful, please try again.","alert alert-danger");
+      showMessage("Your payment was not successful, please try again.", "alert alert-danger");
       break;
     default:
-      showMessage("Something went wrong.","alert alert-danger");
+      showMessage("Something went wrong.", "alert alert-danger");
       break;
   }
 }
 
 // ------- UI helpers -------
 
-function showMessage(messageText,alertClass) {
+function showMessage(messageText, alertClass) {
   const messageContainer = document.querySelector("#payment-message");
   $('#payment-message').addClass(alertClass);
   messageContainer.classList.remove("hidden");
   messageContainer.textContent = messageText;
 
   setTimeout(function () {
-    messageContainer.setAttribute("class","hidden");
+    messageContainer.setAttribute("class", "hidden");
     messageText.textContent = "";
   }, 40000);
 }
