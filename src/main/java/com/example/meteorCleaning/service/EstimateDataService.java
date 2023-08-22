@@ -119,7 +119,10 @@ public class EstimateDataService {
 
         //check if selected date is weekend
         count += order.getDateTime().getDayOfWeek().getValue() == 7 ? prices.getWeekend() : 0;
-
+        //check if coupon applied
+        if (order.getCoupon() != null && order.getCoupon().toUpperCase().equals(prices.getCoupon())) {
+            count *= (100 - prices.getDiscount()) / 100;
+        }
         count = Math.round(count);
         log.info("Server price:{} UI price:{}", count, order.getEstimatedPrice());
         return count == order.getEstimatedPrice();

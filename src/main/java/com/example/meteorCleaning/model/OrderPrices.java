@@ -60,6 +60,12 @@ public class OrderPrices {
     @Column(name = "weekend")
     private Integer weekend;
 
+    @Column(name = "coupon")
+    private String coupon;
+
+    @Column(name = "discount")
+    private double discount;
+
 //
 //    studio: 140,
 //    apartments: 170,
@@ -79,8 +85,9 @@ public class OrderPrices {
 //    weekend: 50
 
 
-    public OrderPrices(Boolean prices_id, Integer studio, Integer apartments, Integer house, double houseFt, double office, Integer bedroom, Integer bathroom, Integer greenClean, double deepClean,
-                       Integer microwaveClean, Integer refrigeratorClean, Integer ovenClean, Integer windows, Integer cabinet, Integer dishesWash, Integer weekend) {
+    public OrderPrices(Boolean prices_id, Integer studio, Integer apartments, Integer house, double houseFt, double office, Integer bedroom, Integer bathroom, Integer greenClean,
+                       double deepClean, Integer microwaveClean, Integer refrigeratorClean, Integer ovenClean, Integer windows, Integer cabinet, Integer dishesWash,
+                       Integer weekend) {
         this.prices_id = prices_id;
         this.studio = studio;
         this.apartments = apartments;
@@ -98,6 +105,31 @@ public class OrderPrices {
         this.cabinet = cabinet;
         this.dishesWash = dishesWash;
         this.weekend = weekend;
+    }
+
+    public OrderPrices(Boolean prices_id, Integer studio, Integer apartments, Integer house, double houseFt, double office, Integer bedroom,
+                       Integer bathroom, Integer greenClean, double deepClean, Integer microwaveClean,
+                       Integer refrigeratorClean, Integer ovenClean, Integer windows, Integer cabinet, Integer dishesWash,
+                       Integer weekend, String coupon, double discount) {
+        this.prices_id = prices_id;
+        this.studio = studio;
+        this.apartments = apartments;
+        this.house = house;
+        this.houseFt = houseFt;
+        this.office = office;
+        this.bedroom = bedroom;
+        this.bathroom = bathroom;
+        this.greenClean = greenClean;
+        this.deepClean = deepClean;
+        this.microwaveClean = microwaveClean;
+        this.refrigeratorClean = refrigeratorClean;
+        this.ovenClean = ovenClean;
+        this.windows = windows;
+        this.cabinet = cabinet;
+        this.dishesWash = dishesWash;
+        this.weekend = weekend;
+        this.coupon = coupon;
+        this.discount = discount;
     }
 
     public OrderPrices() {
@@ -145,6 +177,22 @@ public class OrderPrices {
 
     public Integer getBedroom() {
         return bedroom;
+    }
+
+    public String getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public void setBedroom(Integer bedroom) {

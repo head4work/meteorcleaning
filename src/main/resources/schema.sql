@@ -45,6 +45,7 @@ CREATE TABLE orders
     create_date        DATE                  NOT NULL DEFAULT CURRENT_DATE,
     name               VARCHAR               NOT NULL,
     last_name          VARCHAR,
+    coupon             VARCHAR,
     payment_secret     VARCHAR,
     email              VARCHAR               NOT NULL,
     address            VARCHAR               NOT NULL,
@@ -98,6 +99,8 @@ CREATE TABLE prices
     cabinet      INTEGER          DEFAULT 10,
     dishes       INTEGER          DEFAULT 10,
     weekend      INTEGER          DEFAULT 50,
+    coupon       VARCHAR,
+    discount     INTEGER          DEFAULT 0,
 
     CONSTRAINT prices_uni CHECK (prices_id)
 );

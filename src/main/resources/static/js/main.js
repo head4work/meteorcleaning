@@ -42,7 +42,9 @@ let prices = {
     window: 8,
     cabinet: 10,
     dishesWash: 10,
-    weekend: 50
+    weekend: 50,
+    discount: 0,
+    coupon: null
 };
 
 
@@ -62,9 +64,8 @@ let timings = {
     dishesWash: 10,
     weekend: 30
 }
-
+let estimatedPrice = 0;
 let userData = {};
-
 let today = new Date;
 let count = 0;
 let time = 0;
@@ -141,10 +142,15 @@ function startValidation2() {
 }
 
 // FUNCTION
+function applyCoupon() {
+    estimateCount();
+}
 
 function estimateCount() {
     let count = 0;
     let time = 0;
+    let preDiscount = 0;
+    let appliedDiscount = false;
     let house_value = $("#housing-type option:selected").val();
     let bedroom_count = $("#bedroom-count option:selected").val();
     let bathroom_count = $("#bathroom-count option:selected").val();
@@ -230,8 +236,18 @@ function estimateCount() {
     //check if selected date is weekend
     count += weekendClean ? prices.weekend : 0;
 
+
+    if (prices.coupon !== null && prices.coupon === $("#coupon").val().trim().toUpperCase()) {
+        preDiscount = count;
+        count *= (100 - prices.discount) / 100;
+        appliedDiscount = true;
+    }
     count = Math.round(count);
-    $('#totalPrice').text(count + "$").val(count);
+    if (appliedDiscount) {
+        $('#totalPrice').html('<s>-' + preDiscount + '-</s>$' + '<font color="#14a44d"> COUPON </font><br>' + count + "$");
+    } else {
+        $('#totalPrice').text(count + "$").val(count);
+    }
 
 
     $('#totalTime').text(time_convert(time.toFixed()) + " min");
@@ -239,6 +255,7 @@ function estimateCount() {
         let payment = getPayment();
         initialize(payment);
     }
+    estimatedPrice = count;
     return count;
 }
 
@@ -802,7 +819,8 @@ function getEstimateData() {
     estimateData["dishesClean"] = $("#dishesCheck").prop("checked");
     estimateData["dateTime"] = getDateTime();
     estimateData["estimatedTime"] = $("#totalTime").text();
-    estimateData["estimatedPrice"] = parseInt($("#totalPrice").text().slice(0, -1));
+    estimateData["estimatedPrice"] = estimatedPrice;
+    estimateData["coupon"] = $("#coupon").val().trim();
     return estimateData;
 }
 

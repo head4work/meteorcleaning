@@ -3,6 +3,7 @@ package com.example.meteorCleaning.repository.datajpa;
 import com.example.meteorCleaning.model.OrderPrices;
 import com.example.meteorCleaning.repository.PriceCrudRepository;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class DataJpaPriceRepository {
     private PriceCrudRepository repository;
@@ -15,10 +16,11 @@ public class DataJpaPriceRepository {
         return repository.findAll().stream().findFirst().orElse(new OrderPrices(true,
                 100, 130, 180, 0.1, 0.2,
                 20, 24, 40, 1.3, 20,
-                30, 30, 8, 10, 10, 50));
+                30, 30, 8, 10, 10, 50, "BIG15", 15.0));
     }
 
     public OrderPrices save(OrderPrices prices) {
+        prices.setCoupon(prices.getCoupon().trim().toUpperCase());
         return repository.save(prices);
     }
 }

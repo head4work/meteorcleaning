@@ -4,6 +4,8 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
+
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -892,6 +894,16 @@
                             <span id="totalPrice"><strong></strong></span>
                         </li>
                     </ul>
+
+                    <div class="input-group mb-3">
+                        <input aria-describedby="button-apply" aria-label="Discount coupon" class="form-control"
+                               id="coupon" placeholder="Discount coupon" type="text"/>
+                        <button class="btn btn-outline-info" data-mdb-ripple-color="dark" id="button-apply"
+                                onclick="applyCoupon()" type="button">
+                            Apply
+                        </button>
+                    </div>
+
                     <!-- <button type="button" class="btn btn-outline-success" data-mdb-ripple-color="dark" onclick="initPayment()">Pay with card</button> -->
 
                     <div class="payment-body hidden">

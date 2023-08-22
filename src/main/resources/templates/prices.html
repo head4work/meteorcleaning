@@ -23,27 +23,9 @@
             gap: 10px;
             grid-template-areas:
                 "house options"
+                "discount discount"
                 "submit submit"
             ;
-        }
-
-        @media screen and (max-width: 900px) {
-            .house-form {
-                display: grid;
-                justify-content: center;
-                gap: 10px;
-                grid-template-areas:
-                    "house "
-                    "options"
-                    "submit"
-                ;
-
-            }
-
-            .options {
-
-                justify-self: center;
-            }
         }
 
         .user-data {
@@ -83,12 +65,41 @@
             border-radius: .375rem;
         }
 
+        .discount-edit {
+            grid-area: discount;
+            width: 70%;
+            justify-self: center;
+        }
+
         .buttons {
             align-self: flex-end;
             display: flex;
             gap: 30px;
             justify-content: space-between;
             flex-direction: column;
+        }
+
+        @media screen and (max-width: 900px) {
+            .house-form {
+                display: grid;
+                justify-content: center;
+                gap: 10px;
+                grid-template-areas:
+                    "house "
+                    "options"
+                    "discount"
+                    "submit";
+
+            }
+
+            .options {
+
+                justify-self: center;
+            }
+
+            .discount-edit {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -207,24 +218,32 @@
                     <div class="input-group mb-2">
                         <label class="input-group-text" for="dishesWash">Dishes Wash</label>
                         <input class="form-control" form="prices" id="dishesWash" max="100" min="1"
-                            th:field="*{dishesWash}" type="number" value="100" />
+                               th:field="*{dishesWash}" type="number" value="100"/>
                     </div>
 
-                
 
                 </div>
-            
 
+                <div class="discount-edit mb-2">
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="coupon">Coupon</label>
+                        <input class="form-control" form="prices" id="coupon"
+                               th:field="*{coupon}" type="text"/>
+                    </div>
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="Discount">Discount</label>
+                        <input class="form-control" form="prices" id="Discount" max="50" min="0"
+                               th:field="*{discount}" type="number" value="0"/>
+                    </div>
+                </div>
 
                 <div class="submit shadow p-3 mb-5 bg-body rounded">
-          
+
                     <div class="buttons">
                         <input class="btn btn-success btn-lg" form="prices" type="submit"></input>
                         <button class="btn btn-secondary btn-sm" onclick="history.back()" type="button">cancel</button>
                     </div>
                 </div>
-
-
 
             </div>
         </form>

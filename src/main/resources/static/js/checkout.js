@@ -45,7 +45,7 @@ function reInitializePayment() {
 function getPayment() {
   let payment = {
     email: $("#email").val(),
-    amount: parseInt($("#totalPrice").text().slice(0, -1))
+    amount: estimatedPrice
   };
   return payment;
 }
