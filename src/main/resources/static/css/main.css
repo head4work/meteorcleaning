@@ -747,6 +747,43 @@ footer {
     -4px 0 #fff, -8px 0 #fff, -12px 0 #fff;
 }
 
+.card-img-bottom {
+    padding: 20px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.image-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.image-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Black with 0.5 opacity */
+    mix-blend-mode: luminosity; /* Apply the luminosity blend mode for black and white effect */
+}
+
+/* Centered text */
+.centered-img-text {
+    position: absolute;
+    text-align: center;
+    font-size: 3rem;
+    color: #bbbbbb;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 @media (max-width: 992px) {
     .solutions-inside {
 
@@ -790,6 +827,10 @@ footer {
     .payment-buttons {
         padding: 0;
         gap: .5rem;
+    }
+
+    .card-img-bottom {
+        padding: 0;
     }
 
 }
