@@ -166,6 +166,9 @@ nav {
     align-items: center;
 }
 
+.phoneNum {
+    all: unset;
+}
 
 .services {
     grid-area: services;

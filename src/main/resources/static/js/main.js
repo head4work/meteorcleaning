@@ -75,6 +75,7 @@ let weekendClean = false;
 let ocuupiedDates = [];
 let disableDates = new Set();
 let onlinePaymentBolean = false;
+let phoneNumber = "(323)445-9779"
 
 let datePickerConfig = {
     altInput: true,
@@ -93,7 +94,7 @@ let tableData = {};
 
 
 //Visual Studio commented
-
+setPhoneNumber(phoneNumber);
 updateDisableDates();
 getPrices();
 setDataMinToday();
@@ -259,6 +260,9 @@ function estimateCount() {
     return count;
 }
 
+function setPhoneNumber(phoneNumber) {
+    $(".phoneNum").text(phoneNumber);
+}
 
 function updateDisableDates() {
     $.when(getOccupiedDateTimes()).done(function () {
@@ -518,7 +522,7 @@ function getUserData() {
 //Buttons binds
 
 $("#carouselBook1,#carouselBook2,#carouselBook3,#how-it-works-book,.bookin").on("click", function () {
-openEstimate();
+    openEstimate();
 });
 
 

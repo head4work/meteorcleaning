@@ -5,9 +5,12 @@ FROM users;
 DELETE
 FROM orders;
 
+
+INSERT INTO users (name, email, password, phone, address, zipcode)
+VALUES ('User', 'user@yandex.ru', '$2y$10$CeBJ8dKEznuxhPPkvog2JeY94dB1GW2nJGqwf7USiS4hYVbDdO/US', '3235551122',
+        '1220 ogden dr', '90046');
 INSERT INTO users (name, email, password)
-VALUES ('User', 'user@yandex.ru', '$2y$10$CeBJ8dKEznuxhPPkvog2JeY94dB1GW2nJGqwf7USiS4hYVbDdO/US'),
-       ('Admin', 'admin@gmail.com', '$2y$10$QI39bbgQP38tkCHEw9VDneD5YUiQvioCde7YMdPzuIzlZKNJUeouy'),
+VALUES ('Admin', 'admin@gmail.com', '$2y$10$QI39bbgQP38tkCHEw9VDneD5YUiQvioCde7YMdPzuIzlZKNJUeouy'),
        ('Guest', 'guest@gmail.com', '$2y$10$SecTJE2Z4WCPJmcsan7j3ej5UQji/0rsDzthS9RsZyBtpgDlRYAfa');
 INSERT INTO user_roles (role, user_id)
 VALUES ('USER', 1),
